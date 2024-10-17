@@ -8,7 +8,7 @@
 
 
 #define NUM_OF_MINI_BRICKS_BLOCKS 500
-#define NUM_OF_MINI_CEMENT_BLOCKS 500
+#define NUM_OF_MINI_CEMENT_BLOCKS 500 //aboba ya
 #define BOOM_ANIMATION_FRAMES 10
 
 int menuChoose = 0;
