@@ -8,9 +8,10 @@
 
 
 #define NUM_OF_MINI_BRICKS_BLOCKS 500
-#define NUM_OF_MINI_CEMENT_BLOCKS 500 //aboba ya
+#define NUM_OF_MINI_CEMENT_BLOCKS 500
 #define BOOM_ANIMATION_FRAMES 10
 
+int TABLE_SIZE = 201;
 int menuChoose = 0;
 float moveSpeed = 0.02;
 
@@ -41,7 +42,16 @@ struct tankSettings
         float an_y;
     } bulletSet;
 };
-
+struct Node
+{
+    double key;
+    double value[3];
+    struct Node* next;
+};
+struct HashTable
+{
+    struct Node** table;
+};
 
 float bricksLoc[NUM_OF_MINI_BRICKS_BLOCKS][3] = { 0 };
 float cementLoc[NUM_OF_MINI_CEMENT_BLOCKS][3] = { 0 };
@@ -49,6 +59,122 @@ float cementLoc[NUM_OF_MINI_CEMENT_BLOCKS][3] = { 0 };
 
 struct tankSettings enemy[4];
 struct tankSettings you;
+struct HashTable* Hash_pos_x;
+struct HashTable* Hash_pos_y;
+
+struct Node* Create_Node(double key, double* arr)
+{
+    struct Node* new_node = (struct Node*)malloc(sizeof(struct Node));
+    new_node->key = key;
+    new_node->value[0] = arr[0];
+    new_node->value[1] = arr[1];
+    new_node->value[2] = arr[2];
+    new_node->next = NULL;
+    return new_node;
+}
+
+struct HashTable* Create_Table() {
+    table = (struct HashTable*)malloc(sizeof(struct HashTable));
+    table->table = (struct Node**)malloc(sizeof(struct Node*) * TABLE_SIZE);
+    for (int i = 0; i < TABLE_SIZE; i++) {
+        table->table[i] = NULL;
+    }
+    return table;
+}
+
+unsigned int Hash(double key)
+{
+    unsigned int hash = 0;
+    if (key > 0) key += 1;
+    if (key < 0) key *= (-1);
+    key *= 100;
+    hash = (unsigned int)key;
+    return hash;
+}
+
+void Insert(double key, double* arr)
+{
+    unsigned int index = Hash(key);
+    struct Node* new_node = Create_Node(key, arr);
+    if (table->table[index] == NULL) table->table[index] = new_node;
+    else
+    {
+        new_node->next = table->table[index];
+        table->table[index] = new_node;
+    }
+}
+
+double* Search_Table_x(double key, double coord) {
+    unsigned int index = Hash(key);
+    struct Node* node = table->table[index];
+
+    while (node != NULL) {
+        if (node->key == key && node->value[2] == coord) {
+            return node->value;
+        }
+        node = node->next;
+    }
+    return NULL;
+}
+
+double* Search_Table_y(double key, double coord) {
+    unsigned int index = Hash(key);
+    struct Node* node = table->table[index];
+
+    while (node != NULL) {
+        if (node->key == key && node->value[1] == coord) {
+            return node->value;
+        }
+        node = node->next;
+    }
+    return NULL;
+}
+
+void Delete_Table_x(double key, double coord) {
+    unsigned int index = Hash(key);
+    struct Node* node = table->table[index];
+    struct Node* prev = NULL;
+
+    while (node != NULL) {
+        if (node->key == key && node->value[2] == coord)
+        {
+            if (prev == NULL) {
+                table->table[index] = node->next;
+            }
+            else {
+                prev->next = node->next;
+            }
+            free(node);
+            return;
+        }
+        prev = node;
+        node = node->next;
+    }
+
+}
+
+void Delete_Table_y(double key, double coord) {
+    unsigned int index = Hash(key);
+    struct Node* node = table->table[index];
+    struct Node* prev = NULL;
+
+    while (node != NULL) {
+        if (node->key == key && node->value[1] == coord)
+        {
+            if (prev == NULL) {
+                table->table[index] = node->next;
+            }
+            else {
+                prev->next = node->next;
+            }
+            free(node);
+            return;
+        }
+        prev = node;
+        node = node->next;
+    }
+
+}
 
 void startSettings()
 {
