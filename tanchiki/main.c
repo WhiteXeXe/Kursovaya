@@ -44,8 +44,8 @@ struct tankSettings
 };
 struct Node
 {
-    double key;
-    double value[3];
+    float key;
+    float value[3];
     struct Node* next;
 };
 struct HashTable
@@ -62,7 +62,20 @@ struct tankSettings you;
 struct HashTable* Hash_pos_x;
 struct HashTable* Hash_pos_y;
 
-struct Node* Create_Node(double key, double* arr)
+
+
+
+
+
+
+float MyRound(float bad) {
+    return (round(bad * 1000) / 1000);
+}
+
+
+
+
+struct Node* Create_Node(float key, float* arr)
 {
     struct Node* new_node = (struct Node*)malloc(sizeof(struct Node));
     new_node->key = key;
@@ -73,16 +86,25 @@ struct Node* Create_Node(double key, double* arr)
     return new_node;
 }
 
-struct HashTable* Create_Table() {
-    table = (struct HashTable*)malloc(sizeof(struct HashTable));
-    table->table = (struct Node**)malloc(sizeof(struct Node*) * TABLE_SIZE);
+void Create_Table_x() {
+    Hash_pos_x = (struct HashTable*)malloc(sizeof(struct HashTable));
+    Hash_pos_x->table = (struct Node**)malloc(sizeof(struct Node*) * TABLE_SIZE);
     for (int i = 0; i < TABLE_SIZE; i++) {
-        table->table[i] = NULL;
+        Hash_pos_x->table[i] = NULL;
     }
-    return table;
+
 }
 
-unsigned int Hash(double key)
+void Create_Table_y() {
+    Hash_pos_y = (struct HashTable*)malloc(sizeof(struct HashTable));
+    Hash_pos_y->table = (struct Node**)malloc(sizeof(struct Node*) * TABLE_SIZE);
+    for (int i = 0; i < TABLE_SIZE; i++) {
+        Hash_pos_y->table[i] = NULL;
+    }
+
+}
+
+unsigned int Hash(float key)
 {
     unsigned int hash = 0;
     if (key > 0) key += 1;
@@ -92,54 +114,74 @@ unsigned int Hash(double key)
     return hash;
 }
 
-void Insert(double key, double* arr)
+void Insert_x(float key, float* arr)
 {
     unsigned int index = Hash(key);
     struct Node* new_node = Create_Node(key, arr);
-    if (table->table[index] == NULL) table->table[index] = new_node;
+    if (Hash_pos_x->table[index] == NULL) Hash_pos_x->table[index] = new_node;
     else
     {
-        new_node->next = table->table[index];
-        table->table[index] = new_node;
+        new_node->next = Hash_pos_x->table[index];
+        Hash_pos_x->table[index] = new_node;
     }
 }
 
-double* Search_Table_x(double key, double coord) {
+void Insert_y(float key, float* arr)
+{
     unsigned int index = Hash(key);
-    struct Node* node = table->table[index];
+    struct Node* new_node = Create_Node(key, arr);
+    if (Hash_pos_y->table[index] == NULL) Hash_pos_y->table[index] = new_node;
+    else
+    {
+        new_node->next = Hash_pos_y->table[index];
+        Hash_pos_y->table[index] = new_node;
+    }
+}
+
+int Search_Table_yNEW(float key) {
+    unsigned int index = Hash(key);
+    struct Node* node = Hash_pos_y->table[index];
+    float xPos_left = you.xPos - 0.04;
+    float xPos_right = you.xPos + 0.04;
+
+
 
     while (node != NULL) {
-        if (node->key == key && node->value[2] == coord) {
-            return node->value;
+
+
+        if (node->value[2] <= key + 0.0001) {
+            if (xPos_left >= node->value[1] && xPos_left <= node->value[1] + 0.0401) {
+                printf("LEFT\n");
+                return 1;
+            }
+
+            if (xPos_right >= node->value[1] && xPos_right <= node->value[1] + 0.0401) {
+                printf("RIGHT\n");
+                return 1;
+            }
+
+		    if (you.xPos >= node->value[1] && you.xPos <= node->value[1] + 0.0401) {
+				printf("MIDDLE\n");
+				return 1;
+			}
         }
+       
         node = node->next;
     }
-    return NULL;
+
+    return 0;
 }
 
-double* Search_Table_y(double key, double coord) {
+void Delete_Table_x(float key, float coord) {
     unsigned int index = Hash(key);
-    struct Node* node = table->table[index];
-
-    while (node != NULL) {
-        if (node->key == key && node->value[1] == coord) {
-            return node->value;
-        }
-        node = node->next;
-    }
-    return NULL;
-}
-
-void Delete_Table_x(double key, double coord) {
-    unsigned int index = Hash(key);
-    struct Node* node = table->table[index];
+    struct Node* node = Hash_pos_x->table[index];
     struct Node* prev = NULL;
-
+ 
     while (node != NULL) {
-        if (node->key == key && node->value[2] == coord)
+        if ((key - 0.0001 <= node->key && node->key <= key + 0.0001) && (coord - 0.0001 <= node->value[2] && node->value[2] <= coord + 0.0001))
         {
             if (prev == NULL) {
-                table->table[index] = node->next;
+                Hash_pos_x->table[index] = node->next;
             }
             else {
                 prev->next = node->next;
@@ -153,20 +195,23 @@ void Delete_Table_x(double key, double coord) {
 
 }
 
-void Delete_Table_y(double key, double coord) {
+void Delete_Table_y(float key, float coord) {
     unsigned int index = Hash(key);
-    struct Node* node = table->table[index];
+    struct Node* node = Hash_pos_y->table[index];
     struct Node* prev = NULL;
-
+    printf("BEFORE = %d\n", index);
     while (node != NULL) {
-        if (node->key == key && node->value[1] == coord)
+        if ((key - 0.0001 <= node->key && node->key <= key + 0.0001) && (coord - 0.0001 <= node->value[1] && node->value[1] <= coord + 0.0001))
         {
             if (prev == NULL) {
-                table->table[index] = node->next;
+                Hash_pos_y->table[index] = node->next;
             }
             else {
                 prev->next = node->next;
             }
+            
+            printf("7777\n");
+
             free(node);
             return;
         }
@@ -183,7 +228,7 @@ void startSettings()
     you.live = 1;
     you.bulletSet.time_anim = 0;
 
-    enemy[0].live = 1;
+    enemy[0].live = 0;           // ИЗМЕНЕНО
     enemy[0].xPos = -0.8;
     enemy[0].yPos = 0.12;
     enemy[0].angle = 270;
@@ -191,7 +236,7 @@ void startSettings()
     enemy[0].saveYPos = 0;
     enemy[0].flagAutoMove = 4;
 
-    enemy[1].live = 1;
+    enemy[1].live = 0;          // ИЗМЕНЕНО
     enemy[1].xPos = 0.7;
     enemy[1].yPos = 0.12;
     enemy[1].angle = 90;
@@ -1092,78 +1137,35 @@ void draw_block_zone()
 
 }
 
+void Print_HashTable(struct HashTable* table) {
+    for (int i = 0; i < TABLE_SIZE; i++) {
+        struct Node* node = table->table[i];
+        if (node != NULL) {
+            printf("Index %d:\n", i);
+            while (node != NULL) {
+                printf("  Key: %lf, Value: [%lf, %lf, %lf]\n", node->key, node->value[0], node->value[1], node->value[2]);
+                node = node->next;
+            }
+        }
+    }
+}
+
 void check_block_entity(short flag)
 {
     if (flag == 1)
     {
-        for (int i = 0; i < NUM_OF_MINI_CEMENT_BLOCKS; i++)
-        {
-            if (cementLoc[i][0] == 0)
-            {
-                if (
-                    (you.yPos + 0.0001 + 0.05 >= cementLoc[i][2] - moveSpeed && you.yPos - 0.0001 <= cementLoc[i][2] + 0.03 - moveSpeed)
-                    &&
-                    (you.xPos + 0.04 >= cementLoc[i][1] - 0.0001 && you.xPos - 0.04 < cementLoc[i][1] + 0.0001 + 0.04)
-                    )
-                {
-                    if (you.yPos >= 0)
-                    {
-                        if (cementLoc[i][2] - you.yPos - 0.001 - moveSpeed - 0.07 <= 0)
-                        {
-                            you.yPos = cementLoc[i][2] - 0.08;
-                            continue;
-                        }
-                    }
+        int f = 0;
+        for (float i = you.yPos; i < you.yPos + 0.07; i += 0.01) {
 
-                    if (you.yPos < 0)
-                    {
-                        if (fabs(cementLoc[i][2]) - fabs(you.yPos) - 0.02 - 0.001 - moveSpeed <= 0)
-                        {
-                            you.yPos = cementLoc[i][2] - 0.08;
-                            continue;
-                        }
-                        if (fabs(cementLoc[i][2]) - fabs(you.yPos) - 0.001 - moveSpeed > 0)
-                        {
-                            return;
-                        }
-                    }
-                }
+
+            f = Search_Table_yNEW(i);
+
+            if (f == 1) {
+                printf("pobeda\n");
+                f = 0;
+                return;
             }
-        }
-
-        for (int i = 0; i < NUM_OF_MINI_BRICKS_BLOCKS; i++)
-        {
-            if (bricksLoc[i][0] == 1)
-            {
-                if (
-                    (you.yPos + 0.0001 + 0.05 >= bricksLoc[i][2] - moveSpeed && you.yPos - 0.0001 <= bricksLoc[i][2] + 0.03 - moveSpeed)
-                    &&
-                    (you.xPos + 0.04 >= bricksLoc[i][1] - 0.0001 && you.xPos - 0.04 < bricksLoc[i][1] + 0.0001 + 0.04)
-                    )
-                {
-                    if (you.yPos >= 0)
-                    {
-                        if (bricksLoc[i][2] - you.yPos - 0.001 - moveSpeed - 0.07 <= 0)
-                        {
-                            you.yPos = bricksLoc[i][2] - 0.08;
-                            continue;
-                        }
-                    }
-
-                    if (you.yPos < 0)
-                    {
-                        if (fabs(bricksLoc[i][2]) - fabs(you.yPos) - 0.02 - 0.001 - moveSpeed <= 0)
-                        {
-                            you.yPos = bricksLoc[i][2] - 0.08;
-                            continue;
-                        }
-                        if (fabs(bricksLoc[i][2]) - fabs(you.yPos) - 0.001 - moveSpeed > 0)
-                        {
-                            return;
-                        }
-                    }
-                }
-            }
+            
         }
         you.yPos += moveSpeed;
     }
@@ -1385,10 +1387,6 @@ void check_block_entity(short flag)
         }
         you.xPos += moveSpeed;
     }
-
-
-
-
 
 
 }
@@ -2641,6 +2639,9 @@ void draw_bullet_global()
                     {
                         you.bulletSet.anim_bool = 1;
                         bricksLoc[i][0] = 0;
+
+                        Delete_Table_x(bricksLoc[i][1], bricksLoc[i][2]);
+                        Delete_Table_y(bricksLoc[i][2], bricksLoc[i][1]);
                         you.bulletSet.live = 0;
                         break;
                     }
@@ -3893,7 +3894,7 @@ void display() {
             glClearColor(1, 0, 0, 0);
             lose_window();
         }
-        if (enemy[0].live + enemy[1].live == 0) {
+        if (enemy[0].live + enemy[1].live == 1) {       // ИЗМЕНЕНО 
             glClearColor(0.0, 0.2, 0.13, 1.0);
             win_window();
         }
@@ -3994,32 +3995,40 @@ void display() {
 }
 
 void keyboard(char key) {
-
+ 
     if (menuChoose == 0) {
+        Create_Table_x(); Create_Table_y();
         switch (key) {
         case '1':
             menuChoose = 1;
             enemy[0].botSpeed = 10;
             enemy[1].botSpeed = 10;
-            FILE* fileCem = fopen("map\\cementLocFirst.txt", "r");
+            FILE* fileCem = fopen("C:\\Users\\PC\\Desktop\\Kursovaya\\map\\cementLocFirst.txt", "r");
             int N;
             fscanf(fileCem, "%d\n", &N);
             double a, b, c;
+            float arr1[3] = { 0 };
             for (int i = 0; i < N; i++) {
                 fscanf(fileCem, "%lf %lf %lf\n", &a, &b, &c);
                 cementLoc[i][0] = a;
                 cementLoc[i][1] = b;
                 cementLoc[i][2] = c;
+                arr1[0] = MyRound(a); arr1[1] = MyRound(b); arr1[2] = MyRound(c);
+                Insert_x(arr1[1], arr1, Hash_pos_x);
+                Insert_y(arr1[2], arr1, Hash_pos_y);
             }
             fclose(fileCem);
 
-            FILE* fileBri = fopen("map\\bricksLocFirst.txt", "r");
+            FILE* fileBri = fopen("C:\\Users\\PC\\Desktop\\Kursovaya\\map\\bricksLocFirst.txt", "r");
             fscanf(fileBri, "%d\n", &N);
             for (int i = 0; i < N; i++) {
                 fscanf(fileBri, "%lf %lf %lf\n", &a, &b, &c);
                 bricksLoc[i][0] = a;
                 bricksLoc[i][1] = b;
                 bricksLoc[i][2] = c;
+                arr1[0] = MyRound(a); arr1[1] = MyRound(b); arr1[2] = MyRound(c);
+                Insert_x(arr1[1], arr1, Hash_pos_x);
+                Insert_y(arr1[2], arr1, Hash_pos_y);
             }
             fclose(fileBri);
             break;
@@ -4029,23 +4038,30 @@ void keyboard(char key) {
             enemy[0].botSpeed = 5;
             enemy[1].botSpeed = 5;
             enemy[2].botSpeed = 5;
-            fileCem = fopen("map\\cementLocSecond.txt", "r");
+            fileCem = fopen("C:\\Users\\PC\\Desktop\\Kursovaya\\map\\cementLocSecond.txt", "r");
             fscanf(fileCem, "%d\n", &N);
+            float arr2[3] = { 0 };
             for (int i = 0; i < N; i++) {
                 fscanf(fileCem, "%lf %lf %lf\n", &a, &b, &c);
                 cementLoc[i][0] = a;
                 cementLoc[i][1] = b;
                 cementLoc[i][2] = c;
+                arr2[0] = MyRound(a); arr2[1] = MyRound(b); arr2[2] = MyRound(c);
+                Insert_x(arr2[1], arr2, Hash_pos_x);
+                Insert_y(arr2[2], arr2, Hash_pos_y);
             }
             fclose(fileCem);
 
-            fileBri = fopen("map\\bricksLocSecond.txt", "r");
+            fileBri = fopen("C:\\Users\\PC\\Desktop\\Kursovaya\\map\\bricksLocSecond.txt", "r");
             fscanf(fileBri, "%d\n", &N);
             for (int i = 0; i < N; i++) {
                 fscanf(fileBri, "%lf %lf %lf\n", &a, &b, &c);
                 bricksLoc[i][0] = a;
                 bricksLoc[i][1] = b;
                 bricksLoc[i][2] = c;
+                arr2[0] = MyRound(a); arr2[1] = MyRound(b); arr2[2] = MyRound(c);
+                Insert_x(arr2[1], arr2, Hash_pos_x);
+                Insert_y(arr2[2], arr2, Hash_pos_y);
             }
             fclose(fileBri);
 
@@ -4060,23 +4076,30 @@ void keyboard(char key) {
             enemy[1].botSpeed = 3;
             enemy[2].botSpeed = 3;
             enemy[3].botSpeed = 3;
-            fileCem = fopen("map\\cementLocThird.txt", "r");
+            fileCem = fopen("C:\\Users\\PC\\Desktop\\Kursovaya\\map\\cementLocThird.txt", "r");
             fscanf(fileCem, "%d\n", &N);
+            float arr3[3] = { 0 };
             for (int i = 0; i < N; i++) {
                 fscanf(fileCem, "%lf %lf %lf\n", &a, &b, &c);
                 cementLoc[i][0] = a;
                 cementLoc[i][1] = b;
                 cementLoc[i][2] = c;
+                arr3[0] = MyRound(a); arr3[1] = MyRound(b); arr3[2] = MyRound(c);
+                Insert_x(arr3[1], arr3, Hash_pos_x);
+                Insert_y(arr3[2], arr3, Hash_pos_y);
             }
             fclose(fileCem);
 
-            fileBri = fopen("map\\bricksLocThird.txt", "r");
+            fileBri = fopen("C:\\Users\\PC\\Desktop\\Kursovaya\\map\\bricksLocThird.txt", "r");
             fscanf(fileBri, "%d\n", &N);
             for (int i = 0; i < N; i++) {
                 fscanf(fileBri, "%lf %lf %lf\n", &a, &b, &c);
                 bricksLoc[i][0] = a;
                 bricksLoc[i][1] = b;
                 bricksLoc[i][2] = c;
+                arr3[0] = MyRound(a); arr3[1] = MyRound(b); arr3[2] = MyRound(c);
+                Insert_x(arr3[1], arr3, Hash_pos_x);
+                Insert_y(arr3[2], arr3, Hash_pos_y);
             }
             fclose(fileBri);
 
