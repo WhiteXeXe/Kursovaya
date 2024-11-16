@@ -1,0 +1,3 @@
+C:\Users\PC\Desktop\Kursovaya\tanchiki\x64\Debug\tanchiki.vcxproj.CopyComplete
+C:\Users\PC\Desktop\Kursovaya\tanchiki\x64\Debug\tanchiki.exe
+C:\Users\PC\Desktop\Kursovaya\tanchiki\x64\Debug\freeglutd.dll

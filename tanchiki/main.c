@@ -62,18 +62,9 @@ struct tankSettings you;
 struct HashTable* Hash_pos_x;
 struct HashTable* Hash_pos_y;
 
-
-
-
-
-
-
-float MyRound(float bad) {
+float MyRound(double bad) {
     return (round(bad * 1000) / 1000);
 }
-
-
-
 
 struct Node* Create_Node(float key, float* arr)
 {
@@ -107,10 +98,15 @@ void Create_Table_y() {
 unsigned int Hash(float key)
 {
     unsigned int hash = 0;
-    if (key > 0) key += 1;
-    if (key < 0) key *= (-1);
-    key *= 100;
+    if (key > 0) key += 1.0;
+    if (key < 0) key *= (-1.0);
+    key *= 100.0;
     hash = (unsigned int)key;
+
+    if (hash < key && hash == 109) {
+        hash += 1;
+    }
+
     return hash;
 }
 
@@ -138,34 +134,94 @@ void Insert_y(float key, float* arr)
     }
 }
 
-int Search_Table_yNEW(float key) {
+void Print_HashTable(struct HashTable* table) {
+    for (int i = 0; i < TABLE_SIZE; i++) {
+        struct Node* node = table->table[i];
+        if (node != NULL) {
+            printf("Index %d:\n", i);
+            while (node != NULL) {
+                printf("  Key: %lf, Value: [%lf, %lf, %lf]\n", node->key, node->value[0], node->value[1], node->value[2]);
+                node = node->next;
+            }
+        }
+    }
+}
+
+int Moving_Vertical(float key, int flag) {
     unsigned int index = Hash(key);
     struct Node* node = Hash_pos_y->table[index];
     float xPos_left = you.xPos - 0.04;
     float xPos_right = you.xPos + 0.04;
-
+    float checkDistUP;
 
 
     while (node != NULL) {
 
+        checkDistUP = MyRound(fabs(node->value[2] - you.yPos + 0.05 + 0.0001));
 
         if (node->value[2] <= key + 0.0001) {
-            if (xPos_left >= node->value[1] && xPos_left <= node->value[1] + 0.0401) {
-                printf("LEFT\n");
+            if (xPos_left >= node->value[1] - 0.0001 && xPos_left <= node->value[1] + 0.0401) {
+
+
+                if (checkDistUP >= 0.12 - 0.0001 && checkDistUP <= 0.12 + 0.0001 && flag == 1) {
+                    return 2;
+                }
+
                 return 1;
             }
 
-            if (xPos_right >= node->value[1] && xPos_right <= node->value[1] + 0.0401) {
-                printf("RIGHT\n");
+            if (xPos_right >= node->value[1] - 0.0001 && xPos_right <= node->value[1] + 0.0401) {
+
+                if (checkDistUP >= 0.12 - 0.0001 && checkDistUP <= 0.12 + 0.0001 && flag == 1) {
+                    return 2;
+                }
+
+
                 return 1;
             }
 
-		    if (you.xPos >= node->value[1] && you.xPos <= node->value[1] + 0.0401) {
-				printf("MIDDLE\n");
-				return 1;
-			}
+            if (you.xPos >= node->value[1] - 0.0001 && you.xPos <= node->value[1] + 0.0401) {
+
+                if (checkDistUP >= 0.12 - 0.0001 && checkDistUP <= 0.12 + 0.0001 && flag == 1) {
+                    return 2;
+                }
+
+
+                return 1;
+            }
         }
-       
+        node = node->next;
+    }
+
+    return 0;
+}
+
+int Moving_Horizontal(float key)
+{
+    unsigned int index = Hash(key);
+    struct Node* node = Hash_pos_x->table[index];
+
+
+    float yPos_down = you.yPos - 0.04;
+    float yPos_up = you.yPos + 0.04;
+    while (node != NULL) {
+        if (node->value[1] >= key - 0.0501) {
+
+            if (yPos_down >= node->value[2] - 0.0001 && yPos_down <= node->value[2] + 0.0401) {
+                printf("DOWN\n");
+                return 1;
+            }
+
+            if (yPos_up >= node->value[2] - 0.0001 && yPos_up <= node->value[2] + 0.0401) {
+                printf("UP\n");
+                return 1;
+            }
+
+            if (you.yPos >= node->value[2] - 0.0001 && you.yPos <= node->value[2] + 0.0401) {
+                printf("MIDDLE\n");
+                return 1;
+            }
+        }
         node = node->next;
     }
 
@@ -176,7 +232,7 @@ void Delete_Table_x(float key, float coord) {
     unsigned int index = Hash(key);
     struct Node* node = Hash_pos_x->table[index];
     struct Node* prev = NULL;
- 
+
     while (node != NULL) {
         if ((key - 0.0001 <= node->key && node->key <= key + 0.0001) && (coord - 0.0001 <= node->value[2] && node->value[2] <= coord + 0.0001))
         {
@@ -199,7 +255,6 @@ void Delete_Table_y(float key, float coord) {
     unsigned int index = Hash(key);
     struct Node* node = Hash_pos_y->table[index];
     struct Node* prev = NULL;
-    printf("BEFORE = %d\n", index);
     while (node != NULL) {
         if ((key - 0.0001 <= node->key && node->key <= key + 0.0001) && (coord - 0.0001 <= node->value[1] && node->value[1] <= coord + 0.0001))
         {
@@ -209,8 +264,6 @@ void Delete_Table_y(float key, float coord) {
             else {
                 prev->next = node->next;
             }
-            
-            printf("7777\n");
 
             free(node);
             return;
@@ -1137,258 +1190,89 @@ void draw_block_zone()
 
 }
 
-void Print_HashTable(struct HashTable* table) {
-    for (int i = 0; i < TABLE_SIZE; i++) {
-        struct Node* node = table->table[i];
-        if (node != NULL) {
-            printf("Index %d:\n", i);
-            while (node != NULL) {
-                printf("  Key: %lf, Value: [%lf, %lf, %lf]\n", node->key, node->value[0], node->value[1], node->value[2]);
-                node = node->next;
-            }
-        }
-    }
-}
-
 void check_block_entity(short flag)
 {
     if (flag == 1)
     {
         int f = 0;
-        for (float i = you.yPos; i < you.yPos + 0.07; i += 0.01) {
+        for (float i = you.yPos; i < you.yPos + 0.08 - 0.0001; i += 0.01) {
 
 
-            f = Search_Table_yNEW(i);
+            f = Moving_Vertical(i, flag);
 
             if (f == 1) {
-                printf("pobeda\n");
                 f = 0;
                 return;
             }
-            
+
+            if (f == 2) {
+                if (you.yPos + 0.0401 <= 0.92) you.yPos += 0.01;
+                f = 0;
+
+                return;
+            }
+
         }
-        you.yPos += moveSpeed;
+        if (you.yPos + 0.0401 <= 0.92) you.yPos += moveSpeed;
     }
 
 
     if (flag == 2)
     {
-        for (int i = 0; i < NUM_OF_MINI_CEMENT_BLOCKS; i++)
+
+        int f = 0;
+        for (float i = you.yPos; i > you.yPos - 0.10 - 0.0001; i -= 0.01)
         {
-            if (cementLoc[i][0] == 0)
+            f = Moving_Vertical(i, flag);
+            if (f == 1)
             {
-                if (
-                    (you.yPos - 0.0001 - 0.09 <= cementLoc[i][2] + moveSpeed && you.yPos + 0.0001 >= cementLoc[i][2])
-                    &&
-                    (you.xPos + 0.04 >= cementLoc[i][1] - 0.0001 && you.xPos - 0.04 <= cementLoc[i][1] + 0.04 + 0.0001)
-                    )
-                {
-                    if (you.yPos >= 0)
-                    {
-                        if (cementLoc[i][2] - you.yPos + 0.01 - 0.001 - moveSpeed <= 0)
-                        {
-                            you.yPos = cementLoc[i][2] + 0.12;
-                            continue;
-                        }
-                    }
-
-
-                    if (you.yPos <= 0)
-                    {
-                        if (fabs(you.yPos) - fabs(cementLoc[i][2]) + 0.01 - 0.001 - moveSpeed <= 0)
-                        {
-                            you.yPos = cementLoc[i][2] + 0.12;
-                            continue;
-                        }
-                        if (fabs(cementLoc[i][2]) - fabs(you.yPos) - 0.04 - 0.001 - moveSpeed > 0)
-                        {
-                            return;
-                        }
-                    }
-                }
+                f = 0;
+                return;
             }
-        }
 
-        for (int i = 0; i < NUM_OF_MINI_BRICKS_BLOCKS; i++)
-        {
-            if (bricksLoc[i][0] == 1)
-            {
-                if (
-                    (you.yPos - 0.0001 - 0.09 <= bricksLoc[i][2] + moveSpeed && you.yPos + 0.0001 >= bricksLoc[i][2])
-                    &&
-                    (you.xPos + 0.04 >= bricksLoc[i][1] - 0.0001 && you.xPos - 0.04 <= bricksLoc[i][1] + 0.04 + 0.0001)
-                    )
-                {
-                    if (you.yPos >= 0)
-                    {
-                        if (bricksLoc[i][2] - you.yPos + 0.01 - 0.001 - moveSpeed <= 0)
-                        {
-                            you.yPos = bricksLoc[i][2] + 0.12;
-                            continue;
-                        }
-                    }
-
-
-                    if (you.yPos <= 0)
-                    {
-                        if (fabs(you.yPos) - fabs(bricksLoc[i][2]) + 0.01 - 0.001 - moveSpeed <= 0)
-                        {
-                            you.yPos = bricksLoc[i][2] + 0.12;
-                            continue;
-                        }
-                        if (fabs(bricksLoc[i][2]) - fabs(you.yPos) - 0.04 - 0.001 - moveSpeed > 0)
-                        {
-                            return;
-                        }
-                    }
-                }
+            if (f == 2) {
+                if (you.yPos - 0.0401 >= -0.92) you.yPos -= 0.01;
+                f = 0;
+                return;
             }
+
+
         }
-        you.yPos -= moveSpeed;
+        if (you.yPos - 0.0401 >= -0.92) you.yPos -= moveSpeed;
     }
 
 
     if (flag == 3)
     {
-        for (int i = 0; i < NUM_OF_MINI_CEMENT_BLOCKS; i++)
+        int f = 0;
+        for (float i = you.xPos; i > you.xPos - 0.10 - 0.0001; i -= 0.01)
         {
-            if (cementLoc[i][0] == 0)
+            f = Moving_Horizontal(i);
+            if (f == 1)
             {
-                if (
-                    (you.yPos + 0.04 >= cementLoc[i][2] - 0.0001 && you.yPos - 0.04 <= cementLoc[i][2] + 0.0001 + 0.04)
-                    &&
-                    (you.xPos - 0.0001 - 0.04 - moveSpeed - 0.02 <= cementLoc[i][1] + 0.04 && you.xPos + 0.0001 >= cementLoc[i][1])
-                    )
-                {
-
-                    if (you.xPos >= 0)
-                    {
-                        if (cementLoc[i][1] - 0.001 - you.xPos <= 0)
-                        {
-                            you.xPos = cementLoc[i][1] + 0.12;
-                        }
-
-                    }
-
-                    if (you.xPos < 0)
-                    {
-                        if (fabs(you.xPos) - fabs(cementLoc[i][1]) - 0.04 - 0.001 <= 0)
-                        {
-                            you.xPos = cementLoc[i][1] + 0.12;
-                        }
-
-                    }
-                }
+                f = 0;
+                return;
             }
         }
-
-        for (int i = 0; i < NUM_OF_MINI_BRICKS_BLOCKS; i++)
-        {
-            if (bricksLoc[i][0] == 1)
-            {
-                if (
-                    (you.yPos + 0.04 >= bricksLoc[i][2] - 0.0001 && you.yPos - 0.04 <= bricksLoc[i][2] + 0.0001 + 0.04)
-                    &&
-                    (you.xPos - 0.0001 - 0.04 - moveSpeed - 0.02 <= bricksLoc[i][1] + 0.04 && you.xPos + 0.0001 >= bricksLoc[i][1])
-                    )
-                {
-
-                    if (you.xPos >= 0)
-                    {
-                        if (bricksLoc[i][1] - 0.001 - you.xPos <= 0)
-                        {
-                            you.xPos = bricksLoc[i][1] + 0.12;
-                        }
-
-                    }
-
-                    if (you.xPos < 0)
-                    {
-                        if (fabs(you.xPos) - fabs(bricksLoc[i][1]) - 0.04 - 0.001 <= 0)
-                        {
-                            you.xPos = bricksLoc[i][1] + 0.12;
-                        }
-
-                    }
-                }
-            }
-        }
-        you.xPos -= moveSpeed;
+        if (you.xPos - 0.0401 >= -0.92) you.xPos -= moveSpeed;
     }
 
     if (flag == 4)
     {
-        for (int i = 0; i < NUM_OF_MINI_CEMENT_BLOCKS; i++)
+        int f = 0;
+        for (float i = you.xPos; i < you.xPos + 0.07 - 0.0001; i += 0.01)
         {
-            if (cementLoc[i][0] == 0)
+            printf("%f\n", i);
+            f = Moving_Horizontal(i);
+            if (f == 1)
             {
-                if (
-                    (you.yPos + 0.04 >= cementLoc[i][2] - 0.0001 && you.yPos - 0.04 <= cementLoc[i][2] + 0.0001 + 0.04)
-                    &&
-                    (you.xPos + 0.0001 + 0.05 + moveSpeed >= cementLoc[i][1] && you.xPos - 0.0001 <= cementLoc[i][1])
-                    )
-                {
-                    if (you.xPos >= 0)
-                    {
-                        if (cementLoc[i][1] - you.xPos - 0.08 - 0.001 - moveSpeed <= 0)
-                        {
-                            you.xPos = cementLoc[i][1] - 0.08;
-
-                        }
-                    }
-                    if (you.xPos <= 0)
-                    {
-                        if (fabs(you.xPos) - fabs(cementLoc[i][1]) - 0.08 - moveSpeed <= 0)
-                        {
-                            you.xPos = cementLoc[i][1] - 0.08;
-                            continue;
-                        }
-                        if (fabs(cementLoc[i][1]) - fabs(you.xPos) - 0.08 - 0.001 - moveSpeed > 0)
-                        {
-                            return;
-                        }
-                    }
-                }
+                f = 0;
+                return;
             }
         }
-
-        for (int i = 0; i < NUM_OF_MINI_BRICKS_BLOCKS; i++)
-        {
-            if (bricksLoc[i][0] == 1)
-            {
-                if (
-                    (you.yPos + 0.04 >= bricksLoc[i][2] - 0.0001 && you.yPos - 0.04 <= bricksLoc[i][2] + 0.0001 + 0.04)
-                    &&
-                    (you.xPos + 0.0001 + 0.05 + moveSpeed >= bricksLoc[i][1] && you.xPos - 0.0001 <= bricksLoc[i][1])
-                    )
-                {
-                    if (you.xPos >= 0)
-                    {
-                        if (bricksLoc[i][1] - you.xPos - 0.08 - 0.001 - moveSpeed <= 0)
-                        {
-                            you.xPos = bricksLoc[i][1] - 0.08;
-
-                        }
-                    }
-                    if (you.xPos <= 0)
-                    {
-                        if (fabs(you.xPos) - fabs(bricksLoc[i][1]) - 0.08 - moveSpeed <= 0)
-                        {
-                            you.xPos = bricksLoc[i][1] - 0.08;
-                            continue;
-                        }
-                        if (fabs(bricksLoc[i][1]) - fabs(you.xPos) - 0.08 - 0.001 - moveSpeed > 0)
-                        {
-                            return;
-                        }
-                    }
-                }
-            }
-        }
-        you.xPos += moveSpeed;
+        printf("GOOD\n");
+        if (you.xPos + 0.0401 <= 0.92) you.xPos += moveSpeed;
     }
-
-
 }
 
 void check_block_entity_enemy_one(int flag)
@@ -3995,7 +3879,7 @@ void display() {
 }
 
 void keyboard(char key) {
- 
+
     if (menuChoose == 0) {
         Create_Table_x(); Create_Table_y();
         switch (key) {
@@ -4003,7 +3887,7 @@ void keyboard(char key) {
             menuChoose = 1;
             enemy[0].botSpeed = 10;
             enemy[1].botSpeed = 10;
-            FILE* fileCem = fopen("C:\\Users\\PC\\Desktop\\Kursovaya\\map\\cementLocFirst.txt", "r");
+            FILE* fileCem = fopen("D:\\map\\cementLocFirst.txt", "r");
             int N;
             fscanf(fileCem, "%d\n", &N);
             double a, b, c;
@@ -4014,12 +3898,12 @@ void keyboard(char key) {
                 cementLoc[i][1] = b;
                 cementLoc[i][2] = c;
                 arr1[0] = MyRound(a); arr1[1] = MyRound(b); arr1[2] = MyRound(c);
-                Insert_x(arr1[1], arr1, Hash_pos_x);
-                Insert_y(arr1[2], arr1, Hash_pos_y);
+                Insert_x(arr1[1], arr1);
+                Insert_y(arr1[2], arr1);
             }
             fclose(fileCem);
 
-            FILE* fileBri = fopen("C:\\Users\\PC\\Desktop\\Kursovaya\\map\\bricksLocFirst.txt", "r");
+            FILE* fileBri = fopen("D:\\map\\bricksLocFirst.txt", "r");
             fscanf(fileBri, "%d\n", &N);
             for (int i = 0; i < N; i++) {
                 fscanf(fileBri, "%lf %lf %lf\n", &a, &b, &c);
@@ -4027,8 +3911,8 @@ void keyboard(char key) {
                 bricksLoc[i][1] = b;
                 bricksLoc[i][2] = c;
                 arr1[0] = MyRound(a); arr1[1] = MyRound(b); arr1[2] = MyRound(c);
-                Insert_x(arr1[1], arr1, Hash_pos_x);
-                Insert_y(arr1[2], arr1, Hash_pos_y);
+                Insert_x(arr1[1], arr1);
+                Insert_y(arr1[2], arr1);
             }
             fclose(fileBri);
             break;
@@ -4038,7 +3922,7 @@ void keyboard(char key) {
             enemy[0].botSpeed = 5;
             enemy[1].botSpeed = 5;
             enemy[2].botSpeed = 5;
-            fileCem = fopen("C:\\Users\\PC\\Desktop\\Kursovaya\\map\\cementLocSecond.txt", "r");
+            fileCem = fopen("D:\\map\\cementLocSecond.txt", "r");
             fscanf(fileCem, "%d\n", &N);
             float arr2[3] = { 0 };
             for (int i = 0; i < N; i++) {
@@ -4047,12 +3931,12 @@ void keyboard(char key) {
                 cementLoc[i][1] = b;
                 cementLoc[i][2] = c;
                 arr2[0] = MyRound(a); arr2[1] = MyRound(b); arr2[2] = MyRound(c);
-                Insert_x(arr2[1], arr2, Hash_pos_x);
-                Insert_y(arr2[2], arr2, Hash_pos_y);
+                Insert_x(arr2[1], arr2);
+                Insert_y(arr2[2], arr2);
             }
             fclose(fileCem);
 
-            fileBri = fopen("C:\\Users\\PC\\Desktop\\Kursovaya\\map\\bricksLocSecond.txt", "r");
+            fileBri = fopen("D:\\map\\bricksLocSecond.txt", "r");
             fscanf(fileBri, "%d\n", &N);
             for (int i = 0; i < N; i++) {
                 fscanf(fileBri, "%lf %lf %lf\n", &a, &b, &c);
@@ -4060,8 +3944,8 @@ void keyboard(char key) {
                 bricksLoc[i][1] = b;
                 bricksLoc[i][2] = c;
                 arr2[0] = MyRound(a); arr2[1] = MyRound(b); arr2[2] = MyRound(c);
-                Insert_x(arr2[1], arr2, Hash_pos_x);
-                Insert_y(arr2[2], arr2, Hash_pos_y);
+                Insert_x(arr2[1], arr2);
+                Insert_y(arr2[2], arr2);
             }
             fclose(fileBri);
 
@@ -4076,7 +3960,7 @@ void keyboard(char key) {
             enemy[1].botSpeed = 3;
             enemy[2].botSpeed = 3;
             enemy[3].botSpeed = 3;
-            fileCem = fopen("C:\\Users\\PC\\Desktop\\Kursovaya\\map\\cementLocThird.txt", "r");
+            fileCem = fopen("D:\\map\\cementLocThird.txt", "r");
             fscanf(fileCem, "%d\n", &N);
             float arr3[3] = { 0 };
             for (int i = 0; i < N; i++) {
@@ -4085,12 +3969,12 @@ void keyboard(char key) {
                 cementLoc[i][1] = b;
                 cementLoc[i][2] = c;
                 arr3[0] = MyRound(a); arr3[1] = MyRound(b); arr3[2] = MyRound(c);
-                Insert_x(arr3[1], arr3, Hash_pos_x);
-                Insert_y(arr3[2], arr3, Hash_pos_y);
+                Insert_x(arr3[1], arr3);
+                Insert_y(arr3[2], arr3);
             }
             fclose(fileCem);
 
-            fileBri = fopen("C:\\Users\\PC\\Desktop\\Kursovaya\\map\\bricksLocThird.txt", "r");
+            fileBri = fopen("D:\\map\\bricksLocThird.txt", "r");
             fscanf(fileBri, "%d\n", &N);
             for (int i = 0; i < N; i++) {
                 fscanf(fileBri, "%lf %lf %lf\n", &a, &b, &c);
@@ -4098,8 +3982,8 @@ void keyboard(char key) {
                 bricksLoc[i][1] = b;
                 bricksLoc[i][2] = c;
                 arr3[0] = MyRound(a); arr3[1] = MyRound(b); arr3[2] = MyRound(c);
-                Insert_x(arr3[1], arr3, Hash_pos_x);
-                Insert_y(arr3[2], arr3, Hash_pos_y);
+                Insert_x(arr3[1], arr3);
+                Insert_y(arr3[2], arr3);
             }
             fclose(fileBri);
 

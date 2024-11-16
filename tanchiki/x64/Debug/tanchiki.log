@@ -1,0 +1,322 @@
+﻿  main.c
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(16,7): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(66,12): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(153,32): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(154,33): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(205,32): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(206,30): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(280,21): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(285,25): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(286,25): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(293,24): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(294,25): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(355,19): warning C4305: 'function': truncation from 'double' to 'GLfloat'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(355,25): warning C4305: 'function': truncation from 'double' to 'GLfloat'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(355,31): warning C4305: 'function': truncation from 'double' to 'GLfloat'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(361,19): warning C4305: 'function': truncation from 'double' to 'GLfloat'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(361,25): warning C4305: 'function': truncation from 'double' to 'GLfloat'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(361,31): warning C4305: 'function': truncation from 'double' to 'GLfloat'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(314,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(314,17): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(315,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(315,24): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(316,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(316,24): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(317,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(317,24): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(318,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(318,24): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(319,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(319,26): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(320,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(320,26): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(321,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(321,26): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(322,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(322,26): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(326,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(326,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(327,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(327,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(328,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(328,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(329,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(329,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(330,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(330,26): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(331,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(331,26): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(332,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(332,26): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(336,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(336,26): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(337,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(337,26): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(338,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(338,26): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(339,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(339,26): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(340,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(340,26): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(341,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(341,26): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(342,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(342,26): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(343,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(343,26): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(344,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(344,26): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(408,19): warning C4305: 'function': truncation from 'double' to 'GLfloat'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(408,25): warning C4305: 'function': truncation from 'double' to 'GLfloat'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(408,31): warning C4305: 'function': truncation from 'double' to 'GLfloat'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(414,19): warning C4305: 'function': truncation from 'double' to 'GLfloat'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(414,25): warning C4305: 'function': truncation from 'double' to 'GLfloat'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(420,19): warning C4305: 'function': truncation from 'double' to 'GLfloat'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(420,25): warning C4305: 'function': truncation from 'double' to 'GLfloat'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(373,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(373,17): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(374,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(374,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(375,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(375,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(376,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(376,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(377,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(377,26): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(378,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(378,26): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(379,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(379,26): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(380,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(380,26): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(381,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(381,24): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(382,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(382,24): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(383,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(383,24): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(384,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(384,24): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(385,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(385,26): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(389,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(389,26): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(390,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(390,26): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(391,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(391,26): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(392,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(392,26): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(393,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(393,26): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(394,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(394,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(395,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(395,26): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(396,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(396,26): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(397,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(397,26): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(401,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(401,26): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(402,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(402,26): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(403,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(403,26): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(448,38): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(449,32): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(450,32): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(457,38): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(458,32): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(459,32): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(466,38): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(467,32): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(468,32): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(475,38): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(476,32): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(477,32): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(484,38): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(485,32): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(486,32): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(598,19): warning C4305: 'function': truncation from 'double' to 'GLfloat'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(598,25): warning C4305: 'function': truncation from 'double' to 'GLfloat'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(731,19): warning C4305: 'function': truncation from 'double' to 'GLfloat'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(731,25): warning C4305: 'function': truncation from 'double' to 'GLfloat'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(731,31): warning C4305: 'function': truncation from 'double' to 'GLfloat'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(862,19): warning C4305: 'function': truncation from 'double' to 'GLfloat'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(862,25): warning C4305: 'function': truncation from 'double' to 'GLfloat'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(862,31): warning C4305: 'function': truncation from 'double' to 'GLfloat'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(993,19): warning C4305: 'function': truncation from 'double' to 'GLfloat'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(993,25): warning C4305: 'function': truncation from 'double' to 'GLfloat'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(993,31): warning C4305: 'function': truncation from 'double' to 'GLfloat'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1124,19): warning C4305: 'function': truncation from 'double' to 'GLfloat'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1124,25): warning C4305: 'function': truncation from 'double' to 'GLfloat'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1124,31): warning C4305: 'function': truncation from 'double' to 'GLfloat'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1198,73): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1209,64): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1224,73): warning C4305: '-=': truncation from 'double' to 'float'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1234,65): warning C4305: '-=': truncation from 'double' to 'float'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1248,73): warning C4305: '-=': truncation from 'double' to 'float'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1263,73): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1296,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1305,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1331,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1340,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1371,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1381,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1407,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1417,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1449,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1458,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1481,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1490,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1516,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1524,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1550,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1558,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1591,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1600,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1626,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1635,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1666,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1676,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1702,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1712,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1744,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1753,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1776,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1785,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1811,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1819,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1845,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1853,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1886,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1895,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1921,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1930,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1961,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1971,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(1997,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2007,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2039,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2048,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2071,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2080,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2106,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2114,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2140,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2148,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2181,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2190,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2216,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2225,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2256,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2266,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2292,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2302,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2334,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2343,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2366,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2375,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2401,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2409,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2435,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2443,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2495,31): warning C4244: 'function': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2495,61): warning C4244: 'function': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2493,51): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2494,42): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2571,41): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2587,41): warning C4305: '-=': truncation from 'double' to 'float'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2604,41): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2620,41): warning C4305: '-=': truncation from 'double' to 'float'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2730,46): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2746,46): warning C4305: '-=': truncation from 'double' to 'float'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2763,46): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2779,46): warning C4305: '-=': truncation from 'double' to 'float'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2842,31): warning C4244: 'function': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2842,61): warning C4244: 'function': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2840,51): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2841,42): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2974,46): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(2990,46): warning C4305: '-=': truncation from 'double' to 'float'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3007,46): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3023,46): warning C4305: '-=': truncation from 'double' to 'float'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3086,31): warning C4244: 'function': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3086,61): warning C4244: 'function': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3084,51): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3085,42): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3218,46): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3234,46): warning C4305: '-=': truncation from 'double' to 'float'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3251,46): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3267,46): warning C4305: '-=': truncation from 'double' to 'float'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3330,31): warning C4244: 'function': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3330,61): warning C4244: 'function': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3328,51): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3329,42): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3458,46): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3474,46): warning C4305: '-=': truncation from 'double' to 'float'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3491,46): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3507,46): warning C4305: '-=': truncation from 'double' to 'float'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3570,31): warning C4244: 'function': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3570,61): warning C4244: 'function': conversion from 'double' to 'GLfloat', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3568,51): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3569,42): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3653,17): warning C4305: 'function': truncation from 'double' to 'GLfloat'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3653,22): warning C4305: 'function': truncation from 'double' to 'GLfloat'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3653,27): warning C4305: 'function': truncation from 'double' to 'GLfloat'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3657,15): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3678,17): warning C4305: 'function': truncation from 'double' to 'GLfloat'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3678,22): warning C4305: 'function': truncation from 'double' to 'GLfloat'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3678,27): warning C4305: 'function': truncation from 'double' to 'GLfloat'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3682,15): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3710,21): warning C4305: 'function': truncation from 'double' to 'GLfloat'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3710,26): warning C4305: 'function': truncation from 'double' to 'GLfloat'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3710,31): warning C4305: 'function': truncation from 'double' to 'GLfloat'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3713,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3723,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3733,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3755,25): warning C4305: 'function': truncation from 'double' to 'GLclampf'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3755,30): warning C4305: 'function': truncation from 'double' to 'GLclampf'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3755,35): warning C4305: 'function': truncation from 'double' to 'GLclampf'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3782,34): warning C4305: 'function': truncation from 'double' to 'GLclampf'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3782,40): warning C4305: 'function': truncation from 'double' to 'GLclampf'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3789,25): warning C4305: 'function': truncation from 'double' to 'GLclampf'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3789,30): warning C4305: 'function': truncation from 'double' to 'GLclampf'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3789,35): warning C4305: 'function': truncation from 'double' to 'GLclampf'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3824,34): warning C4305: 'function': truncation from 'double' to 'GLclampf'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3824,40): warning C4305: 'function': truncation from 'double' to 'GLclampf'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3831,25): warning C4305: 'function': truncation from 'double' to 'GLclampf'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3831,30): warning C4305: 'function': truncation from 'double' to 'GLclampf'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3831,35): warning C4305: 'function': truncation from 'double' to 'GLclampf'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3873,34): warning C4305: 'function': truncation from 'double' to 'GLclampf'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3873,40): warning C4305: 'function': truncation from 'double' to 'GLclampf'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3897,35): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3898,35): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3899,35): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3910,35): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3911,35): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3912,35): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3930,35): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3931,35): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3932,35): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3943,35): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3944,35): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3945,35): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3952,34): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3953,32): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3968,35): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3969,35): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3970,35): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3981,35): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3982,35): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3983,35): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(3995,32): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(4058,11): warning C4244: 'function': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(4068,21): warning C4305: 'function': truncation from 'double' to 'GLclampf'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(4068,26): warning C4305: 'function': truncation from 'double' to 'GLclampf'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(4068,31): warning C4305: 'function': truncation from 'double' to 'GLclampf'
+C:\Users\PC\Desktop\Kursovaya\tanchiki\main.c(4072,21): warning C4113: 'void (__cdecl *)()' differs in parameter lists from 'void (__cdecl *)(void)'
+  tanchiki.vcxproj -> C:\Users\PC\Desktop\Kursovaya\tanchiki\x64\Debug\tanchiki.exe
+  'pwsh.exe' is not recognized as an internal or external command,
+  operable program or batch file.
