@@ -13,17 +13,17 @@
 
 int TABLE_SIZE = 201;
 int menuChoose = 0;
-float moveSpeed = 0.02;
+int moveSpeed = 2;
 
 struct tankSettings
 {
-    float xPos;
-    float yPos;
-    float angle;
+    int xPos;
+    int yPos;
+    int angle;
     int live;
 
-    float saveXPos;
-    float saveYPos;
+    int saveXPos;
+    int saveYPos;
     int flagAutoMove;
     int tickToShoot;
     int timerMove;
@@ -31,21 +31,21 @@ struct tankSettings
 
     struct
     {
-        float dx;
-        float dy;
-        float angle_bull;
+        int dx;
+        int dy;
+        int angle_bull;
         short live;
         short anim_bool;
         short time_anim;
 
-        float an_x;
-        float an_y;
+        int an_x;
+        int an_y;
     } bulletSet;
 };
 struct Node
 {
-    float key;
-    float value[3];
+    int key;
+    int value[3];
     struct Node* next;
 };
 struct HashTable
@@ -53,8 +53,8 @@ struct HashTable
     struct Node** table;
 };
 
-float bricksLoc[NUM_OF_MINI_BRICKS_BLOCKS][3] = { 0 };
-float cementLoc[NUM_OF_MINI_CEMENT_BLOCKS][3] = { 0 };
+int bricksLoc[NUM_OF_MINI_BRICKS_BLOCKS][3] = { 0 };
+int cementLoc[NUM_OF_MINI_CEMENT_BLOCKS][3] = { 0 };
 
 
 struct tankSettings enemy[4];
@@ -62,11 +62,8 @@ struct tankSettings you;
 struct HashTable* Hash_pos_x;
 struct HashTable* Hash_pos_y;
 
-float MyRound(double bad) {
-    return (round(bad * 1000) / 1000);
-}
 
-struct Node* Create_Node(float key, float* arr)
+struct Node* Create_Node(int key, int* arr)
 {
     struct Node* new_node = (struct Node*)malloc(sizeof(struct Node));
     new_node->key = key;
@@ -95,22 +92,19 @@ void Create_Table_y() {
 
 }
 
-unsigned int Hash(float key)
+unsigned int Hash(int key)
 {
     unsigned int hash = 0;
-    if (key > 0) key += 1.0;
-    if (key < 0) key *= (-1.0);
-    key *= 100.0;
+    if (key > 0) key += 100;
+    if (key < 0) key *= (-1);
     hash = (unsigned int)key;
 
-    if (hash < key && hash == 109) {
-        hash += 1;
-    }
+
 
     return hash;
 }
 
-void Insert_x(float key, float* arr)
+void Insert_x(int key, int* arr)
 {
     unsigned int index = Hash(key);
     struct Node* new_node = Create_Node(key, arr);
@@ -122,7 +116,7 @@ void Insert_x(float key, float* arr)
     }
 }
 
-void Insert_y(float key, float* arr)
+void Insert_y(int key, int* arr)
 {
     unsigned int index = Hash(key);
     struct Node* new_node = Create_Node(key, arr);
@@ -140,39 +134,39 @@ void Print_HashTable(struct HashTable* table) {
         if (node != NULL) {
             printf("Index %d:\n", i);
             while (node != NULL) {
-                printf("  Key: %lf, Value: [%lf, %lf, %lf]\n", node->key, node->value[0], node->value[1], node->value[2]);
+                printf("  Key: %d, Value: [%d, %d, %d]\n", node->key, node->value[0], node->value[1], node->value[2]);
                 node = node->next;
             }
         }
     }
 }
 
-int Moving_Vertical(float key, int flag) {
+int Moving_Vertical(int key, int flag) {
     unsigned int index = Hash(key);
     struct Node* node = Hash_pos_y->table[index];
-    float xPos_left = you.xPos - 0.04;
-    float xPos_right = you.xPos + 0.04;
-    float checkDistUP;
+    int xPos_left = you.xPos - 4;
+    int xPos_right = you.xPos + 4;
+    int checkDistUP;
 
 
     while (node != NULL) {
 
-        checkDistUP = MyRound(fabs(node->value[2] - you.yPos + 0.05 + 0.0001));
+        checkDistUP = fabs(node->value[2] - you.yPos + 5);
 
-        if (node->value[2] <= key + 0.0001) {
-            if (xPos_left >= node->value[1] - 0.0001 && xPos_left <= node->value[1] + 0.0401) {
+        if (node->value[2] <= key) {
+            if (xPos_left >= node->value[1] && xPos_left <= node->value[1] + 4) {
 
 
-                if (checkDistUP >= 0.12 - 0.0001 && checkDistUP <= 0.12 + 0.0001 && flag == 1) {
+                if (checkDistUP >= 12  && checkDistUP <= 12 && flag == 1) {
                     return 2;
                 }
 
                 return 1;
             }
 
-            if (xPos_right >= node->value[1] - 0.0001 && xPos_right <= node->value[1] + 0.0401) {
+            if (xPos_right >= node->value[1]  && xPos_right <= node->value[1] + 4) {
 
-                if (checkDistUP >= 0.12 - 0.0001 && checkDistUP <= 0.12 + 0.0001 && flag == 1) {
+                if (checkDistUP >= 12 && checkDistUP <= 12 && flag == 1) {
                     return 2;
                 }
 
@@ -180,9 +174,9 @@ int Moving_Vertical(float key, int flag) {
                 return 1;
             }
 
-            if (you.xPos >= node->value[1] - 0.0001 && you.xPos <= node->value[1] + 0.0401) {
+            if (you.xPos >= node->value[1] && you.xPos <= node->value[1] + 4) {
 
-                if (checkDistUP >= 0.12 - 0.0001 && checkDistUP <= 0.12 + 0.0001 && flag == 1) {
+                if (checkDistUP >= 12  && checkDistUP <= 12  && flag == 1) {
                     return 2;
                 }
 
@@ -196,29 +190,26 @@ int Moving_Vertical(float key, int flag) {
     return 0;
 }
 
-int Moving_Horizontal(float key)
+int Moving_Horizontal(int key)
 {
     unsigned int index = Hash(key);
     struct Node* node = Hash_pos_x->table[index];
 
 
-    float yPos_down = you.yPos - 0.04;
-    float yPos_up = you.yPos + 0.04;
+    int yPos_down = you.yPos - 4;
+    int yPos_up = you.yPos + 4;
     while (node != NULL) {
-        if (node->value[1] >= key - 0.0501) {
+        if (node->value[1] >= key - 5) {
 
-            if (yPos_down >= node->value[2] - 0.0001 && yPos_down <= node->value[2] + 0.0401) {
-                printf("DOWN\n");
+            if (yPos_down >= node->value[2]  && yPos_down <= node->value[2] + 4) {
                 return 1;
             }
 
-            if (yPos_up >= node->value[2] - 0.0001 && yPos_up <= node->value[2] + 0.0401) {
-                printf("UP\n");
+            if (yPos_up >= node->value[2]  && yPos_up <= node->value[2] + 4) {
                 return 1;
             }
 
-            if (you.yPos >= node->value[2] - 0.0001 && you.yPos <= node->value[2] + 0.0401) {
-                printf("MIDDLE\n");
+            if (you.yPos >= node->value[2] && you.yPos <= node->value[2] + 4) {
                 return 1;
             }
         }
@@ -228,13 +219,91 @@ int Moving_Horizontal(float key)
     return 0;
 }
 
-void Delete_Table_x(float key, float coord) {
+int Enemy_Moving_Vertical(int key, int enemy_num, int flag) {
+    unsigned int index = Hash(key);
+    struct Node* node = Hash_pos_y->table[index];
+    int xPos_left = enemy[enemy_num].xPos - 4;
+    int xPos_right = enemy[enemy_num].xPos + 4;
+    int checkDistUP;
+
+
+    while (node != NULL) {
+
+        checkDistUP = fabs(node->value[2] - enemy[enemy_num].yPos + 5 );
+
+        if (node->value[2] <= key ) {
+            if (xPos_left >= node->value[1]  && xPos_left <= node->value[1] + 4) {
+
+
+                if (checkDistUP >= 12  && checkDistUP <= 12 && flag == 1) {
+                    return 2;
+                }
+
+                return 1;
+            }
+
+            if (xPos_right >= node->value[1]  && xPos_right <= node->value[1] + 4) {
+
+                if (checkDistUP >= 12  && checkDistUP <= 12  && flag == 1) {
+                    return 2;
+                }
+
+
+                return 1;
+            }
+
+            if (enemy[enemy_num].xPos >= node->value[1] && enemy[enemy_num].xPos <= node->value[1] + 4) {
+
+                if (checkDistUP >= 12 && checkDistUP <= 12 && flag == 1) {
+                    return 2;
+                }
+
+
+                return 1;
+            }
+        }
+        node = node->next;
+    }
+
+    return 0;
+}
+
+int Enemy_Moving_Horizontal(int key, int enemy_num)
+{
+    unsigned int index = Hash(key);
+    struct Node* node = Hash_pos_x->table[index];
+
+    int yPos_down = enemy[enemy_num].yPos - 4;
+    int yPos_up = enemy[enemy_num].yPos + 4;
+
+    while (node != NULL) {
+        if (node->value[1] >= key - 5) {
+
+            if (yPos_down >= node->value[2]  && yPos_down <= node->value[2] + 4) {
+                return 1;
+            }
+
+            if (yPos_up >= node->value[2]   && yPos_up <= node->value[2] + 4) {
+                return 1;
+            }
+
+            if (enemy[enemy_num].yPos >= node->value[2]   && enemy[enemy_num].yPos <= node->value[2] + 4) {
+                return 1;
+            }
+        }
+        node = node->next;
+    }
+
+    return 0;
+}
+
+void Delete_Table_x(int key, int coord) {
     unsigned int index = Hash(key);
     struct Node* node = Hash_pos_x->table[index];
     struct Node* prev = NULL;
 
     while (node != NULL) {
-        if ((key - 0.0001 <= node->key && node->key <= key + 0.0001) && (coord - 0.0001 <= node->value[2] && node->value[2] <= coord + 0.0001))
+        if ((key   <= node->key && node->key <= key  ) && (coord   <= node->value[2] && node->value[2] <= coord  ))
         {
             if (prev == NULL) {
                 Hash_pos_x->table[index] = node->next;
@@ -251,12 +320,12 @@ void Delete_Table_x(float key, float coord) {
 
 }
 
-void Delete_Table_y(float key, float coord) {
+void Delete_Table_y(int key, int coord) {
     unsigned int index = Hash(key);
     struct Node* node = Hash_pos_y->table[index];
     struct Node* prev = NULL;
     while (node != NULL) {
-        if ((key - 0.0001 <= node->key && node->key <= key + 0.0001) && (coord - 0.0001 <= node->value[1] && node->value[1] <= coord + 0.0001))
+        if ((key   <= node->key && node->key <= key  ) && (coord   <= node->value[1] && node->value[1] <=  coord))
         {
             if (prev == NULL) {
                 Hash_pos_y->table[index] = node->next;
@@ -268,30 +337,30 @@ void Delete_Table_y(float key, float coord) {
             free(node);
             return;
         }
-        prev = node;
-        node = node->next;
+        prev = node; 
+        node = node->next; 
     }
 
-}
+} 
 
 void startSettings()
 {
     you.xPos = 0;
-    you.yPos = -0.84;
+    you.yPos = -84;
     you.live = 1;
     you.bulletSet.time_anim = 0;
 
-    enemy[0].live = 0;           // ИЗМЕНЕНО
-    enemy[0].xPos = -0.8;
-    enemy[0].yPos = 0.12;
+    enemy[0].live = 1;           
+    enemy[0].xPos = -80;
+    enemy[0].yPos = 12;
     enemy[0].angle = 270;
     enemy[0].saveXPos = 0;
     enemy[0].saveYPos = 0;
     enemy[0].flagAutoMove = 4;
 
-    enemy[1].live = 0;          // ИЗМЕНЕНО
-    enemy[1].xPos = 0.7;
-    enemy[1].yPos = 0.12;
+    enemy[1].live = 1;          
+    enemy[1].xPos = 70;
+    enemy[1].yPos = 12;
     enemy[1].angle = 90;
     enemy[1].saveXPos = 0;
     enemy[1].saveYPos = 0;
@@ -306,121 +375,121 @@ void startSettings()
     enemy[3].saveXPos = 0;
     enemy[3].saveYPos = 0;
     enemy[3].flagAutoMove = 2;
-}
+} 
 
-void draw_mini_cement_block(double x, double y)
+void draw_mini_cement_block(int x, int y)
 {
-    float firstcol[9][2] = {
+    int firstcol[9][2] = {
             {x, y},
-            {x + 0.01, y},
-            {x + 0.02, y},
-            {x + 0.03, y},
-            {x + 0.04, y},
-            {x + 0.04, y + 0.01},
-            {x + 0.04, y + 0.02},
-            {x + 0.04, y + 0.03},
-            {x + 0.04, y + 0.04}
+            {x + 1, y},
+            {x + 2, y},
+            {x + 3, y},
+            {x + 4, y},
+            {x + 4, y + 1},
+            {x + 4, y + 2},
+            {x + 4, y + 3},
+            {x + 4, y + 4}
     };
 
-    float secondcol[7][2] = {
-            {x, y + 0.01},
-            {x, y + 0.02},
-            {x, y + 0.03},
-            {x, y + 0.04},
-            {x + 0.01, y + 0.04},
-            {x + 0.02, y + 0.04},
-            {x + 0.03, y + 0.04},
+    int secondcol[7][2] = {
+            {x, y + 1},
+            {x, y + 2},
+            {x, y + 3},
+            {x, y + 4},
+            {x + 1, y + 4},
+            {x + 2, y + 4},
+            {x + 3, y + 4},
     };
 
-    float thirdcol[9][2] = {
-            {x + 0.01, y + 0.01},
-            {x + 0.01, y + 0.02},
-            {x + 0.01, y + 0.03},
-            {x + 0.02, y + 0.01},
-            {x + 0.02, y + 0.02},
-            {x + 0.02, y + 0.03},
-            {x + 0.03, y + 0.01},
-            {x + 0.03, y + 0.02},
-            {x + 0.03, y + 0.03},
+    int thirdcol[9][2] = {
+            {x + 1, y + 1},
+            {x + 1, y + 2},
+            {x + 1, y + 3},
+            {x + 2, y + 1},
+            {x + 2, y + 2},
+            {x + 2, y + 3},
+            {x + 3, y + 1},
+            {x + 3, y + 2},
+            {x + 3, y + 3},
     };
 
     glBegin(GL_POINTS);
 
     glColor3f(1, 1, 1);
     for (int i = 0; i < 9; i++) {
-        float x = thirdcol[i][0], y = thirdcol[i][1];
-        glVertex2f(x, y);
+        int x = thirdcol[i][0], y = thirdcol[i][1];
+        glVertex2d(x, y);
     }
 
     glColor3f(0.78, 0.78, 0.78);
     for (int i = 0; i < 7; i++) {
-        float x = secondcol[i][0], y = secondcol[i][1];
-        glVertex2f(x, y);
+        int x = secondcol[i][0], y = secondcol[i][1];
+        glVertex2d(x, y);
     }
 
     glColor3f(0.48, 0.49, 0.48);
     for (int i = 0; i < 9; i++) {
-        float x = firstcol[i][0], y = firstcol[i][1];
-        glVertex2f(x, y);
+        int x = firstcol[i][0], y = firstcol[i][1];
+        glVertex2d(x, y);
     }
 
     glEnd();
 }
 
-void draw_mini_brick_block(double x, double y)
+void draw_mini_brick_block(int x, int y)
 {
-    float firstcol[13][2] = {
+    int firstcol[13][2] = {
             {x, y},
-            {x, y + 0.01},
-            {x, y + 0.02},
-            {x, y + 0.03},
-            {x + 0.01, y + 0.03},
-            {x + 0.02, y + 0.03},
-            {x + 0.03, y + 0.03},
-            {x + 0.04, y + 0.03},
-            {x + 0.01, y},
-            {x + 0.02, y},
-            {x + 0.03, y},
-            {x + 0.04, y},
-            {x + 0.02, y + 0.04}
+            {x, y + 1},
+            {x, y + 2},
+            {x, y + 3},
+            {x + 1, y + 3},
+            {x + 2, y + 3},
+            {x + 3, y + 3},
+            {x + 4, y + 3},
+            {x + 1, y},
+            {x + 2, y},
+            {x + 3, y},
+            {x + 4, y},
+            {x + 2, y + 4}
     };
 
-    float secondcol[9][2] = {
-            {x + 0.01, y + 0.01},
-            {x + 0.01, y + 0.02},
-            {x + 0.02, y + 0.02},
-            {x + 0.03, y + 0.02},
-            {x + 0.04, y + 0.02},
-            {x, y + 0.04},
-            {x + 0.01, y + 0.04},
-            {x + 0.03, y + 0.04},
-            {x + 0.04, y + 0.04}
+    int secondcol[9][2] = {
+            {x + 1, y + 1},
+            {x + 1, y + 2},
+            {x + 2, y + 2},
+            {x + 3, y + 2},
+            {x + 4, y + 2},
+            {x, y + 4},
+            {x + 1, y + 4},
+            {x + 3, y + 4},
+            {x + 4, y + 4}
     };
 
-    float thirdcol[3][2] = {
-            {x + 0.02, y + 0.01},
-            {x + 0.03, y + 0.01},
-            {x + 0.04, y + 0.01}
+    int thirdcol[3][2] = {
+            {x + 2, y + 1},
+            {x + 3, y + 1},
+            {x + 4, y + 1}
     };
 
     glBegin(GL_POINTS);
 
     glColor3f(0.48, 0.49, 0.48);
     for (int i = 0; i < 13; i++) {
-        float x = firstcol[i][0], y = firstcol[i][1];
-        glVertex2f(x, y);
+        int x = firstcol[i][0], y = firstcol[i][1];
+        glVertex2d(x, y);
     }
 
     glColor3f(0.65, 0.19, 0);
     for (int i = 0; i < 9; i++) {
-        float x = secondcol[i][0], y = secondcol[i][1];
-        glVertex2f(x, y);
+        int x = secondcol[i][0], y = secondcol[i][1];
+        glVertex2d(x, y);
     }
 
     glColor3f(0.77, 0.44, 0);
     for (int i = 0; i < 3; i++) {
-        float x = thirdcol[i][0], y = thirdcol[i][1];
-        glVertex2f(x, y);
+        int x = thirdcol[i][0], y = thirdcol[i][1];
+        glVertex2d(x, y);
     }
     glEnd();
 }
@@ -444,48 +513,164 @@ void createBrickWall()
     }
 }
 
-void rotatePointyou(float* x, float* y, float angle) {
-    float rad = angle * 3.1415926535 / 180.0;
-    float xNew = *x * cos(rad) - *y * sin(rad);
-    float yNew = *x * sin(rad) + *y * cos(rad);
-    *x = xNew + you.xPos;
-    *y = yNew + you.yPos;
+void rotatePointyou(int* x, int* y, int angle) {
+    if (angle == 0)
+    {
+        int xNew = *x * 1 - *y * 0;
+        int yNew = *x * 0 + *y * 1;
+        *x = xNew + you.xPos;
+        *y = yNew + you.yPos;
+    }
+    if (angle == 90)
+    {
+        int xNew = *x * 0 - *y * 1;
+        int yNew = *x * 1 + *y * 0;
+        *x = xNew + you.xPos;
+        *y = yNew + you.yPos;
+    }
+    if (angle == 180)
+    {
+        int xNew = *x * (-1) - *y * 0;
+        int yNew = *x * 0 + *y * (-1);
+        *x = xNew + you.xPos;
+        *y = yNew + you.yPos;
+    }
+    if (angle == 270)
+    {
+        int xNew = *x * 0 - *y * (-1);
+        int yNew = *x * (-1) + *y * 0;
+        *x = xNew + you.xPos;
+        *y = yNew + you.yPos;
+    }
 }
 
-void rotatePointenemy_one(float* x, float* y, float angle)
+void rotatePointenemy_one(int* x, int* y, int angle)
 {
-    float rad = angle * 3.1415926535 / 180.0;
-    float xNew = *x * cos(rad) - *y * sin(rad);
-    float yNew = *x * sin(rad) + *y * cos(rad);
-    *x = xNew + enemy[0].xPos;
-    *y = yNew + enemy[0].yPos;
+    if (angle == 0)
+    {
+        int xNew = *x * 1 - *y * 0;
+        int yNew = *x * 0 + *y * 1;
+        *x = xNew + enemy[0].xPos;
+        *y = yNew + enemy[0].yPos;
+    }
+    if (angle == 90)
+    {
+        int xNew = *x * 0 - *y * 1;
+        int yNew = *x * 1 + *y * 0;
+        *x = xNew + enemy[0].xPos;
+        *y = yNew + enemy[0].yPos;
+    }
+    if (angle == 180)
+    {
+        int xNew = *x * (-1) - *y * 0;
+        int yNew = *x * 0 + *y * (-1);
+        *x = xNew + enemy[0].xPos;
+        *y = yNew + enemy[0].yPos;
+    }
+    if (angle == 270)
+    {
+        int xNew = *x * 0 - *y * (-1);
+        int yNew = *x * (-1) + *y * 0;
+        *x = xNew + enemy[0].xPos;
+        *y = yNew + enemy[0].yPos;
+    }
 }
 
-void rotatePointenemy_two(float* x, float* y, float angle)
+void rotatePointenemy_two(int* x, int* y, int angle)
 {
-    float rad = angle * 3.1415926535 / 180.0;
-    float xNew = *x * cos(rad) - *y * sin(rad);
-    float yNew = *x * sin(rad) + *y * cos(rad);
-    *x = xNew + enemy[1].xPos;
-    *y = yNew + enemy[1].yPos;
+    if (angle == 0)
+    {
+        int xNew = *x * 1 - *y * 0;
+        int yNew = *x * 0 + *y * 1;
+        *x = xNew + enemy[1].xPos;
+        *y = yNew + enemy[1].yPos;
+    }
+    if (angle == 90)
+    {
+        int xNew = *x * 0 - *y * 1;
+        int yNew = *x * 1 + *y * 0;
+        *x = xNew + enemy[1].xPos;
+        *y = yNew + enemy[1].yPos;
+    }
+    if (angle == 180)
+    {
+        int xNew = *x * (-1) - *y * 0;
+        int yNew = *x * 0 + *y * (-1);
+        *x = xNew + enemy[1].xPos;
+        *y = yNew + enemy[1].yPos;
+    }
+    if (angle == 270)
+    {
+        int xNew = *x * 0 - *y * (-1);
+        int yNew = *x * (-1) + *y * 0;
+        *x = xNew + enemy[1].xPos;
+        *y = yNew + enemy[1].yPos;
+    }
+    
 }
 
-void rotatePointenemy_three(float* x, float* y, float angle)
+void rotatePointenemy_three(int* x, int* y, int angle)
 {
-    float rad = angle * 3.1415926535 / 180.0;
-    float xNew = *x * cos(rad) - *y * sin(rad);
-    float yNew = *x * sin(rad) + *y * cos(rad);
-    *x = xNew + enemy[2].xPos;
-    *y = yNew + enemy[2].yPos;
+    if (angle == 0)
+    {
+        int xNew = *x * 1 - *y * 0;
+        int yNew = *x * 0 + *y * 1;
+        *x = xNew + enemy[2].xPos;
+        *y = yNew + enemy[2].yPos;
+    }
+    if (angle == 90)
+    {
+        int xNew = *x * 0 - *y * 1;
+        int yNew = *x * 1 + *y * 0;
+        *x = xNew + enemy[2].xPos;
+        *y = yNew + enemy[2].yPos;
+    }
+    if (angle == 180)
+    {
+        int xNew = *x * (-1) - *y * 0;
+        int yNew = *x * 0 + *y * (-1);
+        *x = xNew + enemy[2].xPos;
+        *y = yNew + enemy[2].yPos;
+    }
+    if (angle == 270)
+    {
+        int xNew = *x * 0 - *y * (-1);
+        int yNew = *x * (-1) + *y * 0;
+        *x = xNew + enemy[2].xPos;
+        *y = yNew + enemy[2].yPos;
+    }
 }
 
-void rotatePointenemy_four(float* x, float* y, float angle)
+void rotatePointenemy_four(int* x, int* y, int angle)
 {
-    float rad = angle * 3.1415926535 / 180.0;
-    float xNew = *x * cos(rad) - *y * sin(rad);
-    float yNew = *x * sin(rad) + *y * cos(rad);
-    *x = xNew + enemy[3].xPos;
-    *y = yNew + enemy[3].yPos;
+    if (angle == 0)
+    {
+        int xNew = *x * 1 - *y * 0;
+        int yNew = *x * 0 + *y * 1;
+        *x = xNew + enemy[3].xPos;
+        *y = yNew + enemy[3].yPos;
+    }
+    if (angle == 90)
+    {
+        int xNew = *x * 0 - *y * 1;
+        int yNew = *x * 1 + *y * 0;
+        *x = xNew + enemy[3].xPos;
+        *y = yNew + enemy[3].yPos;
+    }
+    if (angle == 180)
+    {
+        int xNew = *x * (-1) - *y * 0;
+        int yNew = *x * 0 + *y * (-1);
+        *x = xNew + enemy[3].xPos;
+        *y = yNew + enemy[3].yPos;
+    }
+    if (angle == 270)
+    {
+        int xNew = *x * 0 - *y * (-1);
+        int yNew = *x * (-1) + *y * 0;
+        *x = xNew + enemy[3].xPos;
+        *y = yNew + enemy[3].yPos;
+    }
 }
 
 void draw_global_tank_up()
@@ -496,100 +681,100 @@ void draw_global_tank_up()
 
 
 
-    float coordFirstColor[35][2] = {
-            {0.0f, 0.0f},
-            {0.0f, -0.03f},
-            {0.01f, -0.03f},
-            {0.01f, -0.02f},
-            {0.02f, -0.03f},
-            {0.03f, -0.03f},
-            {0.04f, -0.03f},
-            {0.02f, -0.01f},
-            {0.03f, -0.01f},
-            {0.04f, -0.01f},
-            {0.02f, 0.01f},
-            {0.03f, 0.01f},
-            {0.04f, 0.01f},
-            {0.02f, 0.03f},
-            {0.03f, 0.03f},
-            {0.04f, 0.03f},
-            {0.02f, 0.0f},
-            {0.02f, 0.02f},
-            {0.02f, -0.02f},
-            {0.02f, -0.04f},
-            {0.01f, -0.05f},
-            {0.0f, -0.05f},
-            {-0.01f, -0.05f},
-            {-0.03f, -0.05f},
-            {-0.04f, -0.05f},
-            {0.03f, -0.05f},
-            {0.04f, -0.05f},
-            {-0.03f, -0.03f},
-            {-0.04f, -0.03f},
-            {-0.03f, -0.01f},
-            {-0.04f, -0.01f},
-            {-0.03f, 0.01f},
-            {-0.04f, 0.01f},
-            {-0.03f, 0.03f},
-            {-0.04f, 0.03f},
+    int coordFirstColor[35][2] = {
+            {0, 0},
+            {0, -3},
+            {1, -3},
+            {1, -2},
+            {2, -3},
+            {3, -3},
+            {4, -3},
+            {2, -1},
+            {3, -1},
+            {4, -1},
+            {2, 1},
+            {3, 1},
+            {4, 1},
+            {2, 3},
+            {3, 3},
+            {4, 3},
+            {2, 0},
+            {2, 2},
+            {2, -2},
+            {2, -4},
+            {1, -5},
+            {0, -5},
+            {-1, -5},
+            {-3, -5},
+            {-4, -5},
+            {3, -5},
+            {4, -5},
+            {-3, -3},
+            {-4, -3},
+            {-3, -1},
+            {-4, -1},
+            {-3, 1},
+            {-4, 1},
+            {-3, 3},
+            {-4, 3},
     };
 
 
-    float coordSecondColor[28][2] = {
-            {0.0f, 0.01f},
-            {0.01f, 0.01f},
-            {0.01f, 0.02f},
-            {-0.01f, 0.02f},
-            {-0.01f, 0.01f},
-            {0.01f, 0.0f},
-            {0.01f, -0.01f},
-            {0.0f, -0.01f},
-            {0.0f, -0.02f},
-            {-0.01f, -0.03f},
-            {0.0f, -0.04f},
-            {0.01f, -0.04f},
-            {0.03f, -0.04f},
-            {0.04f, -0.04f},
-            {0.03f, -0.02f},
-            {0.04f, -0.02f},
-            {0.03f, 0.0f},
-            {0.04f, 0.0f},
-            {0.03f, 0.02f},
-            {0.04f, 0.02f},
-            {0.03f, 0.04f},
-            {0.04f, 0.04f},
-            {-0.02f, 0.04f},
-            {-0.03f, 0.04f},
-            {-0.03f, 0.02f},
-            {-0.03f, 0.0f},
-            {-0.03f, -0.02f},
-            {-0.03f, -0.04f},
+    int coordSecondColor[28][2] = {
+            {0, 1},
+            {1, 1},
+            {1, 2},
+            {-1, 2},
+            {-1, 1},
+            {1, 0},
+            {1, -1},
+            {0, -1},
+            {0, -2},
+            {-1, -3},
+            {0, -4},
+            {1, -4},
+            {3, -4},
+            {4, -4},
+            {3, -2},
+            {4, -2},
+            {3, 0},
+            {4, 0},
+            {3, 2},
+            {4, 2},
+            {3, 4},
+            {4, 4},
+            {-2, 4},
+            {-3, 4},
+            {-3, 2},
+            {-3, 0},
+            {-3, -2},
+            {-3, -4},
 
     };
 
-    float coordThirdColor[22][2] = {
-            {0.0f, 0.02f},
-            {0.0f, 0.03f},
-            {0.0f, 0.04f},
-            {0.0f, 0.05f},
-            {0.02f, 0.04f},
-            {-0.01f, -0.04f},
-            {-0.02f, -0.04f},
-            {-0.01f, -0.02f},
-            {-0.02f, -0.02f},
-            {-0.01f, -0.01f},
-            {-0.02f, -0.01f},
-            {-0.01f, 0.0f},
-            {-0.02f, 0.0f},
-            {-0.02f, -0.03f},
-            {-0.02f, 0.01f},
-            {-0.02f, 0.02f},
-            {-0.02f, 0.03f},
-            {-0.04f, 0.0f},
-            {-0.04f, 0.02f},
-            {-0.04f, 0.04f},
-            {-0.04f, -0.02f},
-            {-0.04f, -0.04f},
+    int coordThirdColor[22][2] = {
+            {0, 2},
+            {0, 3},
+            {0, 4},
+            {0, 5},
+            {2, 4},
+            {-1, -4},
+            {-2, -4},
+            {-1, -2},
+            {-2, -2},
+            {-1, -1},
+            {-2, -1},
+            {-1, 0},
+            {-2, 0},
+            {-2, -3},
+            {-2, 1},
+            {-2, 2},
+            {-2, 3},
+            {-4, 0},
+            {-4, 2},
+            {-4, 4},
+            {-4, -2},
+            {-4, -4},
     };
 
 
@@ -597,23 +782,23 @@ void draw_global_tank_up()
 
     glColor3f(0.67, 0.48, 0);
     for (int i = 0; i < 35; i++) {
-        float x = coordFirstColor[i][0], y = coordFirstColor[i][1];
+        int x = coordFirstColor[i][0], y = coordFirstColor[i][1];
         rotatePointyou(&x, &y, you.angle);
-        glVertex2f(x, y);
+        glVertex2d(x, y);
     }
 
     glColor3f(1.0f, 0.63f, 0.27f);
     for (int i = 0; i < 28; i++) {
-        float x = coordSecondColor[i][0], y = coordSecondColor[i][1];
+        int x = coordSecondColor[i][0], y = coordSecondColor[i][1];
         rotatePointyou(&x, &y, you.angle);
-        glVertex2f(x, y);
+        glVertex2d(x, y);
     }
 
     glColor3f(0.97f, 0.84f, 0.47f);
     for (int i = 0; i < 22; i++) {
-        float x = coordThirdColor[i][0], y = coordThirdColor[i][1];
+        int x = coordThirdColor[i][0], y = coordThirdColor[i][1];
         rotatePointyou(&x, &y, you.angle);
-        glVertex2f(x, y);
+        glVertex2d(x, y);
     }
 
     glEnd();
@@ -629,100 +814,100 @@ void draw_enemy_tank_up_one()
 
 
 
-    float coordFirstColor[35][2] = {
-            {0.0f, 0.0f},
-            {0.0f, -0.03f},
-            {0.01f, -0.03f},
-            {0.01f, -0.02f},
-            {0.02f, -0.03f},
-            {0.03f, -0.03f},
-            {0.04f, -0.03f},
-            {0.02f, -0.01f},
-            {0.03f, -0.01f},
-            {0.04f, -0.01f},
-            {0.02f, 0.01f},
-            {0.03f, 0.01f},
-            {0.04f, 0.01f},
-            {0.02f, 0.03f},
-            {0.03f, 0.03f},
-            {0.04f, 0.03f},
-            {0.02f, 0.0f},
-            {0.02f, 0.02f},
-            {0.02f, -0.02f},
-            {0.02f, -0.04f},
-            {0.01f, -0.05f},
-            {0.0f, -0.05f},
-            {-0.01f, -0.05f},
-            {-0.03f, -0.05f},
-            {-0.04f, -0.05f},
-            {0.03f, -0.05f},
-            {0.04f, -0.05f},
-            {-0.03f, -0.03f},
-            {-0.04f, -0.03f},
-            {-0.03f, -0.01f},
-            {-0.04f, -0.01f},
-            {-0.03f, 0.01f},
-            {-0.04f, 0.01f},
-            {-0.03f, 0.03f},
-            {-0.04f, 0.03f},
+    int coordFirstColor[35][2] = {
+            {0, 0},
+            {0, -3},
+            {1, -3},
+            {1, -2},
+            {2, -3},
+            {3, -3},
+            {4, -3},
+            {2, -1},
+            {3, -1},
+            {4, -1},
+            {2, 1},
+            {3, 1},
+            {4, 1},
+            {2, 3},
+            {3, 3},
+            {4, 3},
+            {2, 0},
+            {2, 2},
+            {2, -2},
+            {2, -4},
+            {1, -5},
+            {0, -5},
+            {-1, -5},
+            {-3, -5},
+            {-4, -5},
+            {3, -5},
+            {4, -5},
+            {-3, -3},
+            {-4, -3},
+            {-3, -1},
+            {-4, -1},
+            {-3, 1},
+            {-4, 1},
+            {-3, 3},
+            {-4, 3},
     };
 
 
-    float coordSecondColor[28][2] = {
-            {0.0f, 0.01f},
-            {0.01f, 0.01f},
-            {0.01f, 0.02f},
-            {-0.01f, 0.02f},
-            {-0.01f, 0.01f},
-            {0.01f, 0.0f},
-            {0.01f, -0.01f},
-            {0.0f, -0.01f},
-            {0.0f, -0.02f},
-            {-0.01f, -0.03f},
-            {0.0f, -0.04f},
-            {0.01f, -0.04f},
-            {0.03f, -0.04f},
-            {0.04f, -0.04f},
-            {0.03f, -0.02f},
-            {0.04f, -0.02f},
-            {0.03f, 0.0f},
-            {0.04f, 0.0f},
-            {0.03f, 0.02f},
-            {0.04f, 0.02f},
-            {0.03f, 0.04f},
-            {0.04f, 0.04f},
-            {-0.02f, 0.04f},
-            {-0.03f, 0.04f},
-            {-0.03f, 0.02f},
-            {-0.03f, 0.0f},
-            {-0.03f, -0.02f},
-            {-0.03f, -0.04f},
+    int coordSecondColor[28][2] = {
+            {0, 1},
+            {1, 1},
+            {1, 2},
+            {-1, 2},
+            {-1, 1},
+            {1, 0},
+            {1, -1},
+            {0, -1},
+            {0, -2},
+            {-1, -3},
+            {0, -4},
+            {1, -4},
+            {3, -4},
+            {4, -4},
+            {3, -2},
+            {4, -2},
+            {3, 0},
+            {4, 0},
+            {3, 2},
+            {4, 2},
+            {3, 4},
+            {4, 4},
+            {-2, 4},
+            {-3, 4},
+            {-3, 2},
+            {-3, 0},
+            {-3, -2},
+            {-3, -4},
 
     };
 
-    float coordThirdColor[22][2] = {
-            {0.0f, 0.02f},
-            {0.0f, 0.03f},
-            {0.0f, 0.04f},
-            {0.0f, 0.05f},
-            {0.02f, 0.04f},
-            {-0.01f, -0.04f},
-            {-0.02f, -0.04f},
-            {-0.01f, -0.02f},
-            {-0.02f, -0.02f},
-            {-0.01f, -0.01f},
-            {-0.02f, -0.01f},
-            {-0.01f, 0.0f},
-            {-0.02f, 0.0f},
-            {-0.02f, -0.03f},
-            {-0.02f, 0.01f},
-            {-0.02f, 0.02f},
-            {-0.02f, 0.03f},
-            {-0.04f, 0.0f},
-            {-0.04f, 0.02f},
-            {-0.04f, 0.04f},
-            {-0.04f, -0.02f},
-            {-0.04f, -0.04f},
+    int coordThirdColor[22][2] = {
+            {0, 2},
+            {0, 3},
+            {0, 4},
+            {0, 5},
+            {2, 4},
+            {-1, -4},
+            {-2, -4},
+            {-1, -2},
+            {-2, -2},
+            {-1, -1},
+            {-2, -1},
+            {-1, 0},
+            {-2, 0},
+            {-2, -3},
+            {-2, 1},
+            {-2, 2},
+            {-2, 3},
+            {-4, 0},
+            {-4, 2},
+            {-4, 4},
+            {-4, -2},
+            {-4, -4},
     };
 
 
@@ -730,23 +915,23 @@ void draw_enemy_tank_up_one()
 
     glColor3f(0.28, 0.44, 0.56);
     for (int i = 0; i < 35; i++) {
-        float x = coordFirstColor[i][0], y = coordFirstColor[i][1];
+        int x = coordFirstColor[i][0], y = coordFirstColor[i][1];
         rotatePointenemy_one(&x, &y, enemy[0].angle);
-        glVertex2f(x, y);
+        glVertex2d(x, y);
     }
 
     glColor3f(0.73f, 0.74f, 0.73f);
     for (int i = 0; i < 28; i++) {
-        float x = coordSecondColor[i][0], y = coordSecondColor[i][1];
+        int x = coordSecondColor[i][0], y = coordSecondColor[i][1];
         rotatePointenemy_one(&x, &y, enemy[0].angle);
-        glVertex2f(x, y);
+        glVertex2d(x, y);
     }
 
-    glColor3f(1.0f, 1.0f, 1.00f);
+    glColor3f(1.0f, 1.0f, 1.0f);
     for (int i = 0; i < 22; i++) {
-        float x = coordThirdColor[i][0], y = coordThirdColor[i][1];
+        int x = coordThirdColor[i][0], y = coordThirdColor[i][1];
         rotatePointenemy_one(&x, &y, enemy[0].angle);
-        glVertex2f(x, y);
+        glVertex2d(x, y);
     }
 
     glEnd();
@@ -760,100 +945,100 @@ void draw_enemy_tank_up_two()
 
 
 
-    float coordFirstColor[35][2] = {
-            {0.0f, 0.0f},
-            {0.0f, -0.03f},
-            {0.01f, -0.03f},
-            {0.01f, -0.02f},
-            {0.02f, -0.03f},
-            {0.03f, -0.03f},
-            {0.04f, -0.03f},
-            {0.02f, -0.01f},
-            {0.03f, -0.01f},
-            {0.04f, -0.01f},
-            {0.02f, 0.01f},
-            {0.03f, 0.01f},
-            {0.04f, 0.01f},
-            {0.02f, 0.03f},
-            {0.03f, 0.03f},
-            {0.04f, 0.03f},
-            {0.02f, 0.0f},
-            {0.02f, 0.02f},
-            {0.02f, -0.02f},
-            {0.02f, -0.04f},
-            {0.01f, -0.05f},
-            {0.0f, -0.05f},
-            {-0.01f, -0.05f},
-            {-0.03f, -0.05f},
-            {-0.04f, -0.05f},
-            {0.03f, -0.05f},
-            {0.04f, -0.05f},
-            {-0.03f, -0.03f},
-            {-0.04f, -0.03f},
-            {-0.03f, -0.01f},
-            {-0.04f, -0.01f},
-            {-0.03f, 0.01f},
-            {-0.04f, 0.01f},
-            {-0.03f, 0.03f},
-            {-0.04f, 0.03f},
+    int coordFirstColor[35][2] = {
+            {0, 0},
+            {0, -3},
+            {1, -3},
+            {1, -2},
+            {2, -3},
+            {3, -3},
+            {4, -3},
+            {2, -1},
+            {3, -1},
+            {4, -1},
+            {2, 1},
+            {3, 1},
+            {4, 1},
+            {2, 3},
+            {3, 3},
+            {4, 3},
+            {2, 0},
+            {2, 2},
+            {2, -2},
+            {2, -4},
+            {1, -5},
+            {0, -5},
+            {-1, -5},
+            {-3, -5},
+            {-4, -5},
+            {3, -5},
+            {4, -5},
+            {-3, -3},
+            {-4, -3},
+            {-3, -1},
+            {-4, -1},
+            {-3, 1},
+            {-4, 1},
+            {-3, 3},
+            {-4, 3},
     };
 
 
-    float coordSecondColor[28][2] = {
-            {0.0f, 0.01f},
-            {0.01f, 0.01f},
-            {0.01f, 0.02f},
-            {-0.01f, 0.02f},
-            {-0.01f, 0.01f},
-            {0.01f, 0.0f},
-            {0.01f, -0.01f},
-            {0.0f, -0.01f},
-            {0.0f, -0.02f},
-            {-0.01f, -0.03f},
-            {0.0f, -0.04f},
-            {0.01f, -0.04f},
-            {0.03f, -0.04f},
-            {0.04f, -0.04f},
-            {0.03f, -0.02f},
-            {0.04f, -0.02f},
-            {0.03f, 0.0f},
-            {0.04f, 0.0f},
-            {0.03f, 0.02f},
-            {0.04f, 0.02f},
-            {0.03f, 0.04f},
-            {0.04f, 0.04f},
-            {-0.02f, 0.04f},
-            {-0.03f, 0.04f},
-            {-0.03f, 0.02f},
-            {-0.03f, 0.0f},
-            {-0.03f, -0.02f},
-            {-0.03f, -0.04f},
+    int coordSecondColor[28][2] = {
+            {0, 1},
+            {1, 1},
+            {1, 2},
+            {-1, 2},
+            {-1, 1},
+            {1, 0},
+            {1, -1},
+            {0, -1},
+            {0, -2},
+            {-1, -3},
+            {0, -4},
+            {1, -4},
+            {3, -4},
+            {4, -4},
+            {3, -2},
+            {4, -2},
+            {3, 0},
+            {4, 0},
+            {3, 2},
+            {4, 2},
+            {3, 4},
+            {4, 4},
+            {-2, 4},
+            {-3, 4},
+            {-3, 2},
+            {-3, 0},
+            {-3, -2},
+            {-3, -4},
 
     };
 
-    float coordThirdColor[22][2] = {
-            {0.0f, 0.02f},
-            {0.0f, 0.03f},
-            {0.0f, 0.04f},
-            {0.0f, 0.05f},
-            {0.02f, 0.04f},
-            {-0.01f, -0.04f},
-            {-0.02f, -0.04f},
-            {-0.01f, -0.02f},
-            {-0.02f, -0.02f},
-            {-0.01f, -0.01f},
-            {-0.02f, -0.01f},
-            {-0.01f, 0.0f},
-            {-0.02f, 0.0f},
-            {-0.02f, -0.03f},
-            {-0.02f, 0.01f},
-            {-0.02f, 0.02f},
-            {-0.02f, 0.03f},
-            {-0.04f, 0.0f},
-            {-0.04f, 0.02f},
-            {-0.04f, 0.04f},
-            {-0.04f, -0.02f},
-            {-0.04f, -0.04f},
+    int coordThirdColor[22][2] = {
+            {0, 2},
+            {0, 3},
+            {0, 4},
+            {0, 5},
+            {2, 4},
+            {-1, -4},
+            {-2, -4},
+            {-1, -2},
+            {-2, -2},
+            {-1, -1},
+            {-2, -1},
+            {-1, 0},
+            {-2, 0},
+            {-2, -3},
+            {-2, 1},
+            {-2, 2},
+            {-2, 3},
+            {-4, 0},
+            {-4, 2},
+            {-4, 4},
+            {-4, -2},
+            {-4, -4},
     };
 
 
@@ -861,23 +1046,23 @@ void draw_enemy_tank_up_two()
 
     glColor3f(0.28, 0.44, 0.56);
     for (int i = 0; i < 35; i++) {
-        float x = coordFirstColor[i][0], y = coordFirstColor[i][1];
+        int x = coordFirstColor[i][0], y = coordFirstColor[i][1];
         rotatePointenemy_two(&x, &y, enemy[1].angle);
-        glVertex2f(x, y);
+        glVertex2d(x, y);
     }
 
     glColor3f(0.73f, 0.74f, 0.73f);
     for (int i = 0; i < 28; i++) {
-        float x = coordSecondColor[i][0], y = coordSecondColor[i][1];
+        int x = coordSecondColor[i][0], y = coordSecondColor[i][1];
         rotatePointenemy_two(&x, &y, enemy[1].angle);
-        glVertex2f(x, y);
+        glVertex2d(x, y);
     }
 
     glColor3f(1.0f, 1.0f, 1.00f);
     for (int i = 0; i < 22; i++) {
-        float x = coordThirdColor[i][0], y = coordThirdColor[i][1];
+        int x = coordThirdColor[i][0], y = coordThirdColor[i][1];
         rotatePointenemy_two(&x, &y, enemy[1].angle);
-        glVertex2f(x, y);
+        glVertex2d(x, y);
     }
 
     glEnd();
@@ -891,100 +1076,100 @@ void draw_enemy_tank_up_three()
 
 
 
-    float coordFirstColor[35][2] = {
-            {0.0f, 0.0f},
-            {0.0f, -0.03f},
-            {0.01f, -0.03f},
-            {0.01f, -0.02f},
-            {0.02f, -0.03f},
-            {0.03f, -0.03f},
-            {0.04f, -0.03f},
-            {0.02f, -0.01f},
-            {0.03f, -0.01f},
-            {0.04f, -0.01f},
-            {0.02f, 0.01f},
-            {0.03f, 0.01f},
-            {0.04f, 0.01f},
-            {0.02f, 0.03f},
-            {0.03f, 0.03f},
-            {0.04f, 0.03f},
-            {0.02f, 0.0f},
-            {0.02f, 0.02f},
-            {0.02f, -0.02f},
-            {0.02f, -0.04f},
-            {0.01f, -0.05f},
-            {0.0f, -0.05f},
-            {-0.01f, -0.05f},
-            {-0.03f, -0.05f},
-            {-0.04f, -0.05f},
-            {0.03f, -0.05f},
-            {0.04f, -0.05f},
-            {-0.03f, -0.03f},
-            {-0.04f, -0.03f},
-            {-0.03f, -0.01f},
-            {-0.04f, -0.01f},
-            {-0.03f, 0.01f},
-            {-0.04f, 0.01f},
-            {-0.03f, 0.03f},
-            {-0.04f, 0.03f},
+    int coordFirstColor[35][2] = {
+            {0, 0},
+            {0, -3},
+            {1, -3},
+            {1, -2},
+            {2, -3},
+            {3, -3},
+            {4, -3},
+            {2, -1},
+            {3, -1},
+            {4, -1},
+            {2, 1},
+            {3, 1},
+            {4, 1},
+            {2, 3},
+            {3, 3},
+            {4, 3},
+            {2, 0},
+            {2, 2},
+            {2, -2},
+            {2, -4},
+            {1, -5},
+            {0, -5},
+            {-1, -5},
+            {-3, -5},
+            {-4, -5},
+            {3, -5},
+            {4, -5},
+            {-3, -3},
+            {-4, -3},
+            {-3, -1},
+            {-4, -1},
+            {-3, 1},
+            {-4, 1},
+            {-3, 3},
+            {-4, 3},
     };
 
 
-    float coordSecondColor[28][2] = {
-            {0.0f, 0.01f},
-            {0.01f, 0.01f},
-            {0.01f, 0.02f},
-            {-0.01f, 0.02f},
-            {-0.01f, 0.01f},
-            {0.01f, 0.0f},
-            {0.01f, -0.01f},
-            {0.0f, -0.01f},
-            {0.0f, -0.02f},
-            {-0.01f, -0.03f},
-            {0.0f, -0.04f},
-            {0.01f, -0.04f},
-            {0.03f, -0.04f},
-            {0.04f, -0.04f},
-            {0.03f, -0.02f},
-            {0.04f, -0.02f},
-            {0.03f, 0.0f},
-            {0.04f, 0.0f},
-            {0.03f, 0.02f},
-            {0.04f, 0.02f},
-            {0.03f, 0.04f},
-            {0.04f, 0.04f},
-            {-0.02f, 0.04f},
-            {-0.03f, 0.04f},
-            {-0.03f, 0.02f},
-            {-0.03f, 0.0f},
-            {-0.03f, -0.02f},
-            {-0.03f, -0.04f},
+    int coordSecondColor[28][2] = {
+            {0, 1},
+            {1, 1},
+            {1, 2},
+            {-1, 2},
+            {-1, 1},
+            {1, 0},
+            {1, -1},
+            {0, -1},
+            {0, -2},
+            {-1, -3},
+            {0, -4},
+            {1, -4},
+            {3, -4},
+            {4, -4},
+            {3, -2},
+            {4, -2},
+            {3, 0},
+            {4, 0},
+            {3, 2},
+            {4, 2},
+            {3, 4},
+            {4, 4},
+            {-2, 4},
+            {-3, 4},
+            {-3, 2},
+            {-3, 0},
+            {-3, -2},
+            {-3, -4},
 
     };
 
-    float coordThirdColor[22][2] = {
-            {0.0f, 0.02f},
-            {0.0f, 0.03f},
-            {0.0f, 0.04f},
-            {0.0f, 0.05f},
-            {0.02f, 0.04f},
-            {-0.01f, -0.04f},
-            {-0.02f, -0.04f},
-            {-0.01f, -0.02f},
-            {-0.02f, -0.02f},
-            {-0.01f, -0.01f},
-            {-0.02f, -0.01f},
-            {-0.01f, 0.0f},
-            {-0.02f, 0.0f},
-            {-0.02f, -0.03f},
-            {-0.02f, 0.01f},
-            {-0.02f, 0.02f},
-            {-0.02f, 0.03f},
-            {-0.04f, 0.0f},
-            {-0.04f, 0.02f},
-            {-0.04f, 0.04f},
-            {-0.04f, -0.02f},
-            {-0.04f, -0.04f},
+    int coordThirdColor[22][2] = {
+            {0, 2},
+            {0, 3},
+            {0, 4},
+            {0, 5},
+            {2, 4},
+            {-1, -4},
+            {-2, -4},
+            {-1, -2},
+            {-2, -2},
+            {-1, -1},
+            {-2, -1},
+            {-1, 0},
+            {-2, 0},
+            {-2, -3},
+            {-2, 1},
+            {-2, 2},
+            {-2, 3},
+            {-4, 0},
+            {-4, 2},
+            {-4, 4},
+            {-4, -2},
+            {-4, -4},
     };
 
 
@@ -992,23 +1177,23 @@ void draw_enemy_tank_up_three()
 
     glColor3f(0.28, 0.44, 0.56);
     for (int i = 0; i < 35; i++) {
-        float x = coordFirstColor[i][0], y = coordFirstColor[i][1];
+        int x = coordFirstColor[i][0], y = coordFirstColor[i][1];
         rotatePointenemy_three(&x, &y, enemy[2].angle);
-        glVertex2f(x, y);
+        glVertex2d(x, y);
     }
 
     glColor3f(0.73f, 0.74f, 0.73f);
     for (int i = 0; i < 28; i++) {
-        float x = coordSecondColor[i][0], y = coordSecondColor[i][1];
+        int x = coordSecondColor[i][0], y = coordSecondColor[i][1];
         rotatePointenemy_three(&x, &y, enemy[2].angle);
-        glVertex2f(x, y);
+        glVertex2d(x, y);
     }
 
     glColor3f(1.0f, 1.0f, 1.00f);
     for (int i = 0; i < 22; i++) {
-        float x = coordThirdColor[i][0], y = coordThirdColor[i][1];
+        int x = coordThirdColor[i][0], y = coordThirdColor[i][1];
         rotatePointenemy_three(&x, &y, enemy[2].angle);
-        glVertex2f(x, y);
+        glVertex2d(x, y);
     }
 
     glEnd();
@@ -1022,100 +1207,100 @@ void draw_enemy_tank_up_four()
 
 
 
-    float coordFirstColor[35][2] = {
-            {0.0f, 0.0f},
-            {0.0f, -0.03f},
-            {0.01f, -0.03f},
-            {0.01f, -0.02f},
-            {0.02f, -0.03f},
-            {0.03f, -0.03f},
-            {0.04f, -0.03f},
-            {0.02f, -0.01f},
-            {0.03f, -0.01f},
-            {0.04f, -0.01f},
-            {0.02f, 0.01f},
-            {0.03f, 0.01f},
-            {0.04f, 0.01f},
-            {0.02f, 0.03f},
-            {0.03f, 0.03f},
-            {0.04f, 0.03f},
-            {0.02f, 0.0f},
-            {0.02f, 0.02f},
-            {0.02f, -0.02f},
-            {0.02f, -0.04f},
-            {0.01f, -0.05f},
-            {0.0f, -0.05f},
-            {-0.01f, -0.05f},
-            {-0.03f, -0.05f},
-            {-0.04f, -0.05f},
-            {0.03f, -0.05f},
-            {0.04f, -0.05f},
-            {-0.03f, -0.03f},
-            {-0.04f, -0.03f},
-            {-0.03f, -0.01f},
-            {-0.04f, -0.01f},
-            {-0.03f, 0.01f},
-            {-0.04f, 0.01f},
-            {-0.03f, 0.03f},
-            {-0.04f, 0.03f},
+    int coordFirstColor[35][2] = {
+            {0, 0},
+            {0, -3},
+            {1, -3},
+            {1, -2},
+            {2, -3},
+            {3, -3},
+            {4, -3},
+            {2, -1},
+            {3, -1},
+            {4, -1},
+            {2, 1},
+            {3, 1},
+            {4, 1},
+            {2, 3},
+            {3, 3},
+            {4, 3},
+            {2, 0},
+            {2, 2},
+            {2, -2},
+            {2, -4},
+            {1, -5},
+            {0, -5},
+            {-1, -5},
+            {-3, -5},
+            {-4, -5},
+            {3, -5},
+            {4, -5},
+            {-3, -3},
+            {-4, -3},
+            {-3, -1},
+            {-4, -1},
+            {-3, 1},
+            {-4, 1},
+            {-3, 3},
+            {-4, 3},
     };
 
 
-    float coordSecondColor[28][2] = {
-            {0.0f, 0.01f},
-            {0.01f, 0.01f},
-            {0.01f, 0.02f},
-            {-0.01f, 0.02f},
-            {-0.01f, 0.01f},
-            {0.01f, 0.0f},
-            {0.01f, -0.01f},
-            {0.0f, -0.01f},
-            {0.0f, -0.02f},
-            {-0.01f, -0.03f},
-            {0.0f, -0.04f},
-            {0.01f, -0.04f},
-            {0.03f, -0.04f},
-            {0.04f, -0.04f},
-            {0.03f, -0.02f},
-            {0.04f, -0.02f},
-            {0.03f, 0.0f},
-            {0.04f, 0.0f},
-            {0.03f, 0.02f},
-            {0.04f, 0.02f},
-            {0.03f, 0.04f},
-            {0.04f, 0.04f},
-            {-0.02f, 0.04f},
-            {-0.03f, 0.04f},
-            {-0.03f, 0.02f},
-            {-0.03f, 0.0f},
-            {-0.03f, -0.02f},
-            {-0.03f, -0.04f},
+    int coordSecondColor[28][2] = {
+            {0, 1},
+            {1, 1},
+            {1, 2},
+            {-1, 2},
+            {-1, 1},
+            {1, 0},
+            {1, -1},
+            {0, -1},
+            {0, -2},
+            {-1, -3},
+            {0, -4},
+            {1, -4},
+            {3, -4},
+            {4, -4},
+            {3, -2},
+            {4, -2},
+            {3, 0},
+            {4, 0},
+            {3, 2},
+            {4, 2},
+            {3, 4},
+            {4, 4},
+            {-2, 4},
+            {-3, 4},
+            {-3, 2},
+            {-3, 0},
+            {-3, -2},
+            {-3, -4},
 
     };
 
-    float coordThirdColor[22][2] = {
-            {0.0f, 0.02f},
-            {0.0f, 0.03f},
-            {0.0f, 0.04f},
-            {0.0f, 0.05f},
-            {0.02f, 0.04f},
-            {-0.01f, -0.04f},
-            {-0.02f, -0.04f},
-            {-0.01f, -0.02f},
-            {-0.02f, -0.02f},
-            {-0.01f, -0.01f},
-            {-0.02f, -0.01f},
-            {-0.01f, 0.0f},
-            {-0.02f, 0.0f},
-            {-0.02f, -0.03f},
-            {-0.02f, 0.01f},
-            {-0.02f, 0.02f},
-            {-0.02f, 0.03f},
-            {-0.04f, 0.0f},
-            {-0.04f, 0.02f},
-            {-0.04f, 0.04f},
-            {-0.04f, -0.02f},
-            {-0.04f, -0.04f},
+    int coordThirdColor[22][2] = {
+            {0, 2},
+            {0, 3},
+            {0, 4},
+            {0, 5},
+            {2, 4},
+            {-1, -4},
+            {-2, -4},
+            {-1, -2},
+            {-2, -2},
+            {-1, -1},
+            {-2, -1},
+            {-1, 0},
+            {-2, 0},
+            {-2, -3},
+            {-2, 1},
+            {-2, 2},
+            {-2, 3},
+            {-4, 0},
+            {-4, 2},
+            {-4, 4},
+            {-4, -2},
+            {-4, -4},
     };
 
 
@@ -1123,23 +1308,23 @@ void draw_enemy_tank_up_four()
 
     glColor3f(0.28, 0.44, 0.56);
     for (int i = 0; i < 35; i++) {
-        float x = coordFirstColor[i][0], y = coordFirstColor[i][1];
+        int x = coordFirstColor[i][0], y = coordFirstColor[i][1];
         rotatePointenemy_four(&x, &y, enemy[3].angle);
-        glVertex2f(x, y);
+        glVertex2d(x, y);
     }
 
     glColor3f(0.73f, 0.74f, 0.73f);
     for (int i = 0; i < 28; i++) {
-        float x = coordSecondColor[i][0], y = coordSecondColor[i][1];
+        int x = coordSecondColor[i][0], y = coordSecondColor[i][1];
         rotatePointenemy_four(&x, &y, enemy[3].angle);
-        glVertex2f(x, y);
+        glVertex2d(x, y);
     }
 
     glColor3f(1.0f, 1.0f, 1.00f);
     for (int i = 0; i < 22; i++) {
-        float x = coordThirdColor[i][0], y = coordThirdColor[i][1];
+        int x = coordThirdColor[i][0], y = coordThirdColor[i][1];
         rotatePointenemy_four(&x, &y, enemy[3].angle);
-        glVertex2f(x, y);
+        glVertex2d(x, y);
     }
 
     glEnd();
@@ -1151,40 +1336,40 @@ void draw_block_zone()
 
     glBegin(GL_QUADS);
 
-    glVertex2f(-0.93f, 1.1f);
-    glVertex2f(-1.1f, 1.1f);
-    glVertex2f(-1.1f, -1.1f);
-    glVertex2f(-0.93f, -1.1f);
+    glVertex2d(-93, 110);
+    glVertex2d(-110, 110);
+    glVertex2d(-110, -110);
+    glVertex2d(-93, -110);
 
     glEnd();
 
 
     glBegin(GL_QUADS);
 
-    glVertex2f(-1.1f, -0.93f);
-    glVertex2f(-1.1f, -1.1f);
-    glVertex2f(1.1f, -1.1f);
-    glVertex2f(1.1f, -0.93f);
+    glVertex2d(-110, -93);
+    glVertex2d(-110, -110);
+    glVertex2d(110, -110);
+    glVertex2d(110, -93);
 
     glEnd();
 
 
     glBegin(GL_QUADS);
 
-    glVertex2f(0.93f, 1.1f);
-    glVertex2f(1.1f, 1.1f);
-    glVertex2f(1.1f, -1.1f);
-    glVertex2f(0.93f, -1.1f);
+    glVertex2d(93, 110);
+    glVertex2d(110, 110);
+    glVertex2d(110, -110);
+    glVertex2d(93, -110);
 
     glEnd();
 
 
     glBegin(GL_QUADS);
 
-    glVertex2f(-1.1f, 0.93f);
-    glVertex2f(-1.1f, 1.1f);
-    glVertex2f(1.1f, 1.1f);
-    glVertex2f(1.1f, 0.93f);
+    glVertex2d(-110, 93);
+    glVertex2d(-110, 110);
+    glVertex2d(110, 110);
+    glVertex2d(110, 93);
 
     glEnd();
 
@@ -1195,7 +1380,7 @@ void check_block_entity(short flag)
     if (flag == 1)
     {
         int f = 0;
-        for (float i = you.yPos; i < you.yPos + 0.08 - 0.0001; i += 0.01) {
+        for (int i = you.yPos; i < you.yPos + 8; i += 1) {
 
 
             f = Moving_Vertical(i, flag);
@@ -1206,14 +1391,14 @@ void check_block_entity(short flag)
             }
 
             if (f == 2) {
-                if (you.yPos + 0.0401 <= 0.92) you.yPos += 0.01;
+                if (you.yPos + 4 <= 92) you.yPos += 1;
                 f = 0;
 
                 return;
             }
 
         }
-        if (you.yPos + 0.0401 <= 0.92) you.yPos += moveSpeed;
+        if (you.yPos + 4 < 92) you.yPos += moveSpeed;
     }
 
 
@@ -1221,7 +1406,7 @@ void check_block_entity(short flag)
     {
 
         int f = 0;
-        for (float i = you.yPos; i > you.yPos - 0.10 - 0.0001; i -= 0.01)
+        for (int i = you.yPos; i > you.yPos - 11; i -= 1)
         {
             f = Moving_Vertical(i, flag);
             if (f == 1)
@@ -1231,21 +1416,21 @@ void check_block_entity(short flag)
             }
 
             if (f == 2) {
-                if (you.yPos - 0.0401 >= -0.92) you.yPos -= 0.01;
+                if (you.yPos - 4 >= -92) you.yPos -= 1;
                 f = 0;
                 return;
             }
 
 
         }
-        if (you.yPos - 0.0401 >= -0.92) you.yPos -= moveSpeed;
+        if (you.yPos - 4 > -92) you.yPos -= moveSpeed;
     }
 
 
     if (flag == 3)
     {
         int f = 0;
-        for (float i = you.xPos; i > you.xPos - 0.10 - 0.0001; i -= 0.01)
+        for (int i = you.xPos; i > you.xPos - 11; i -= 1)
         {
             f = Moving_Horizontal(i);
             if (f == 1)
@@ -1254,15 +1439,15 @@ void check_block_entity(short flag)
                 return;
             }
         }
-        if (you.xPos - 0.0401 >= -0.92) you.xPos -= moveSpeed;
+        if (you.xPos - 4 > -92) you.xPos -= moveSpeed;
     }
 
     if (flag == 4)
     {
         int f = 0;
-        for (float i = you.xPos; i < you.xPos + 0.07 - 0.0001; i += 0.01)
+        for (int i = you.xPos; i < you.xPos + 7; i += 1)
         {
-            printf("%f\n", i);
+
             f = Moving_Horizontal(i);
             if (f == 1)
             {
@@ -1270,8 +1455,7 @@ void check_block_entity(short flag)
                 return;
             }
         }
-        printf("GOOD\n");
-        if (you.xPos + 0.0401 <= 0.92) you.xPos += moveSpeed;
+        if (you.xPos + 4 < 92) you.xPos += moveSpeed;
     }
 }
 
@@ -1279,294 +1463,83 @@ void check_block_entity_enemy_one(int flag)
 {
     if (flag == 1)
     {
-        for (int i = 0; i < NUM_OF_MINI_CEMENT_BLOCKS; i++)
-        {
-            if (cementLoc[i][0] == 0)
-            {
-                if (
-                    (enemy[0].yPos + 0.0001 + 0.05 >= cementLoc[i][2] - moveSpeed && enemy[0].yPos - 0.0001 <= cementLoc[i][2] + 0.03 - moveSpeed)
-                    &&
-                    (enemy[0].xPos + 0.04 >= cementLoc[i][1] - 0.0001 && enemy[0].xPos - 0.04 < cementLoc[i][1] + 0.0001 + 0.04)
-                    )
-                {
-                    if (enemy[0].yPos >= 0)
-                    {
-                        if (cementLoc[i][2] - enemy[0].yPos - 0.001 - moveSpeed - 0.07 <= 0)
-                        {
-                            enemy[0].yPos = cementLoc[i][2] - 0.08;
-                            continue;
-                        }
-                    }
+        int f = 0;
+        for (int i = enemy[0].yPos; i < enemy[0].yPos + 8; i += 1) {
 
-                    if (enemy[0].yPos < 0)
-                    {
-                        if (fabs(cementLoc[i][2]) - fabs(enemy[0].yPos) - 0.02 - 0.001 - moveSpeed <= 0)
-                        {
-                            enemy[0].yPos = cementLoc[i][2] - 0.08;
-                            continue;
-                        }
-                        if (fabs(cementLoc[i][2]) - fabs(enemy[0].yPos) - 0.001 - moveSpeed > 0)
-                        {
-                            return;
-                        }
-                    }
-                }
+
+            f = Enemy_Moving_Vertical(i, 0, flag);
+
+            if (f == 1) {
+                f = 0;
+                return;
             }
-        }
 
-        for (int i = 0; i < NUM_OF_MINI_BRICKS_BLOCKS; i++)
-        {
-            if (bricksLoc[i][0] == 1)
-            {
-                if (
-                    (enemy[0].yPos + 0.0001 + 0.05 >= bricksLoc[i][2] - moveSpeed && enemy[0].yPos - 0.0001 <= bricksLoc[i][2] + 0.03 - moveSpeed)
-                    &&
-                    (enemy[0].xPos + 0.04 >= bricksLoc[i][1] - 0.0001 && enemy[0].xPos - 0.04 < bricksLoc[i][1] + 0.0001 + 0.04)
-                    )
-                {
-                    if (enemy[0].yPos >= 0)
-                    {
-                        if (bricksLoc[i][2] - enemy[0].yPos - 0.001 - moveSpeed - 0.07 <= 0)
-                        {
-                            enemy[0].yPos = bricksLoc[i][2] - 0.08;
-                            continue;
-                        }
-                    }
+            if (f == 2) {
+                if (enemy[0].yPos + 4 <= 92)  enemy[0].yPos += 1;
+                f = 0;
 
-                    if (enemy[0].yPos < 0)
-                    {
-                        if (fabs(bricksLoc[i][2]) - fabs(enemy[0].yPos) - 0.02 - 0.001 - moveSpeed <= 0)
-                        {
-                            enemy[0].yPos = bricksLoc[i][2] - 0.08;
-                            continue;
-                        }
-                        if (fabs(bricksLoc[i][2]) - fabs(enemy[0].yPos) - 0.001 - moveSpeed > 0)
-                        {
-                            return;
-                        }
-                    }
-                }
+                return;
             }
+
         }
-        enemy[0].yPos += moveSpeed;
+        if (enemy[0].yPos + 4 <= 92)  enemy[0].yPos += moveSpeed;
     }
 
 
     if (flag == 2)
     {
-        for (int i = 0; i < NUM_OF_MINI_CEMENT_BLOCKS; i++)
+
+        int f = 0;
+        for (int i = enemy[0].yPos; i > enemy[0].yPos - 10; i -= 1)
         {
-            if (cementLoc[i][0] == 0)
+            f = Enemy_Moving_Vertical(i, 0, flag);
+            if (f == 1)
             {
-                if (
-                    (enemy[0].yPos - 0.0001 - 0.09 <= cementLoc[i][2] + moveSpeed && enemy[0].yPos + 0.0001 >= cementLoc[i][2])
-                    &&
-                    (enemy[0].xPos + 0.04 >= cementLoc[i][1] - 0.0001 && enemy[0].xPos - 0.04 <= cementLoc[i][1] + 0.04 + 0.0001)
-                    )
-                {
-                    if (enemy[0].yPos >= 0)
-                    {
-                        if (cementLoc[i][2] - enemy[0].yPos + 0.01 - 0.001 - moveSpeed <= 0)
-                        {
-                            enemy[0].yPos = cementLoc[i][2] + 0.12;
-                            continue;
-                        }
-                    }
-
-
-                    if (enemy[0].yPos <= 0)
-                    {
-                        if (fabs(enemy[0].yPos) - fabs(cementLoc[i][2]) + 0.01 - 0.001 - moveSpeed <= 0)
-                        {
-                            enemy[0].yPos = cementLoc[i][2] + 0.12;
-                            continue;
-                        }
-                        if (fabs(cementLoc[i][2]) - fabs(enemy[0].yPos) - 0.04 - 0.001 - moveSpeed > 0)
-                        {
-                            return;
-                        }
-                    }
-                }
+                f = 0;
+                return;
             }
-        }
 
-        for (int i = 0; i < NUM_OF_MINI_BRICKS_BLOCKS; i++)
-        {
-            if (bricksLoc[i][0] == 1)
-            {
-                if (
-                    (enemy[0].yPos - 0.0001 - 0.09 <= bricksLoc[i][2] + moveSpeed && enemy[0].yPos + 0.0001 >= bricksLoc[i][2])
-                    &&
-                    (enemy[0].xPos + 0.04 >= bricksLoc[i][1] - 0.0001 && enemy[0].xPos - 0.04 <= bricksLoc[i][1] + 0.04 + 0.0001)
-                    )
-                {
-                    if (enemy[0].yPos >= 0)
-                    {
-                        if (bricksLoc[i][2] - enemy[0].yPos + 0.01 - 0.001 - moveSpeed <= 0)
-                        {
-                            enemy[0].yPos = bricksLoc[i][2] + 0.12;
-                            continue;
-                        }
-                    }
-
-
-                    if (enemy[0].yPos <= 0)
-                    {
-                        if (fabs(enemy[0].yPos) - fabs(bricksLoc[i][2]) + 0.01 - 0.001 - moveSpeed <= 0)
-                        {
-                            enemy[0].yPos = bricksLoc[i][2] + 0.12;
-                            continue;
-                        }
-                        if (fabs(bricksLoc[i][2]) - fabs(enemy[0].yPos) - 0.04 - 0.001 - moveSpeed > 0)
-                        {
-                            return;
-                        }
-                    }
-                }
+            if (f == 2) {
+                if (enemy[0].yPos - 4 >= -92)  enemy[0].yPos -= 1;
+                f = 0;
+                return;
             }
+
+
         }
-        enemy[0].yPos -= moveSpeed;
+        if (enemy[0].yPos - 4 >= -92)  enemy[0].yPos -= moveSpeed;
     }
 
 
     if (flag == 3)
     {
-        for (int i = 0; i < NUM_OF_MINI_CEMENT_BLOCKS; i++)
+        int f = 0;
+        for (int i = enemy[0].xPos; i > enemy[0].xPos - 10; i -= 1)
         {
-            if (cementLoc[i][0] == 0)
+            f = Enemy_Moving_Horizontal(i, 0);
+            if (f == 1)
             {
-                if (
-                    (enemy[0].yPos + 0.04 >= cementLoc[i][2] - 0.0001 && enemy[0].yPos - 0.04 <= cementLoc[i][2] + 0.0001 + 0.04)
-                    &&
-                    (enemy[0].xPos - 0.0001 - 0.04 - moveSpeed - 0.02 <= cementLoc[i][1] + 0.04 && enemy[0].xPos + 0.0001 >= cementLoc[i][1])
-                    )
-                {
-
-                    if (enemy[0].xPos >= 0)
-                    {
-                        if (cementLoc[i][1] - 0.001 - enemy[0].xPos <= 0)
-                        {
-                            enemy[0].xPos = cementLoc[i][1] + 0.12;
-                        }
-
-                    }
-
-                    if (enemy[0].xPos < 0)
-                    {
-                        if (fabs(enemy[0].xPos) - fabs(cementLoc[i][1]) - 0.04 - 0.001 <= 0)
-                        {
-                            enemy[0].xPos = cementLoc[i][1] + 0.12;
-                        }
-
-                    }
-                }
+                f = 0;
+                return;
             }
         }
-
-        for (int i = 0; i < NUM_OF_MINI_BRICKS_BLOCKS; i++)
-        {
-            if (bricksLoc[i][0] == 1)
-            {
-                if (
-                    (enemy[0].yPos + 0.04 >= bricksLoc[i][2] - 0.0001 && enemy[0].yPos - 0.04 <= bricksLoc[i][2] + 0.0001 + 0.04)
-                    &&
-                    (enemy[0].xPos - 0.0001 - 0.04 - moveSpeed - 0.02 <= bricksLoc[i][1] + 0.04 && enemy[0].xPos + 0.0001 >= bricksLoc[i][1])
-                    )
-                {
-
-                    if (enemy[0].xPos >= 0)
-                    {
-                        if (bricksLoc[i][1] - 0.001 - enemy[0].xPos <= 0)
-                        {
-                            enemy[0].xPos = bricksLoc[i][1] + 0.12;
-                        }
-
-                    }
-
-                    if (enemy[0].xPos < 0)
-                    {
-                        if (fabs(enemy[0].xPos) - fabs(bricksLoc[i][1]) - 0.04 - 0.001 <= 0)
-                        {
-                            enemy[0].xPos = bricksLoc[i][1] + 0.12;
-                        }
-
-                    }
-                }
-            }
-        }
-        enemy[0].xPos -= moveSpeed;
+        if (enemy[0].xPos - 4 >= -92)  enemy[0].xPos -= moveSpeed;
     }
 
     if (flag == 4)
     {
-        for (int i = 0; i < NUM_OF_MINI_CEMENT_BLOCKS; i++)
+        int f = 0;
+        for (int i = enemy[0].xPos; i < enemy[0].xPos + 7; i += 1)
         {
-            if (cementLoc[i][0] == 0)
-            {
-                if (
-                    (enemy[0].yPos + 0.04 >= cementLoc[i][2] - 0.0001 && enemy[0].yPos - 0.04 <= cementLoc[i][2] + 0.0001 + 0.04)
-                    &&
-                    (enemy[0].xPos + 0.0001 + 0.05 + moveSpeed >= cementLoc[i][1] && enemy[0].xPos - 0.0001 <= cementLoc[i][1])
-                    )
-                {
-                    if (enemy[0].xPos >= 0)
-                    {
-                        if (cementLoc[i][1] - enemy[0].xPos - 0.08 - 0.001 - moveSpeed <= 0)
-                        {
-                            enemy[0].xPos = cementLoc[i][1] - 0.08;
 
-                        }
-                    }
-                    if (enemy[0].xPos <= 0)
-                    {
-                        if (fabs(enemy[0].xPos) - fabs(cementLoc[i][1]) - 0.08 - moveSpeed <= 0)
-                        {
-                            enemy[0].xPos = cementLoc[i][1] - 0.08;
-                            continue;
-                        }
-                        if (fabs(cementLoc[i][1]) - fabs(enemy[0].xPos) - 0.08 - 0.001 - moveSpeed > 0)
-                        {
-                            return;
-                        }
-                    }
-                }
+            f = Enemy_Moving_Horizontal(i, 0);
+            if (f == 1)
+            {
+                f = 0;
+                return;
             }
         }
-
-        for (int i = 0; i < NUM_OF_MINI_BRICKS_BLOCKS; i++)
-        {
-            if (bricksLoc[i][0] == 1)
-            {
-                if (
-                    (enemy[0].yPos + 0.04 >= bricksLoc[i][2] - 0.0001 && enemy[0].yPos - 0.04 <= bricksLoc[i][2] + 0.0001 + 0.04)
-                    &&
-                    (enemy[0].xPos + 0.0001 + 0.05 + moveSpeed >= bricksLoc[i][1] && enemy[0].xPos - 0.0001 <= bricksLoc[i][1])
-                    )
-                {
-                    if (enemy[0].xPos >= 0)
-                    {
-                        if (bricksLoc[i][1] - enemy[0].xPos - 0.08 - 0.001 - moveSpeed <= 0)
-                        {
-                            enemy[0].xPos = bricksLoc[i][1] - 0.08;
-
-                        }
-                    }
-                    if (enemy[0].xPos <= 0)
-                    {
-                        if (fabs(enemy[0].xPos) - fabs(bricksLoc[i][1]) - 0.08 - moveSpeed <= 0)
-                        {
-                            enemy[0].xPos = bricksLoc[i][1] - 0.08;
-                            continue;
-                        }
-                        if (fabs(bricksLoc[i][1]) - fabs(enemy[0].xPos) - 0.08 - 0.001 - moveSpeed > 0)
-                        {
-                            return;
-                        }
-                    }
-                }
-            }
-        }
-        enemy[0].xPos += moveSpeed;
+        if (enemy[0].xPos + 4 <= 92)  enemy[0].xPos += moveSpeed;
     }
 }
 
@@ -1574,294 +1547,83 @@ void check_block_entity_enemy_two(int flag)
 {
     if (flag == 1)
     {
-        for (int i = 0; i < NUM_OF_MINI_CEMENT_BLOCKS; i++)
-        {
-            if (cementLoc[i][0] == 0)
-            {
-                if (
-                    (enemy[1].yPos + 0.0001 + 0.05 >= cementLoc[i][2] - moveSpeed && enemy[1].yPos - 0.0001 <= cementLoc[i][2] + 0.03 - moveSpeed)
-                    &&
-                    (enemy[1].xPos + 0.04 >= cementLoc[i][1] - 0.0001 && enemy[1].xPos - 0.04 < cementLoc[i][1] + 0.0001 + 0.04)
-                    )
-                {
-                    if (enemy[1].yPos >= 0)
-                    {
-                        if (cementLoc[i][2] - enemy[1].yPos - 0.001 - moveSpeed - 0.07 <= 0)
-                        {
-                            enemy[1].yPos = cementLoc[i][2] - 0.08;
-                            continue;
-                        }
-                    }
+        int f = 0;
+        for (int i = enemy[1].yPos; i < enemy[1].yPos + 8; i += 1) {
 
-                    if (enemy[1].yPos < 0)
-                    {
-                        if (fabs(cementLoc[i][2]) - fabs(enemy[1].yPos) - 0.02 - 0.001 - moveSpeed <= 0)
-                        {
-                            enemy[1].yPos = cementLoc[i][2] - 0.08;
-                            continue;
-                        }
-                        if (fabs(cementLoc[i][2]) - fabs(enemy[1].yPos) - 0.001 - moveSpeed > 0)
-                        {
-                            return;
-                        }
-                    }
-                }
+
+            f = Enemy_Moving_Vertical(i, 1, flag);
+
+            if (f == 1) {
+                f = 0;
+                return;
             }
-        }
 
-        for (int i = 0; i < NUM_OF_MINI_BRICKS_BLOCKS; i++)
-        {
-            if (bricksLoc[i][0] == 1)
-            {
-                if (
-                    (enemy[1].yPos + 0.0001 + 0.05 >= bricksLoc[i][2] - moveSpeed && enemy[1].yPos - 0.0001 <= bricksLoc[i][2] + 0.03 - moveSpeed)
-                    &&
-                    (enemy[1].xPos + 0.04 >= bricksLoc[i][1] - 0.0001 && enemy[1].xPos - 0.04 < bricksLoc[i][1] + 0.0001 + 0.04)
-                    )
-                {
-                    if (enemy[1].yPos >= 0)
-                    {
-                        if (bricksLoc[i][2] - enemy[1].yPos - 0.001 - moveSpeed - 0.07 <= 0)
-                        {
-                            enemy[1].yPos = bricksLoc[i][2] - 0.08;
-                            continue;
-                        }
-                    }
+            if (f == 2) {
+                if (enemy[1].yPos + 4 <= 92)  enemy[1].yPos += 1;
+                f = 0;
 
-                    if (enemy[1].yPos < 0)
-                    {
-                        if (fabs(bricksLoc[i][2]) - fabs(enemy[1].yPos) - 0.02 - 0.001 - moveSpeed <= 0)
-                        {
-                            enemy[1].yPos = bricksLoc[i][2] - 0.08;
-                            continue;
-                        }
-                        if (fabs(bricksLoc[i][2]) - fabs(enemy[1].yPos) - 0.001 - moveSpeed > 0)
-                        {
-                            return;
-                        }
-                    }
-                }
+                return;
             }
+
         }
-        enemy[1].yPos += moveSpeed;
+        if (enemy[1].yPos + 4 <= 92)  enemy[1].yPos += moveSpeed;
     }
 
 
     if (flag == 2)
     {
-        for (int i = 0; i < NUM_OF_MINI_CEMENT_BLOCKS; i++)
+
+        int f = 0;
+        for (int i = enemy[1].yPos; i > enemy[1].yPos - 10; i -= 1)
         {
-            if (cementLoc[i][0] == 0)
+            f = Enemy_Moving_Vertical(i, 1, flag);
+            if (f == 1)
             {
-                if (
-                    (enemy[1].yPos - 0.0001 - 0.09 <= cementLoc[i][2] + moveSpeed && enemy[1].yPos + 0.0001 >= cementLoc[i][2])
-                    &&
-                    (enemy[1].xPos + 0.04 >= cementLoc[i][1] - 0.0001 && enemy[1].xPos - 0.04 <= cementLoc[i][1] + 0.04 + 0.0001)
-                    )
-                {
-                    if (enemy[1].yPos >= 0)
-                    {
-                        if (cementLoc[i][2] - enemy[1].yPos + 0.01 - 0.001 - moveSpeed <= 0)
-                        {
-                            enemy[1].yPos = cementLoc[i][2] + 0.12;
-                            continue;
-                        }
-                    }
-
-
-                    if (enemy[1].yPos <= 0)
-                    {
-                        if (fabs(enemy[1].yPos) - fabs(cementLoc[i][2]) + 0.01 - 0.001 - moveSpeed <= 0)
-                        {
-                            enemy[1].yPos = cementLoc[i][2] + 0.12;
-                            continue;
-                        }
-                        if (fabs(cementLoc[i][2]) - fabs(enemy[1].yPos) - 0.04 - 0.001 - moveSpeed > 0)
-                        {
-                            return;
-                        }
-                    }
-                }
+                f = 0;
+                return;
             }
-        }
 
-        for (int i = 0; i < NUM_OF_MINI_BRICKS_BLOCKS; i++)
-        {
-            if (bricksLoc[i][0] == 1)
-            {
-                if (
-                    (enemy[1].yPos - 0.0001 - 0.09 <= bricksLoc[i][2] + moveSpeed && enemy[1].yPos + 0.0001 >= bricksLoc[i][2])
-                    &&
-                    (enemy[1].xPos + 0.04 >= bricksLoc[i][1] - 0.0001 && enemy[1].xPos - 0.04 <= bricksLoc[i][1] + 0.04 + 0.0001)
-                    )
-                {
-                    if (enemy[1].yPos >= 0)
-                    {
-                        if (bricksLoc[i][2] - enemy[1].yPos + 0.01 - 0.001 - moveSpeed <= 0)
-                        {
-                            enemy[1].yPos = bricksLoc[i][2] + 0.12;
-                            continue;
-                        }
-                    }
-
-
-                    if (enemy[1].yPos <= 0)
-                    {
-                        if (fabs(enemy[1].yPos) - fabs(bricksLoc[i][2]) + 0.01 - 0.001 - moveSpeed <= 0)
-                        {
-                            enemy[1].yPos = bricksLoc[i][2] + 0.12;
-                            continue;
-                        }
-                        if (fabs(bricksLoc[i][2]) - fabs(enemy[1].yPos) - 0.04 - 0.001 - moveSpeed > 0)
-                        {
-                            return;
-                        }
-                    }
-                }
+            if (f == 2) {
+                if (enemy[1].yPos - 4 >= -92)  enemy[1].yPos -= 1;
+                f = 0;
+                return;
             }
+
+
         }
-        enemy[1].yPos -= moveSpeed;
+        if (enemy[1].yPos - 4 >= -92)  enemy[1].yPos -= moveSpeed;
     }
 
 
     if (flag == 3)
     {
-        for (int i = 0; i < NUM_OF_MINI_CEMENT_BLOCKS; i++)
+        int f = 0;
+        for (int i = enemy[1].xPos; i > enemy[1].xPos - 10; i -= 1)
         {
-            if (cementLoc[i][0] == 0)
+            f = Enemy_Moving_Horizontal(i, 1);
+            if (f == 1)
             {
-                if (
-                    (enemy[1].yPos + 0.04 >= cementLoc[i][2] - 0.0001 && enemy[1].yPos - 0.04 <= cementLoc[i][2] + 0.0001 + 0.04)
-                    &&
-                    (enemy[1].xPos - 0.0001 - 0.04 - moveSpeed - 0.02 <= cementLoc[i][1] + 0.04 && enemy[1].xPos + 0.0001 >= cementLoc[i][1])
-                    )
-                {
-
-                    if (enemy[1].xPos >= 0)
-                    {
-                        if (cementLoc[i][1] - 0.001 - enemy[1].xPos <= 0)
-                        {
-                            enemy[1].xPos = cementLoc[i][1] + 0.12;
-                        }
-
-                    }
-
-                    if (enemy[1].xPos < 0)
-                    {
-                        if (fabs(enemy[1].xPos) - fabs(cementLoc[i][1]) - 0.04 - 0.001 <= 0)
-                        {
-                            enemy[1].xPos = cementLoc[i][1] + 0.12;
-                        }
-
-                    }
-                }
+                f = 0;
+                return;
             }
         }
-
-        for (int i = 0; i < NUM_OF_MINI_BRICKS_BLOCKS; i++)
-        {
-            if (bricksLoc[i][0] == 1)
-            {
-                if (
-                    (enemy[1].yPos + 0.04 >= bricksLoc[i][2] - 0.0001 && enemy[1].yPos - 0.04 <= bricksLoc[i][2] + 0.0001 + 0.04)
-                    &&
-                    (enemy[1].xPos - 0.0001 - 0.04 - moveSpeed - 0.02 <= bricksLoc[i][1] + 0.04 && enemy[1].xPos + 0.0001 >= bricksLoc[i][1])
-                    )
-                {
-
-                    if (enemy[1].xPos >= 0)
-                    {
-                        if (bricksLoc[i][1] - 0.001 - enemy[1].xPos <= 0)
-                        {
-                            enemy[1].xPos = bricksLoc[i][1] + 0.12;
-                        }
-
-                    }
-
-                    if (enemy[1].xPos < 0)
-                    {
-                        if (fabs(enemy[1].xPos) - fabs(bricksLoc[i][1]) - 0.04 - 0.001 <= 0)
-                        {
-                            enemy[1].xPos = bricksLoc[i][1] + 0.12;
-                        }
-
-                    }
-                }
-            }
-        }
-        enemy[1].xPos -= moveSpeed;
+        if (enemy[1].xPos - 4 >= -92)  enemy[1].xPos -= moveSpeed;
     }
 
     if (flag == 4)
     {
-        for (int i = 0; i < NUM_OF_MINI_CEMENT_BLOCKS; i++)
+        int f = 0;
+        for (int i = enemy[1].xPos; i < enemy[1].xPos + 7; i += 1)
         {
-            if (cementLoc[i][0] == 0)
-            {
-                if (
-                    (enemy[1].yPos + 0.04 >= cementLoc[i][2] - 0.0001 && enemy[1].yPos - 0.04 <= cementLoc[i][2] + 0.0001 + 0.04)
-                    &&
-                    (enemy[1].xPos + 0.0001 + 0.05 + moveSpeed >= cementLoc[i][1] && enemy[1].xPos - 0.0001 <= cementLoc[i][1])
-                    )
-                {
-                    if (enemy[1].xPos >= 0)
-                    {
-                        if (cementLoc[i][1] - enemy[1].xPos - 0.08 - 0.001 - moveSpeed <= 0)
-                        {
-                            enemy[1].xPos = cementLoc[i][1] - 0.08;
 
-                        }
-                    }
-                    if (enemy[1].xPos <= 0)
-                    {
-                        if (fabs(enemy[1].xPos) - fabs(cementLoc[i][1]) - 0.08 - moveSpeed <= 0)
-                        {
-                            enemy[1].xPos = cementLoc[i][1] - 0.08;
-                            continue;
-                        }
-                        if (fabs(cementLoc[i][1]) - fabs(enemy[1].xPos) - 0.08 - 0.001 - moveSpeed > 0)
-                        {
-                            return;
-                        }
-                    }
-                }
+            f = Enemy_Moving_Horizontal(i, 1);
+            if (f == 1)
+            {
+                f = 0;
+                return;
             }
         }
-
-        for (int i = 0; i < NUM_OF_MINI_BRICKS_BLOCKS; i++)
-        {
-            if (bricksLoc[i][0] == 1)
-            {
-                if (
-                    (enemy[1].yPos + 0.04 >= bricksLoc[i][2] - 0.0001 && enemy[1].yPos - 0.04 <= bricksLoc[i][2] + 0.0001 + 0.04)
-                    &&
-                    (enemy[1].xPos + 0.0001 + 0.05 + moveSpeed >= bricksLoc[i][1] && enemy[1].xPos - 0.0001 <= bricksLoc[i][1])
-                    )
-                {
-                    if (enemy[1].xPos >= 0)
-                    {
-                        if (bricksLoc[i][1] - enemy[1].xPos - 0.08 - 0.001 - moveSpeed <= 0)
-                        {
-                            enemy[1].xPos = bricksLoc[i][1] - 0.08;
-
-                        }
-                    }
-                    if (enemy[1].xPos <= 0)
-                    {
-                        if (fabs(enemy[1].xPos) - fabs(bricksLoc[i][1]) - 0.08 - moveSpeed <= 0)
-                        {
-                            enemy[1].xPos = bricksLoc[i][1] - 0.08;
-                            continue;
-                        }
-                        if (fabs(bricksLoc[i][1]) - fabs(enemy[1].xPos) - 0.08 - 0.001 - moveSpeed > 0)
-                        {
-                            return;
-                        }
-                    }
-                }
-            }
-        }
-        enemy[1].xPos += moveSpeed;
+        if (enemy[1].xPos + 4 <= 92)  enemy[1].xPos += moveSpeed;
     }
 }
 
@@ -1869,294 +1631,83 @@ void check_block_entity_enemy_three(int flag)
 {
     if (flag == 1)
     {
-        for (int i = 0; i < NUM_OF_MINI_CEMENT_BLOCKS; i++)
-        {
-            if (cementLoc[i][0] == 0)
-            {
-                if (
-                    (enemy[2].yPos + 0.0001 + 0.05 >= cementLoc[i][2] - moveSpeed && enemy[2].yPos - 0.0001 <= cementLoc[i][2] + 0.03 - moveSpeed)
-                    &&
-                    (enemy[2].xPos + 0.04 >= cementLoc[i][1] - 0.0001 && enemy[2].xPos - 0.04 < cementLoc[i][1] + 0.0001 + 0.04)
-                    )
-                {
-                    if (enemy[2].yPos >= 0)
-                    {
-                        if (cementLoc[i][2] - enemy[2].yPos - 0.001 - moveSpeed - 0.07 <= 0)
-                        {
-                            enemy[2].yPos = cementLoc[i][2] - 0.08;
-                            continue;
-                        }
-                    }
+        int f = 0;
+        for (int i = enemy[2].yPos; i < enemy[2].yPos + 8; i += 1) {
 
-                    if (enemy[2].yPos < 0)
-                    {
-                        if (fabs(cementLoc[i][2]) - fabs(enemy[2].yPos) - 0.02 - 0.001 - moveSpeed <= 0)
-                        {
-                            enemy[2].yPos = cementLoc[i][2] - 0.08;
-                            continue;
-                        }
-                        if (fabs(cementLoc[i][2]) - fabs(enemy[2].yPos) - 0.001 - moveSpeed > 0)
-                        {
-                            return;
-                        }
-                    }
-                }
+
+            f = Enemy_Moving_Vertical(i, 2, flag);
+
+            if (f == 1) {
+                f = 0;
+                return;
             }
-        }
 
-        for (int i = 0; i < NUM_OF_MINI_BRICKS_BLOCKS; i++)
-        {
-            if (bricksLoc[i][0] == 1)
-            {
-                if (
-                    (enemy[2].yPos + 0.0001 + 0.05 >= bricksLoc[i][2] - moveSpeed && enemy[2].yPos - 0.0001 <= bricksLoc[i][2] + 0.03 - moveSpeed)
-                    &&
-                    (enemy[2].xPos + 0.04 >= bricksLoc[i][1] - 0.0001 && enemy[2].xPos - 0.04 < bricksLoc[i][1] + 0.0001 + 0.04)
-                    )
-                {
-                    if (enemy[2].yPos >= 0)
-                    {
-                        if (bricksLoc[i][2] - enemy[2].yPos - 0.001 - moveSpeed - 0.07 <= 0)
-                        {
-                            enemy[2].yPos = bricksLoc[i][2] - 0.08;
-                            continue;
-                        }
-                    }
+            if (f == 2) {
+                if (enemy[2].yPos + 4 <= 92)  enemy[2].yPos += 1;
+                f = 0;
 
-                    if (enemy[2].yPos < 0)
-                    {
-                        if (fabs(bricksLoc[i][2]) - fabs(enemy[2].yPos) - 0.02 - 0.001 - moveSpeed <= 0)
-                        {
-                            enemy[2].yPos = bricksLoc[i][2] - 0.08;
-                            continue;
-                        }
-                        if (fabs(bricksLoc[i][2]) - fabs(enemy[2].yPos) - 0.001 - moveSpeed > 0)
-                        {
-                            return;
-                        }
-                    }
-                }
+                return;
             }
+
         }
-        enemy[2].yPos += moveSpeed;
+        if (enemy[2].yPos + 4 <= 92)  enemy[2].yPos += moveSpeed;
     }
 
 
     if (flag == 2)
     {
-        for (int i = 0; i < NUM_OF_MINI_CEMENT_BLOCKS; i++)
+
+        int f = 0;
+        for (int i = enemy[2].yPos; i > enemy[2].yPos - 10; i -= 1)
         {
-            if (cementLoc[i][0] == 0)
+            f = Enemy_Moving_Vertical(i, 2, flag);
+            if (f == 1)
             {
-                if (
-                    (enemy[2].yPos - 0.0001 - 0.09 <= cementLoc[i][2] + moveSpeed && enemy[2].yPos + 0.0001 >= cementLoc[i][2])
-                    &&
-                    (enemy[2].xPos + 0.04 >= cementLoc[i][1] - 0.0001 && enemy[2].xPos - 0.04 <= cementLoc[i][1] + 0.04 + 0.0001)
-                    )
-                {
-                    if (enemy[2].yPos >= 0)
-                    {
-                        if (cementLoc[i][2] - enemy[2].yPos + 0.01 - 0.001 - moveSpeed <= 0)
-                        {
-                            enemy[2].yPos = cementLoc[i][2] + 0.12;
-                            continue;
-                        }
-                    }
-
-
-                    if (enemy[2].yPos <= 0)
-                    {
-                        if (fabs(enemy[2].yPos) - fabs(cementLoc[i][2]) + 0.01 - 0.001 - moveSpeed <= 0)
-                        {
-                            enemy[2].yPos = cementLoc[i][2] + 0.12;
-                            continue;
-                        }
-                        if (fabs(cementLoc[i][2]) - fabs(enemy[2].yPos) - 0.04 - 0.001 - moveSpeed > 0)
-                        {
-                            return;
-                        }
-                    }
-                }
+                f = 0;
+                return;
             }
-        }
 
-        for (int i = 0; i < NUM_OF_MINI_BRICKS_BLOCKS; i++)
-        {
-            if (bricksLoc[i][0] == 1)
-            {
-                if (
-                    (enemy[2].yPos - 0.0001 - 0.09 <= bricksLoc[i][2] + moveSpeed && enemy[2].yPos + 0.0001 >= bricksLoc[i][2])
-                    &&
-                    (enemy[2].xPos + 0.04 >= bricksLoc[i][1] - 0.0001 && enemy[2].xPos - 0.04 <= bricksLoc[i][1] + 0.04 + 0.0001)
-                    )
-                {
-                    if (enemy[2].yPos >= 0)
-                    {
-                        if (bricksLoc[i][2] - enemy[2].yPos + 0.01 - 0.001 - moveSpeed <= 0)
-                        {
-                            enemy[2].yPos = bricksLoc[i][2] + 0.12;
-                            continue;
-                        }
-                    }
-
-
-                    if (enemy[2].yPos <= 0)
-                    {
-                        if (fabs(enemy[2].yPos) - fabs(bricksLoc[i][2]) + 0.01 - 0.001 - moveSpeed <= 0)
-                        {
-                            enemy[2].yPos = bricksLoc[i][2] + 0.12;
-                            continue;
-                        }
-                        if (fabs(bricksLoc[i][2]) - fabs(enemy[2].yPos) - 0.04 - 0.001 - moveSpeed > 0)
-                        {
-                            return;
-                        }
-                    }
-                }
+            if (f == 2) {
+                if (enemy[2].yPos - 4 >= -92)  enemy[2].yPos -= 1;
+                f = 0;
+                return;
             }
+
+
         }
-        enemy[2].yPos -= moveSpeed;
+        if (enemy[2].yPos - 4 >= -92)  enemy[2].yPos -= moveSpeed;
     }
 
 
     if (flag == 3)
     {
-        for (int i = 0; i < NUM_OF_MINI_CEMENT_BLOCKS; i++)
+        int f = 0;
+        for (int i = enemy[2].xPos; i > enemy[2].xPos - 10; i -= 1)
         {
-            if (cementLoc[i][0] == 0)
+            f = Enemy_Moving_Horizontal(i, 2);
+            if (f == 1)
             {
-                if (
-                    (enemy[2].yPos + 0.04 >= cementLoc[i][2] - 0.0001 && enemy[2].yPos - 0.04 <= cementLoc[i][2] + 0.0001 + 0.04)
-                    &&
-                    (enemy[2].xPos - 0.0001 - 0.04 - moveSpeed - 0.02 <= cementLoc[i][1] + 0.04 && enemy[2].xPos + 0.0001 >= cementLoc[i][1])
-                    )
-                {
-
-                    if (enemy[2].xPos >= 0)
-                    {
-                        if (cementLoc[i][1] - 0.001 - enemy[2].xPos <= 0)
-                        {
-                            enemy[2].xPos = cementLoc[i][1] + 0.12;
-                        }
-
-                    }
-
-                    if (enemy[2].xPos < 0)
-                    {
-                        if (fabs(enemy[2].xPos) - fabs(cementLoc[i][1]) - 0.04 - 0.001 <= 0)
-                        {
-                            enemy[2].xPos = cementLoc[i][1] + 0.12;
-                        }
-
-                    }
-                }
+                f = 0;
+                return;
             }
         }
-
-        for (int i = 0; i < NUM_OF_MINI_BRICKS_BLOCKS; i++)
-        {
-            if (bricksLoc[i][0] == 1)
-            {
-                if (
-                    (enemy[2].yPos + 0.04 >= bricksLoc[i][2] - 0.0001 && enemy[2].yPos - 0.04 <= bricksLoc[i][2] + 0.0001 + 0.04)
-                    &&
-                    (enemy[2].xPos - 0.0001 - 0.04 - moveSpeed - 0.02 <= bricksLoc[i][1] + 0.04 && enemy[2].xPos + 0.0001 >= bricksLoc[i][1])
-                    )
-                {
-
-                    if (enemy[2].xPos >= 0)
-                    {
-                        if (bricksLoc[i][1] - 0.001 - enemy[2].xPos <= 0)
-                        {
-                            enemy[2].xPos = bricksLoc[i][1] + 0.12;
-                        }
-
-                    }
-
-                    if (enemy[2].xPos < 0)
-                    {
-                        if (fabs(enemy[2].xPos) - fabs(bricksLoc[i][1]) - 0.04 - 0.001 <= 0)
-                        {
-                            enemy[2].xPos = bricksLoc[i][1] + 0.12;
-                        }
-
-                    }
-                }
-            }
-        }
-        enemy[2].xPos -= moveSpeed;
+        if (enemy[2].xPos - 4 >= -92)  enemy[2].xPos -= moveSpeed;
     }
 
     if (flag == 4)
     {
-        for (int i = 0; i < NUM_OF_MINI_CEMENT_BLOCKS; i++)
+        int f = 0;
+        for (int i = enemy[2].xPos; i < enemy[2].xPos + 7; i += 1)
         {
-            if (cementLoc[i][0] == 0)
-            {
-                if (
-                    (enemy[2].yPos + 0.04 >= cementLoc[i][2] - 0.0001 && enemy[2].yPos - 0.04 <= cementLoc[i][2] + 0.0001 + 0.04)
-                    &&
-                    (enemy[2].xPos + 0.0001 + 0.05 + moveSpeed >= cementLoc[i][1] && enemy[2].xPos - 0.0001 <= cementLoc[i][1])
-                    )
-                {
-                    if (enemy[2].xPos >= 0)
-                    {
-                        if (cementLoc[i][1] - enemy[2].xPos - 0.08 - 0.001 - moveSpeed <= 0)
-                        {
-                            enemy[2].xPos = cementLoc[i][1] - 0.08;
 
-                        }
-                    }
-                    if (enemy[2].xPos <= 0)
-                    {
-                        if (fabs(enemy[2].xPos) - fabs(cementLoc[i][1]) - 0.08 - moveSpeed <= 0)
-                        {
-                            enemy[2].xPos = cementLoc[i][1] - 0.08;
-                            continue;
-                        }
-                        if (fabs(cementLoc[i][1]) - fabs(enemy[2].xPos) - 0.08 - 0.001 - moveSpeed > 0)
-                        {
-                            return;
-                        }
-                    }
-                }
+            f = Enemy_Moving_Horizontal(i, 2);
+            if (f == 1)
+            {
+                f = 0;
+                return;
             }
         }
-
-        for (int i = 0; i < NUM_OF_MINI_BRICKS_BLOCKS; i++)
-        {
-            if (bricksLoc[i][0] == 1)
-            {
-                if (
-                    (enemy[2].yPos + 0.04 >= bricksLoc[i][2] - 0.0001 && enemy[2].yPos - 0.04 <= bricksLoc[i][2] + 0.0001 + 0.04)
-                    &&
-                    (enemy[2].xPos + 0.0001 + 0.05 + moveSpeed >= bricksLoc[i][1] && enemy[2].xPos - 0.0001 <= bricksLoc[i][1])
-                    )
-                {
-                    if (enemy[2].xPos >= 0)
-                    {
-                        if (bricksLoc[i][1] - enemy[2].xPos - 0.08 - 0.001 - moveSpeed <= 0)
-                        {
-                            enemy[2].xPos = bricksLoc[i][1] - 0.08;
-
-                        }
-                    }
-                    if (enemy[2].xPos <= 0)
-                    {
-                        if (fabs(enemy[2].xPos) - fabs(bricksLoc[i][1]) - 0.08 - moveSpeed <= 0)
-                        {
-                            enemy[2].xPos = bricksLoc[i][1] - 0.08;
-                            continue;
-                        }
-                        if (fabs(bricksLoc[i][1]) - fabs(enemy[2].xPos) - 0.08 - 0.001 - moveSpeed > 0)
-                        {
-                            return;
-                        }
-                    }
-                }
-            }
-        }
-        enemy[2].xPos += moveSpeed;
+        if (enemy[2].xPos + 4 <= 92)  enemy[2].xPos += moveSpeed;
     }
 }
 
@@ -2164,301 +1715,90 @@ void check_block_entity_enemy_four(int flag)
 {
     if (flag == 1)
     {
-        for (int i = 0; i < NUM_OF_MINI_CEMENT_BLOCKS; i++)
-        {
-            if (cementLoc[i][0] == 0)
-            {
-                if (
-                    (enemy[3].yPos + 0.0001 + 0.05 >= cementLoc[i][2] - moveSpeed && enemy[3].yPos - 0.0001 <= cementLoc[i][2] + 0.03 - moveSpeed)
-                    &&
-                    (enemy[3].xPos + 0.04 >= cementLoc[i][1] - 0.0001 && enemy[3].xPos - 0.04 < cementLoc[i][1] + 0.0001 + 0.04)
-                    )
-                {
-                    if (enemy[3].yPos >= 0)
-                    {
-                        if (cementLoc[i][2] - enemy[3].yPos - 0.001 - moveSpeed - 0.07 <= 0)
-                        {
-                            enemy[3].yPos = cementLoc[i][2] - 0.08;
-                            continue;
-                        }
-                    }
+        int f = 0;
+        for (int i = enemy[3].yPos; i < enemy[3].yPos + 8; i += 1) {
 
-                    if (enemy[3].yPos < 0)
-                    {
-                        if (fabs(cementLoc[i][2]) - fabs(enemy[3].yPos) - 0.02 - 0.001 - moveSpeed <= 0)
-                        {
-                            enemy[3].yPos = cementLoc[i][2] - 0.08;
-                            continue;
-                        }
-                        if (fabs(cementLoc[i][2]) - fabs(enemy[3].yPos) - 0.001 - moveSpeed > 0)
-                        {
-                            return;
-                        }
-                    }
-                }
+
+            f = Enemy_Moving_Vertical(i, 3, flag);
+
+            if (f == 1) {
+                f = 0;
+                return;
             }
-        }
 
-        for (int i = 0; i < NUM_OF_MINI_BRICKS_BLOCKS; i++)
-        {
-            if (bricksLoc[i][0] == 1)
-            {
-                if (
-                    (enemy[3].yPos + 0.0001 + 0.05 >= bricksLoc[i][2] - moveSpeed && enemy[3].yPos - 0.0001 <= bricksLoc[i][2] + 0.03 - moveSpeed)
-                    &&
-                    (enemy[3].xPos + 0.04 >= bricksLoc[i][1] - 0.0001 && enemy[3].xPos - 0.04 < bricksLoc[i][1] + 0.0001 + 0.04)
-                    )
-                {
-                    if (enemy[3].yPos >= 0)
-                    {
-                        if (bricksLoc[i][2] - enemy[3].yPos - 0.001 - moveSpeed - 0.07 <= 0)
-                        {
-                            enemy[3].yPos = bricksLoc[i][2] - 0.08;
-                            continue;
-                        }
-                    }
+            if (f == 2) {
+                if (enemy[3].yPos + 4 <= 92)  enemy[3].yPos += 1;
+                f = 0;
 
-                    if (enemy[3].yPos < 0)
-                    {
-                        if (fabs(bricksLoc[i][2]) - fabs(enemy[3].yPos) - 0.02 - 0.001 - moveSpeed <= 0)
-                        {
-                            enemy[3].yPos = bricksLoc[i][2] - 0.08;
-                            continue;
-                        }
-                        if (fabs(bricksLoc[i][2]) - fabs(enemy[3].yPos) - 0.001 - moveSpeed > 0)
-                        {
-                            return;
-                        }
-                    }
-                }
+                return;
             }
+
         }
-        enemy[3].yPos += moveSpeed;
+        if (enemy[3].yPos + 4 <= 92)  enemy[3].yPos += moveSpeed;
     }
 
 
     if (flag == 2)
     {
-        for (int i = 0; i < NUM_OF_MINI_CEMENT_BLOCKS; i++)
+
+        int f = 0;
+        for (int i = enemy[3].yPos; i > enemy[3].yPos - 10; i -= 1)
         {
-            if (cementLoc[i][0] == 0)
+            f = Enemy_Moving_Vertical(i, 3, flag);
+            if (f == 1)
             {
-                if (
-                    (enemy[3].yPos - 0.0001 - 0.09 <= cementLoc[i][2] + moveSpeed && enemy[3].yPos + 0.0001 >= cementLoc[i][2])
-                    &&
-                    (enemy[3].xPos + 0.04 >= cementLoc[i][1] - 0.0001 && enemy[3].xPos - 0.04 <= cementLoc[i][1] + 0.04 + 0.0001)
-                    )
-                {
-                    if (enemy[3].yPos >= 0)
-                    {
-                        if (cementLoc[i][2] - enemy[3].yPos + 0.01 - 0.001 - moveSpeed <= 0)
-                        {
-                            enemy[3].yPos = cementLoc[i][2] + 0.12;
-                            continue;
-                        }
-                    }
-
-
-                    if (enemy[3].yPos <= 0)
-                    {
-                        if (fabs(enemy[3].yPos) - fabs(cementLoc[i][2]) + 0.01 - 0.001 - moveSpeed <= 0)
-                        {
-                            enemy[3].yPos = cementLoc[i][2] + 0.12;
-                            continue;
-                        }
-                        if (fabs(cementLoc[i][2]) - fabs(enemy[3].yPos) - 0.04 - 0.001 - moveSpeed > 0)
-                        {
-                            return;
-                        }
-                    }
-                }
+                f = 0;
+                return;
             }
-        }
 
-        for (int i = 0; i < NUM_OF_MINI_BRICKS_BLOCKS; i++)
-        {
-            if (bricksLoc[i][0] == 1)
-            {
-                if (
-                    (enemy[3].yPos - 0.0001 - 0.09 <= bricksLoc[i][2] + moveSpeed && enemy[3].yPos + 0.0001 >= bricksLoc[i][2])
-                    &&
-                    (enemy[3].xPos + 0.04 >= bricksLoc[i][1] - 0.0001 && enemy[3].xPos - 0.04 <= bricksLoc[i][1] + 0.04 + 0.0001)
-                    )
-                {
-                    if (enemy[3].yPos >= 0)
-                    {
-                        if (bricksLoc[i][2] - enemy[3].yPos + 0.01 - 0.001 - moveSpeed <= 0)
-                        {
-                            enemy[3].yPos = bricksLoc[i][2] + 0.12;
-                            continue;
-                        }
-                    }
-
-
-                    if (enemy[3].yPos <= 0)
-                    {
-                        if (fabs(enemy[3].yPos) - fabs(bricksLoc[i][2]) + 0.01 - 0.001 - moveSpeed <= 0)
-                        {
-                            enemy[3].yPos = bricksLoc[i][2] + 0.12;
-                            continue;
-                        }
-                        if (fabs(bricksLoc[i][2]) - fabs(enemy[3].yPos) - 0.04 - 0.001 - moveSpeed > 0)
-                        {
-                            return;
-                        }
-                    }
-                }
+            if (f == 2) {
+                if (enemy[3].yPos - 4 >= -92)  enemy[3].yPos -= 1;
+                f = 0;
+                return;
             }
+
+
         }
-        enemy[3].yPos -= moveSpeed;
+        if (enemy[3].yPos - 4 >= -92)  enemy[3].yPos -= moveSpeed;
     }
 
 
     if (flag == 3)
     {
-        for (int i = 0; i < NUM_OF_MINI_CEMENT_BLOCKS; i++)
+        int f = 0;
+        for (int i = enemy[3].xPos; i > enemy[3].xPos - 10; i -= 1)
         {
-            if (cementLoc[i][0] == 0)
+            f = Enemy_Moving_Horizontal(i, 3);
+            if (f == 1)
             {
-                if (
-                    (enemy[3].yPos + 0.04 >= cementLoc[i][2] - 0.0001 && enemy[3].yPos - 0.04 <= cementLoc[i][2] + 0.0001 + 0.04)
-                    &&
-                    (enemy[3].xPos - 0.0001 - 0.04 - moveSpeed - 0.02 <= cementLoc[i][1] + 0.04 && enemy[3].xPos + 0.0001 >= cementLoc[i][1])
-                    )
-                {
-
-                    if (enemy[3].xPos >= 0)
-                    {
-                        if (cementLoc[i][1] - 0.001 - enemy[3].xPos <= 0)
-                        {
-                            enemy[3].xPos = cementLoc[i][1] + 0.12;
-                        }
-
-                    }
-
-                    if (enemy[3].xPos < 0)
-                    {
-                        if (fabs(enemy[3].xPos) - fabs(cementLoc[i][1]) - 0.04 - 0.001 <= 0)
-                        {
-                            enemy[3].xPos = cementLoc[i][1] + 0.12;
-                        }
-
-                    }
-                }
+                f = 0;
+                return;
             }
         }
-
-        for (int i = 0; i < NUM_OF_MINI_BRICKS_BLOCKS; i++)
-        {
-            if (bricksLoc[i][0] == 1)
-            {
-                if (
-                    (enemy[3].yPos + 0.04 >= bricksLoc[i][2] - 0.0001 && enemy[3].yPos - 0.04 <= bricksLoc[i][2] + 0.0001 + 0.04)
-                    &&
-                    (enemy[3].xPos - 0.0001 - 0.04 - moveSpeed - 0.02 <= bricksLoc[i][1] + 0.04 && enemy[3].xPos + 0.0001 >= bricksLoc[i][1])
-                    )
-                {
-
-                    if (enemy[3].xPos >= 0)
-                    {
-                        if (bricksLoc[i][1] - 0.001 - enemy[3].xPos <= 0)
-                        {
-                            enemy[3].xPos = bricksLoc[i][1] + 0.12;
-                        }
-
-                    }
-
-                    if (enemy[3].xPos < 0)
-                    {
-                        if (fabs(enemy[3].xPos) - fabs(bricksLoc[i][1]) - 0.04 - 0.001 <= 0)
-                        {
-                            enemy[3].xPos = bricksLoc[i][1] + 0.12;
-                        }
-
-                    }
-                }
-            }
-        }
-        enemy[3].xPos -= moveSpeed;
+        if (enemy[3].xPos - 4 >= -92)  enemy[3].xPos -= moveSpeed;
     }
 
     if (flag == 4)
     {
-        for (int i = 0; i < NUM_OF_MINI_CEMENT_BLOCKS; i++)
+        int f = 0;
+        for (int i = enemy[3].xPos; i < enemy[3].xPos + 7; i += 1)
         {
-            if (cementLoc[i][0] == 0)
-            {
-                if (
-                    (enemy[3].yPos + 0.04 >= cementLoc[i][2] - 0.0001 && enemy[3].yPos - 0.04 <= cementLoc[i][2] + 0.0001 + 0.04)
-                    &&
-                    (enemy[3].xPos + 0.0001 + 0.05 + moveSpeed >= cementLoc[i][1] && enemy[3].xPos - 0.0001 <= cementLoc[i][1])
-                    )
-                {
-                    if (enemy[3].xPos >= 0)
-                    {
-                        if (cementLoc[i][1] - enemy[3].xPos - 0.08 - 0.001 - moveSpeed <= 0)
-                        {
-                            enemy[3].xPos = cementLoc[i][1] - 0.08;
 
-                        }
-                    }
-                    if (enemy[3].xPos <= 0)
-                    {
-                        if (fabs(enemy[3].xPos) - fabs(cementLoc[i][1]) - 0.08 - moveSpeed <= 0)
-                        {
-                            enemy[3].xPos = cementLoc[i][1] - 0.08;
-                            continue;
-                        }
-                        if (fabs(cementLoc[i][1]) - fabs(enemy[3].xPos) - 0.08 - 0.001 - moveSpeed > 0)
-                        {
-                            return;
-                        }
-                    }
-                }
+            f = Enemy_Moving_Horizontal(i, 3);
+            if (f == 1)
+            {
+                f = 0;
+                return;
             }
         }
-
-        for (int i = 0; i < NUM_OF_MINI_BRICKS_BLOCKS; i++)
-        {
-            if (bricksLoc[i][0] == 1)
-            {
-                if (
-                    (enemy[3].yPos + 0.04 >= bricksLoc[i][2] - 0.0001 && enemy[3].yPos - 0.04 <= bricksLoc[i][2] + 0.0001 + 0.04)
-                    &&
-                    (enemy[3].xPos + 0.0001 + 0.05 + moveSpeed >= bricksLoc[i][1] && enemy[3].xPos - 0.0001 <= bricksLoc[i][1])
-                    )
-                {
-                    if (enemy[3].xPos >= 0)
-                    {
-                        if (bricksLoc[i][1] - enemy[3].xPos - 0.08 - 0.001 - moveSpeed <= 0)
-                        {
-                            enemy[3].xPos = bricksLoc[i][1] - 0.08;
-
-                        }
-                    }
-                    if (enemy[3].xPos <= 0)
-                    {
-                        if (fabs(enemy[3].xPos) - fabs(bricksLoc[i][1]) - 0.08 - moveSpeed <= 0)
-                        {
-                            enemy[3].xPos = bricksLoc[i][1] - 0.08;
-                            continue;
-                        }
-                        if (fabs(bricksLoc[i][1]) - fabs(enemy[3].xPos) - 0.08 - 0.001 - moveSpeed > 0)
-                        {
-                            return;
-                        }
-                    }
-                }
-            }
-        }
-        enemy[3].xPos += moveSpeed;
+        if (enemy[3].xPos + 4 <= 92)  enemy[3].xPos += moveSpeed;
     }
 }
 
 void draw_bullet_effects_for_global_tank()
 {
-    double anim_x;
-    double anim_y;
+    int anim_x;
+    int anim_y;
 
     if (you.bulletSet.time_anim == 0)
     {
@@ -2491,7 +1831,7 @@ void draw_bullet_effects_for_global_tank()
         glBegin(GL_POINTS);
         for (int i = 0; i < 30; ++i) {
             float angle = 2 * 3.14159516 * rand() / RAND_MAX;
-            float radius = 0.05 * rand() / RAND_MAX;
+            int radius = 5 * rand() / RAND_MAX;
             glVertex2f(anim_x + radius * cos(angle), anim_y + radius * sin(angle));
         }
         you.bulletSet.time_anim += 1;
@@ -2509,16 +1849,16 @@ void draw_bullet_global()
 {
     if (you.bulletSet.live == 1)
     {
-        if (you.bulletSet.dx < 0.92 && you.bulletSet.dx > -0.92 && you.bulletSet.dy < 0.92 && you.bulletSet.dy > -0.92)
+        if (you.bulletSet.dx < 92 && you.bulletSet.dx > -92 && you.bulletSet.dy < 92 && you.bulletSet.dy > -92)
         {
             for (int i = 0; i < NUM_OF_MINI_BRICKS_BLOCKS; i++)
             {
                 if (bricksLoc[i][0] == 1)
                 {
                     if (
-                        (bricksLoc[i][2] - 0.001 <= you.bulletSet.dy && bricksLoc[i][2] + 0.055 >= you.bulletSet.dy)
+                        (bricksLoc[i][2] <= you.bulletSet.dy && bricksLoc[i][2] + 4 >= you.bulletSet.dy)
                         &&
-                        (bricksLoc[i][1] - 0.001 - 0.015 <= you.bulletSet.dx && bricksLoc[i][1] + 0.055 >= you.bulletSet.dx)
+                        (bricksLoc[i][1] <= you.bulletSet.dx && bricksLoc[i][1] + 4 >= you.bulletSet.dx)
                         )
                     {
                         you.bulletSet.anim_bool = 1;
@@ -2537,9 +1877,9 @@ void draw_bullet_global()
                 if (cementLoc[i][0] == 0)
                 {
                     if (
-                        (cementLoc[i][2] - 0.001 <= you.bulletSet.dy && cementLoc[i][2] + 0.055 >= you.bulletSet.dy)
+                        (cementLoc[i][2] <= you.bulletSet.dy && cementLoc[i][2] + 4 >= you.bulletSet.dy)
                         &&
-                        (cementLoc[i][1] - 0.001 - 0.015 <= you.bulletSet.dx && cementLoc[i][1] + 0.055 >= you.bulletSet.dx)
+                        (cementLoc[i][1] <= you.bulletSet.dx && cementLoc[i][1] + 4 >= you.bulletSet.dx)
                         )
                     {
                         you.bulletSet.anim_bool = 1;
@@ -2556,96 +1896,96 @@ void draw_bullet_global()
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
 
-                glVertex2d(you.bulletSet.dx - 0.004, you.bulletSet.dy);
-                glVertex2d(you.bulletSet.dx + 0.004, you.bulletSet.dy);
+                glVertex2d(you.bulletSet.dx - 0.4, you.bulletSet.dy);
+                glVertex2d(you.bulletSet.dx + 0.4, you.bulletSet.dy);
 
-                glVertex2d(you.bulletSet.dx - 0.004, you.bulletSet.dy + 0.01);
-                glVertex2d(you.bulletSet.dx + 0.004, you.bulletSet.dy + 0.01);
+                glVertex2d(you.bulletSet.dx - 0.4, you.bulletSet.dy + 1);
+                glVertex2d(you.bulletSet.dx + 0.4, you.bulletSet.dy + 1);
 
-                glVertex2d(you.bulletSet.dx, you.bulletSet.dy + 0.015);
-                glVertex2d(you.bulletSet.dx, you.bulletSet.dy + 0.015);
+                glVertex2d(you.bulletSet.dx, you.bulletSet.dy + 1.5);
+                glVertex2d(you.bulletSet.dx, you.bulletSet.dy + 1.5);
 
 
 
                 glEnd();
-                you.bulletSet.dy += 0.01;
+                you.bulletSet.dy += 1;
             }
             if (you.bulletSet.angle_bull == 180.0)
             {
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
 
-                glVertex2d(you.bulletSet.dx - 0.004, you.bulletSet.dy);
-                glVertex2d(you.bulletSet.dx + 0.004, you.bulletSet.dy);
+                glVertex2d(you.bulletSet.dx - 0.4, you.bulletSet.dy);
+                glVertex2d(you.bulletSet.dx + 0.4, you.bulletSet.dy);
 
-                glVertex2d(you.bulletSet.dx - 0.004, you.bulletSet.dy - 0.01);
-                glVertex2d(you.bulletSet.dx + 0.004, you.bulletSet.dy - 0.01);
+                glVertex2d(you.bulletSet.dx - 0.4, you.bulletSet.dy - 1);
+                glVertex2d(you.bulletSet.dx + 0.4, you.bulletSet.dy - 1);
 
-                glVertex2d(you.bulletSet.dx, you.bulletSet.dy - 0.015);
-                glVertex2d(you.bulletSet.dx, you.bulletSet.dy - 0.015);
+                glVertex2d(you.bulletSet.dx, you.bulletSet.dy - 1.5);
+                glVertex2d(you.bulletSet.dx, you.bulletSet.dy - 1.5);
                 glEnd();
-                you.bulletSet.dy -= 0.01;
+                you.bulletSet.dy -= 1;
             }
             if (you.bulletSet.angle_bull == 270.0)
             {
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
 
-                glVertex2d(you.bulletSet.dx, you.bulletSet.dy - 0.004);
-                glVertex2d(you.bulletSet.dx, you.bulletSet.dy + 0.004);
+                glVertex2d(you.bulletSet.dx, you.bulletSet.dy - 0.4);
+                glVertex2d(you.bulletSet.dx, you.bulletSet.dy + 0.4);
 
-                glVertex2d(you.bulletSet.dx + 0.01, you.bulletSet.dy - 0.004);
-                glVertex2d(you.bulletSet.dx + 0.01, you.bulletSet.dy + 0.004);
+                glVertex2d(you.bulletSet.dx + 1, you.bulletSet.dy - 0.4);
+                glVertex2d(you.bulletSet.dx + 1, you.bulletSet.dy + 0.4);
 
-                glVertex2d(you.bulletSet.dx + 0.015, you.bulletSet.dy);
-                glVertex2d(you.bulletSet.dx + 0.015, you.bulletSet.dy);
+                glVertex2d(you.bulletSet.dx + 1.5, you.bulletSet.dy);
+                glVertex2d(you.bulletSet.dx + 1.5, you.bulletSet.dy);
                 glEnd();
 
-                you.bulletSet.dx += 0.01;
+                you.bulletSet.dx += 1;
             }
             if (you.bulletSet.angle_bull == 90.0)
             {
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
 
-                glVertex2d(you.bulletSet.dx, you.bulletSet.dy - 0.004);
-                glVertex2d(you.bulletSet.dx, you.bulletSet.dy + 0.004);
+                glVertex2d(you.bulletSet.dx, you.bulletSet.dy - 0.4);
+                glVertex2d(you.bulletSet.dx, you.bulletSet.dy + 0.4);
 
-                glVertex2d(you.bulletSet.dx - 0.01, you.bulletSet.dy - 0.004);
-                glVertex2d(you.bulletSet.dx - 0.01, you.bulletSet.dy + 0.004);
+                glVertex2d(you.bulletSet.dx - 1, you.bulletSet.dy - 0.4);
+                glVertex2d(you.bulletSet.dx - 1, you.bulletSet.dy + 0.4);
 
-                glVertex2d(you.bulletSet.dx - 0.015, you.bulletSet.dy);
-                glVertex2d(you.bulletSet.dx - 0.015, you.bulletSet.dy);
+                glVertex2d(you.bulletSet.dx - 1.5, you.bulletSet.dy);
+                glVertex2d(you.bulletSet.dx - 1.5, you.bulletSet.dy);
                 glEnd();
-                you.bulletSet.dx -= 0.01;
+                you.bulletSet.dx -= 1;
 
             }
-            if (you.bulletSet.dx <= enemy[0].xPos + 0.05 && you.bulletSet.dx >= enemy[0].xPos - 0.05 && enemy[0].live == 1)
-                if (you.bulletSet.dy <= enemy[0].yPos + 0.05 && you.bulletSet.dy >= enemy[0].yPos - 0.05 && enemy[0].live == 1)
+            if (you.bulletSet.dx <= enemy[0].xPos + 5 && you.bulletSet.dx >= enemy[0].xPos - 5 && enemy[0].live == 1)
+                if (you.bulletSet.dy <= enemy[0].yPos + 5 && you.bulletSet.dy >= enemy[0].yPos - 5 && enemy[0].live == 1)
                 {
                     enemy[0].live = 0;
                     you.bulletSet.anim_bool = 1;
                     you.bulletSet.live = 0;
                 }
 
-            if (you.bulletSet.dx <= enemy[1].xPos + 0.05 && you.bulletSet.dx >= enemy[1].xPos - 0.05 && enemy[1].live == 1)
-                if (you.bulletSet.dy <= enemy[1].yPos + 0.05 && you.bulletSet.dy >= enemy[1].yPos - 0.05 && enemy[1].live == 1)
+            if (you.bulletSet.dx <= enemy[1].xPos + 5 && you.bulletSet.dx >= enemy[1].xPos - 5 && enemy[1].live == 1)
+                if (you.bulletSet.dy <= enemy[1].yPos + 5 && you.bulletSet.dy >= enemy[1].yPos - 5 && enemy[1].live == 1)
                 {
                     enemy[1].live = 0;
                     you.bulletSet.anim_bool = 1;
                     you.bulletSet.live = 0;
                 }
 
-            if (you.bulletSet.dx <= enemy[2].xPos + 0.05 && you.bulletSet.dx >= enemy[2].xPos - 0.05 && enemy[2].live == 1)
-                if (you.bulletSet.dy <= enemy[2].yPos + 0.05 && you.bulletSet.dy >= enemy[2].yPos - 0.05 && enemy[2].live == 1)
+            if (you.bulletSet.dx <= enemy[2].xPos + 5 && you.bulletSet.dx >= enemy[2].xPos - 5 && enemy[2].live == 1)
+                if (you.bulletSet.dy <= enemy[2].yPos + 5 && you.bulletSet.dy >= enemy[2].yPos - 5 && enemy[2].live == 1)
                 {
                     enemy[2].live = 0;
                     you.bulletSet.anim_bool = 1;
                     you.bulletSet.live = 0;
                 }
 
-            if (you.bulletSet.dx <= enemy[3].xPos + 0.05 && you.bulletSet.dx >= enemy[3].xPos - 0.05 && enemy[3].live == 1)
-                if (you.bulletSet.dy <= enemy[3].yPos + 0.05 && you.bulletSet.dy >= enemy[3].yPos - 0.05 && enemy[3].live == 1)
+            if (you.bulletSet.dx <= enemy[3].xPos + 5 && you.bulletSet.dx >= enemy[3].xPos - 5 && enemy[3].live == 1)
+                if (you.bulletSet.dy <= enemy[3].yPos + 5 && you.bulletSet.dy >= enemy[3].yPos - 5 && enemy[3].live == 1)
                 {
                     enemy[3].live = 0;
                     you.bulletSet.anim_bool = 1;
@@ -2671,20 +2011,22 @@ void draw_bullet_enemy_one()
 {
     if (enemy[0].bulletSet.live == 1)
     {
-        if (enemy[0].bulletSet.dx < 0.92 && enemy[0].bulletSet.dx > -0.92 && enemy[0].bulletSet.dy < 0.92 && enemy[0].bulletSet.dy > -0.92)
+        if (enemy[0].bulletSet.dx < 92 && enemy[0].bulletSet.dx > -92 && enemy[0].bulletSet.dy < 92 && enemy[0].bulletSet.dy > -92)
         {
             for (int i = 0; i < NUM_OF_MINI_BRICKS_BLOCKS; i++)
             {
                 if (bricksLoc[i][0] == 1)
                 {
                     if (
-                        (bricksLoc[i][2] - 0.001 <= enemy[0].bulletSet.dy && bricksLoc[i][2] + 0.055 >= enemy[0].bulletSet.dy)
+                        (bricksLoc[i][2] <= enemy[0].bulletSet.dy && bricksLoc[i][2] + 4 >= enemy[0].bulletSet.dy)
                         &&
-                        (bricksLoc[i][1] - 0.001 - 0.015 <= enemy[0].bulletSet.dx && bricksLoc[i][1] + 0.055 >= enemy[0].bulletSet.dx)
+                        (bricksLoc[i][1] <= enemy[0].bulletSet.dx && bricksLoc[i][1] + 4 >= enemy[0].bulletSet.dx)
                         )
                     {
                         enemy[0].bulletSet.anim_bool = 1;
                         bricksLoc[i][0] = 0;
+                        Delete_Table_x(bricksLoc[i][1], bricksLoc[i][2]);
+                        Delete_Table_y(bricksLoc[i][2], bricksLoc[i][1]);
                         enemy[0].bulletSet.live = 0;
                         break;
                     }
@@ -2696,9 +2038,9 @@ void draw_bullet_enemy_one()
                 if (cementLoc[i][0] == 0)
                 {
                     if (
-                        (cementLoc[i][2] - 0.001 <= enemy[0].bulletSet.dy && cementLoc[i][2] + 0.055 >= enemy[0].bulletSet.dy)
+                        (cementLoc[i][2] <= enemy[0].bulletSet.dy && cementLoc[i][2] + 4 >= enemy[0].bulletSet.dy)
                         &&
-                        (cementLoc[i][1] - 0.001 - 0.015 <= enemy[0].bulletSet.dx && cementLoc[i][1] + 0.055 >= enemy[0].bulletSet.dx)
+                        (cementLoc[i][1]<= enemy[0].bulletSet.dx && cementLoc[i][1] + 4 >= enemy[0].bulletSet.dx)
                         )
                     {
                         enemy[0].bulletSet.anim_bool = 1;
@@ -2710,77 +2052,77 @@ void draw_bullet_enemy_one()
             }
 
             glColor3f(0.502f, 0.502f, 0.502f);
-            if (enemy[0].bulletSet.angle_bull == 0.0)
+            if (enemy[0].bulletSet.angle_bull == 0)
             {
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
 
-                glVertex2d(enemy[0].bulletSet.dx - 0.004, enemy[0].bulletSet.dy);
-                glVertex2d(enemy[0].bulletSet.dx + 0.004, enemy[0].bulletSet.dy);
+                glVertex2d(enemy[0].bulletSet.dx - 0.4, enemy[0].bulletSet.dy);
+                glVertex2d(enemy[0].bulletSet.dx + 0.4, enemy[0].bulletSet.dy);
 
-                glVertex2d(enemy[0].bulletSet.dx - 0.004, enemy[0].bulletSet.dy + 0.01);
-                glVertex2d(enemy[0].bulletSet.dx + 0.004, enemy[0].bulletSet.dy + 0.01);
+                glVertex2d(enemy[0].bulletSet.dx - 0.4, enemy[0].bulletSet.dy + 1);
+                glVertex2d(enemy[0].bulletSet.dx + 0.4, enemy[0].bulletSet.dy +1);
 
-                glVertex2d(enemy[0].bulletSet.dx, enemy[0].bulletSet.dy + 0.015);
-                glVertex2d(enemy[0].bulletSet.dx, enemy[0].bulletSet.dy + 0.015);
+                glVertex2d(enemy[0].bulletSet.dx, enemy[0].bulletSet.dy + 1.5);
+                glVertex2d(enemy[0].bulletSet.dx, enemy[0].bulletSet.dy + 1.5);
 
 
 
                 glEnd();
-                enemy[0].bulletSet.dy += 0.01;
+                enemy[0].bulletSet.dy += 1;
             }
-            if (enemy[0].bulletSet.angle_bull == 180.0)
+            if (enemy[0].bulletSet.angle_bull == 180)
             {
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
 
-                glVertex2d(enemy[0].bulletSet.dx - 0.004, enemy[0].bulletSet.dy);
-                glVertex2d(enemy[0].bulletSet.dx + 0.004, enemy[0].bulletSet.dy);
+                glVertex2f(enemy[0].bulletSet.dx - 0.4, enemy[0].bulletSet.dy);
+                glVertex2f(enemy[0].bulletSet.dx + 0.4, enemy[0].bulletSet.dy);
 
-                glVertex2d(enemy[0].bulletSet.dx - 0.004, enemy[0].bulletSet.dy - 0.01);
-                glVertex2d(enemy[0].bulletSet.dx + 0.004, enemy[0].bulletSet.dy - 0.01);
+                glVertex2f(enemy[0].bulletSet.dx - 0.4, enemy[0].bulletSet.dy - 1);
+                glVertex2f(enemy[0].bulletSet.dx + 0.4, enemy[0].bulletSet.dy - 1);
 
-                glVertex2d(enemy[0].bulletSet.dx, enemy[0].bulletSet.dy - 0.015);
-                glVertex2d(enemy[0].bulletSet.dx, enemy[0].bulletSet.dy - 0.015);
+                glVertex2f(enemy[0].bulletSet.dx, enemy[0].bulletSet.dy - 1.5);
+                glVertex2f(enemy[0].bulletSet.dx, enemy[0].bulletSet.dy - 1.5);
                 glEnd();
-                enemy[0].bulletSet.dy -= 0.01;
+                enemy[0].bulletSet.dy -= 1;
             }
-            if (enemy[0].bulletSet.angle_bull == 270.0)
+            if (enemy[0].bulletSet.angle_bull == 270)
             {
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
 
-                glVertex2d(enemy[0].bulletSet.dx, enemy[0].bulletSet.dy - 0.004);
-                glVertex2d(enemy[0].bulletSet.dx, enemy[0].bulletSet.dy + 0.004);
+                glVertex2f(enemy[0].bulletSet.dx, enemy[0].bulletSet.dy - 0.4);
+                glVertex2f(enemy[0].bulletSet.dx, enemy[0].bulletSet.dy + 0.4);
 
-                glVertex2d(enemy[0].bulletSet.dx + 0.01, enemy[0].bulletSet.dy - 0.004);
-                glVertex2d(enemy[0].bulletSet.dx + 0.01, enemy[0].bulletSet.dy + 0.004);
+                glVertex2f(enemy[0].bulletSet.dx + 1, enemy[0].bulletSet.dy - 0.4);
+                glVertex2f(enemy[0].bulletSet.dx + 1, enemy[0].bulletSet.dy + 0.4);
 
-                glVertex2d(enemy[0].bulletSet.dx + 0.015, enemy[0].bulletSet.dy);
-                glVertex2d(enemy[0].bulletSet.dx + 0.015, enemy[0].bulletSet.dy);
+                glVertex2f(enemy[0].bulletSet.dx + 1.5, enemy[0].bulletSet.dy);
+                glVertex2f(enemy[0].bulletSet.dx + 1.5, enemy[0].bulletSet.dy);
                 glEnd();
 
-                enemy[0].bulletSet.dx += 0.01;
+                enemy[0].bulletSet.dx += 1;
             }
-            if (enemy[0].bulletSet.angle_bull == 90.0)
+            if (enemy[0].bulletSet.angle_bull == 90)
             {
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
 
-                glVertex2d(enemy[0].bulletSet.dx, enemy[0].bulletSet.dy - 0.004);
-                glVertex2d(enemy[0].bulletSet.dx, enemy[0].bulletSet.dy + 0.004);
+                glVertex2f(enemy[0].bulletSet.dx, enemy[0].bulletSet.dy - 0.4);
+                glVertex2f(enemy[0].bulletSet.dx, enemy[0].bulletSet.dy + 0.4);
 
-                glVertex2d(enemy[0].bulletSet.dx - 0.01, enemy[0].bulletSet.dy - 0.004);
-                glVertex2d(enemy[0].bulletSet.dx - 0.01, enemy[0].bulletSet.dy + 0.004);
+                glVertex2f(enemy[0].bulletSet.dx - 1, enemy[0].bulletSet.dy - 0.4);
+                glVertex2f(enemy[0].bulletSet.dx - 1, enemy[0].bulletSet.dy + 0.4);
 
-                glVertex2d(enemy[0].bulletSet.dx - 0.015, enemy[0].bulletSet.dy);
-                glVertex2d(enemy[0].bulletSet.dx - 0.015, enemy[0].bulletSet.dy);
+                glVertex2f(enemy[0].bulletSet.dx - 1.5, enemy[0].bulletSet.dy);
+                glVertex2f(enemy[0].bulletSet.dx - 1.5, enemy[0].bulletSet.dy);
                 glEnd();
-                enemy[0].bulletSet.dx -= 0.01;
+                enemy[0].bulletSet.dx -= 1;
 
             }
-            if (enemy[0].bulletSet.dx <= you.xPos + 0.05 && enemy[0].bulletSet.dx >= you.xPos - 0.05 && you.live == 1 && enemy[0].live == 1)
-                if (enemy[0].bulletSet.dy <= you.yPos + 0.05 && enemy[0].bulletSet.dy >= you.yPos - 0.05 && you.live == 1 && enemy[0].live == 1)
+            if (enemy[0].bulletSet.dx <= you.xPos + 5 && enemy[0].bulletSet.dx >= you.xPos - 5 && you.live == 1 && enemy[0].live == 1)
+                if (enemy[0].bulletSet.dy <= you.yPos + 5 && enemy[0].bulletSet.dy >= you.yPos - 5 && you.live == 1 && enemy[0].live == 1)
                 {
                     you.live = 0;
                     enemy[0].bulletSet.anim_bool = 1;
@@ -2804,8 +2146,8 @@ void draw_bullet_enemy_one()
 
 void draw_bullet_effects_for_enemy_one()
 {
-    double anim_x;
-    double anim_y;
+    int anim_x;
+    int anim_y;
 
     if (enemy[0].bulletSet.time_anim == 0)
     {
@@ -2838,7 +2180,7 @@ void draw_bullet_effects_for_enemy_one()
         glBegin(GL_POINTS);
         for (int i = 0; i < 30; ++i) {
             float angle = 2 * 3.14159516 * rand() / RAND_MAX;
-            float radius = 0.05 * rand() / RAND_MAX;
+            int radius = 5 * rand() / RAND_MAX;
             glVertex2f(anim_x + radius * cos(angle), anim_y + radius * sin(angle));
         }
         enemy[0].bulletSet.time_anim += 1;
@@ -2915,19 +2257,21 @@ void draw_bullet_enemy_two()
 {
     if (enemy[1].bulletSet.live == 1)
     {
-        if (enemy[1].bulletSet.dx < 0.92 && enemy[1].bulletSet.dx > -0.92 && enemy[1].bulletSet.dy < 0.92 && enemy[1].bulletSet.dy > -0.92)
+        if (enemy[1].bulletSet.dx < 92 && enemy[1].bulletSet.dx > -92 && enemy[1].bulletSet.dy < 92 && enemy[1].bulletSet.dy > -92)
         {
             for (int i = 0; i < NUM_OF_MINI_BRICKS_BLOCKS; i++)
             {
                 if (bricksLoc[i][0] == 1)
                 {
                     if (
-                        (bricksLoc[i][2] - 0.001 <= enemy[1].bulletSet.dy && bricksLoc[i][2] + 0.055 >= enemy[1].bulletSet.dy)
+                        (bricksLoc[i][2]  <= enemy[1].bulletSet.dy && bricksLoc[i][2] + 4 >= enemy[1].bulletSet.dy)
                         &&
-                        (bricksLoc[i][1] - 0.001 - 0.015 <= enemy[1].bulletSet.dx && bricksLoc[i][1] + 0.055 >= enemy[1].bulletSet.dx)
+                        (bricksLoc[i][1] <= enemy[1].bulletSet.dx && bricksLoc[i][1] + 4 >= enemy[1].bulletSet.dx)
                         )
                     {
                         enemy[1].bulletSet.anim_bool = 1;
+                        Delete_Table_x(bricksLoc[i][1], bricksLoc[i][2]);
+                        Delete_Table_y(bricksLoc[i][2], bricksLoc[i][1]);
                         bricksLoc[i][0] = 0;
                         enemy[1].bulletSet.live = 0;
                         break;
@@ -2940,9 +2284,9 @@ void draw_bullet_enemy_two()
                 if (cementLoc[i][0] == 0)
                 {
                     if (
-                        (cementLoc[i][2] - 0.001 <= enemy[1].bulletSet.dy && cementLoc[i][2] + 0.055 >= enemy[1].bulletSet.dy)
+                        (cementLoc[i][2]  <= enemy[1].bulletSet.dy && cementLoc[i][2] + 4 >= enemy[1].bulletSet.dy)
                         &&
-                        (cementLoc[i][1] - 0.001 - 0.015 <= enemy[1].bulletSet.dx && cementLoc[i][1] + 0.055 >= enemy[1].bulletSet.dx)
+                        (cementLoc[i][1]  <= enemy[1].bulletSet.dx && cementLoc[i][1] + 4 >= enemy[1].bulletSet.dx)
                         )
                     {
                         enemy[1].bulletSet.anim_bool = 1;
@@ -2954,77 +2298,77 @@ void draw_bullet_enemy_two()
             }
 
             glColor3f(0.502f, 0.502f, 0.502f);
-            if (enemy[1].bulletSet.angle_bull == 0.0)
+            if (enemy[1].bulletSet.angle_bull == 0)
             {
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
 
-                glVertex2d(enemy[1].bulletSet.dx - 0.004, enemy[1].bulletSet.dy);
-                glVertex2d(enemy[1].bulletSet.dx + 0.004, enemy[1].bulletSet.dy);
+                glVertex2f(enemy[1].bulletSet.dx - 0.4, enemy[1].bulletSet.dy);
+                glVertex2f(enemy[1].bulletSet.dx + 0.4, enemy[1].bulletSet.dy);
 
-                glVertex2d(enemy[1].bulletSet.dx - 0.004, enemy[1].bulletSet.dy + 0.01);
-                glVertex2d(enemy[1].bulletSet.dx + 0.004, enemy[1].bulletSet.dy + 0.01);
+                glVertex2f(enemy[1].bulletSet.dx - 0.4, enemy[1].bulletSet.dy + 1);
+                glVertex2f(enemy[1].bulletSet.dx + 0.4, enemy[1].bulletSet.dy + 1);
 
-                glVertex2d(enemy[1].bulletSet.dx, enemy[1].bulletSet.dy + 0.015);
-                glVertex2d(enemy[1].bulletSet.dx, enemy[1].bulletSet.dy + 0.015);
+                glVertex2f(enemy[1].bulletSet.dx, enemy[1].bulletSet.dy + 1.5);
+                glVertex2f(enemy[1].bulletSet.dx, enemy[1].bulletSet.dy + 1.5);
 
 
 
                 glEnd();
-                enemy[1].bulletSet.dy += 0.01;
+                enemy[1].bulletSet.dy += 1;
             }
-            if (enemy[1].bulletSet.angle_bull == 180.0)
+            if (enemy[1].bulletSet.angle_bull == 180)
             {
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
 
-                glVertex2d(enemy[1].bulletSet.dx - 0.004, enemy[1].bulletSet.dy);
-                glVertex2d(enemy[1].bulletSet.dx + 0.004, enemy[1].bulletSet.dy);
+                glVertex2f(enemy[1].bulletSet.dx - 0.4, enemy[1].bulletSet.dy);
+                glVertex2f(enemy[1].bulletSet.dx + 0.4, enemy[1].bulletSet.dy);
 
-                glVertex2d(enemy[1].bulletSet.dx - 0.004, enemy[1].bulletSet.dy - 0.01);
-                glVertex2d(enemy[1].bulletSet.dx + 0.004, enemy[1].bulletSet.dy - 0.01);
+                glVertex2f(enemy[1].bulletSet.dx - 0.4, enemy[1].bulletSet.dy - 1);
+                glVertex2f(enemy[1].bulletSet.dx + 0.4, enemy[1].bulletSet.dy - 1);
 
-                glVertex2d(enemy[1].bulletSet.dx, enemy[1].bulletSet.dy - 0.015);
-                glVertex2d(enemy[1].bulletSet.dx, enemy[1].bulletSet.dy - 0.015);
+                glVertex2f(enemy[1].bulletSet.dx, enemy[1].bulletSet.dy - 1.5);
+                glVertex2f(enemy[1].bulletSet.dx, enemy[1].bulletSet.dy - 1.5);
                 glEnd();
-                enemy[1].bulletSet.dy -= 0.01;
+                enemy[1].bulletSet.dy -= 1;
             }
-            if (enemy[1].bulletSet.angle_bull == 270.0)
+            if (enemy[1].bulletSet.angle_bull == 270)
             {
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
 
-                glVertex2d(enemy[1].bulletSet.dx, enemy[1].bulletSet.dy - 0.004);
-                glVertex2d(enemy[1].bulletSet.dx, enemy[1].bulletSet.dy + 0.004);
+                glVertex2f(enemy[1].bulletSet.dx, enemy[1].bulletSet.dy - 0.4);
+                glVertex2f(enemy[1].bulletSet.dx, enemy[1].bulletSet.dy + 0.4);
 
-                glVertex2d(enemy[1].bulletSet.dx + 0.01, enemy[1].bulletSet.dy - 0.004);
-                glVertex2d(enemy[1].bulletSet.dx + 0.01, enemy[1].bulletSet.dy + 0.004);
+                glVertex2f(enemy[1].bulletSet.dx + 1, enemy[1].bulletSet.dy - 0.4);
+                glVertex2f(enemy[1].bulletSet.dx + 1, enemy[1].bulletSet.dy + 0.4);
 
-                glVertex2d(enemy[1].bulletSet.dx + 0.015, enemy[1].bulletSet.dy);
-                glVertex2d(enemy[1].bulletSet.dx + 0.015, enemy[1].bulletSet.dy);
+                glVertex2f(enemy[1].bulletSet.dx + 1.5, enemy[1].bulletSet.dy);
+                glVertex2f(enemy[1].bulletSet.dx + 1.5, enemy[1].bulletSet.dy);
                 glEnd();
 
-                enemy[1].bulletSet.dx += 0.01;
+                enemy[1].bulletSet.dx += 1;
             }
-            if (enemy[1].bulletSet.angle_bull == 90.0)
+            if (enemy[1].bulletSet.angle_bull == 90)
             {
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
 
-                glVertex2d(enemy[1].bulletSet.dx, enemy[1].bulletSet.dy - 0.004);
-                glVertex2d(enemy[1].bulletSet.dx, enemy[1].bulletSet.dy + 0.004);
+                glVertex2f(enemy[1].bulletSet.dx, enemy[1].bulletSet.dy - 0.4);
+                glVertex2f(enemy[1].bulletSet.dx, enemy[1].bulletSet.dy + 0.4);
 
-                glVertex2d(enemy[1].bulletSet.dx - 0.01, enemy[1].bulletSet.dy - 0.004);
-                glVertex2d(enemy[1].bulletSet.dx - 0.01, enemy[1].bulletSet.dy + 0.004);
+                glVertex2f(enemy[1].bulletSet.dx - 1, enemy[1].bulletSet.dy - 0.4);
+                glVertex2f(enemy[1].bulletSet.dx - 1, enemy[1].bulletSet.dy + 0.4);
 
-                glVertex2d(enemy[1].bulletSet.dx - 0.015, enemy[1].bulletSet.dy);
-                glVertex2d(enemy[1].bulletSet.dx - 0.015, enemy[1].bulletSet.dy);
+                glVertex2f(enemy[1].bulletSet.dx - 1.5, enemy[1].bulletSet.dy);
+                glVertex2f(enemy[1].bulletSet.dx - 1.5, enemy[1].bulletSet.dy);
                 glEnd();
-                enemy[1].bulletSet.dx -= 0.01;
+                enemy[1].bulletSet.dx -= 1;
 
             }
-            if (enemy[1].bulletSet.dx <= you.xPos + 0.05 && enemy[1].bulletSet.dx >= you.xPos - 0.05 && you.live == 1 && enemy[1].live == 1)
-                if (enemy[1].bulletSet.dy <= you.yPos + 0.05 && enemy[1].bulletSet.dy >= you.yPos - 0.05 && you.live == 1 && enemy[1].live == 1)
+            if (enemy[1].bulletSet.dx <= you.xPos + 5 && enemy[1].bulletSet.dx >= you.xPos - 5 && you.live == 1 && enemy[1].live == 1)
+                if (enemy[1].bulletSet.dy <= you.yPos + 5 && enemy[1].bulletSet.dy >= you.yPos - 5 && you.live == 1 && enemy[1].live == 1)
                 {
                     you.live = 0;
                     enemy[1].bulletSet.anim_bool = 1;
@@ -3048,8 +2392,8 @@ void draw_bullet_enemy_two()
 
 void draw_bullet_effects_for_enemy_two()
 {
-    double anim_x;
-    double anim_y;
+    int anim_x;
+    int anim_y;
 
     if (enemy[1].bulletSet.time_anim == 0)
     {
@@ -3082,7 +2426,7 @@ void draw_bullet_effects_for_enemy_two()
         glBegin(GL_POINTS);
         for (int i = 0; i < 30; ++i) {
             float angle = 2 * 3.14159516 * rand() / RAND_MAX;
-            float radius = 0.05 * rand() / RAND_MAX;
+            int radius = 5 * rand() / RAND_MAX;
             glVertex2f(anim_x + radius * cos(angle), anim_y + radius * sin(angle));
         }
         enemy[1].bulletSet.time_anim += 1;
@@ -3159,19 +2503,21 @@ void draw_bullet_enemy_three()
 {
     if (enemy[2].bulletSet.live == 1)
     {
-        if (enemy[2].bulletSet.dx < 0.92 && enemy[2].bulletSet.dx > -0.92 && enemy[2].bulletSet.dy < 0.92 && enemy[2].bulletSet.dy > -0.92)
+        if (enemy[2].bulletSet.dx < 92 && enemy[2].bulletSet.dx > -92 && enemy[2].bulletSet.dy < 92 && enemy[2].bulletSet.dy > -92)
         {
             for (int i = 0; i < NUM_OF_MINI_BRICKS_BLOCKS; i++)
             {
                 if (bricksLoc[i][0] == 1)
                 {
                     if (
-                        (bricksLoc[i][2] - 0.001 <= enemy[2].bulletSet.dy && bricksLoc[i][2] + 0.055 >= enemy[2].bulletSet.dy)
+                        (bricksLoc[i][2]  <= enemy[2].bulletSet.dy && bricksLoc[i][2] + 4 >= enemy[2].bulletSet.dy)
                         &&
-                        (bricksLoc[i][1] - 0.001 - 0.015 <= enemy[2].bulletSet.dx && bricksLoc[i][1] + 0.055 >= enemy[2].bulletSet.dx)
+                        (bricksLoc[i][1]  <= enemy[2].bulletSet.dx && bricksLoc[i][1] + 4 >= enemy[2].bulletSet.dx)
                         )
                     {
                         enemy[2].bulletSet.anim_bool = 1;
+                        Delete_Table_x(bricksLoc[i][1], bricksLoc[i][2]);
+                        Delete_Table_y(bricksLoc[i][2], bricksLoc[i][1]);
                         bricksLoc[i][0] = 0;
                         enemy[2].bulletSet.live = 0;
                         break;
@@ -3184,9 +2530,9 @@ void draw_bullet_enemy_three()
                 if (cementLoc[i][0] == 0)
                 {
                     if (
-                        (cementLoc[i][2] - 0.001 <= enemy[2].bulletSet.dy && cementLoc[i][2] + 0.055 >= enemy[2].bulletSet.dy)
+                        (cementLoc[i][2]  <= enemy[2].bulletSet.dy && cementLoc[i][2] + 4 >= enemy[2].bulletSet.dy)
                         &&
-                        (cementLoc[i][1] - 0.001 - 0.015 <= enemy[2].bulletSet.dx && cementLoc[i][1] + 0.055 >= enemy[2].bulletSet.dx)
+                        (cementLoc[i][1]  <= enemy[2].bulletSet.dx && cementLoc[i][1] + 4 >= enemy[2].bulletSet.dx)
                         )
                     {
                         enemy[2].bulletSet.anim_bool = 1;
@@ -3198,77 +2544,77 @@ void draw_bullet_enemy_three()
             }
 
             glColor3f(0.502f, 0.502f, 0.502f);
-            if (enemy[2].bulletSet.angle_bull == 0.0)
+            if (enemy[2].bulletSet.angle_bull == 0)
             {
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
 
-                glVertex2d(enemy[2].bulletSet.dx - 0.004, enemy[2].bulletSet.dy);
-                glVertex2d(enemy[2].bulletSet.dx + 0.004, enemy[2].bulletSet.dy);
+                glVertex2d(enemy[2].bulletSet.dx - 0.4, enemy[2].bulletSet.dy);
+                glVertex2d(enemy[2].bulletSet.dx + 0.4, enemy[2].bulletSet.dy);
 
-                glVertex2d(enemy[2].bulletSet.dx - 0.004, enemy[2].bulletSet.dy + 0.01);
-                glVertex2d(enemy[2].bulletSet.dx + 0.004, enemy[2].bulletSet.dy + 0.01);
+                glVertex2d(enemy[2].bulletSet.dx - 0.4, enemy[2].bulletSet.dy + 1);
+                glVertex2d(enemy[2].bulletSet.dx + 0.4, enemy[2].bulletSet.dy + 1);
 
-                glVertex2d(enemy[2].bulletSet.dx, enemy[2].bulletSet.dy + 0.015);
-                glVertex2d(enemy[2].bulletSet.dx, enemy[2].bulletSet.dy + 0.015);
+                glVertex2d(enemy[2].bulletSet.dx, enemy[2].bulletSet.dy + 1.5);
+                glVertex2d(enemy[2].bulletSet.dx, enemy[2].bulletSet.dy + 1.5);
 
 
 
                 glEnd();
-                enemy[2].bulletSet.dy += 0.01;
+                enemy[2].bulletSet.dy += 1;
             }
-            if (enemy[2].bulletSet.angle_bull == 180.0)
+            if (enemy[2].bulletSet.angle_bull == 180)
             {
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
 
-                glVertex2d(enemy[2].bulletSet.dx - 0.004, enemy[2].bulletSet.dy);
-                glVertex2d(enemy[2].bulletSet.dx + 0.004, enemy[2].bulletSet.dy);
+                glVertex2d(enemy[2].bulletSet.dx - 0.4, enemy[2].bulletSet.dy);
+                glVertex2d(enemy[2].bulletSet.dx + 0.4, enemy[2].bulletSet.dy);
 
-                glVertex2d(enemy[2].bulletSet.dx - 0.004, enemy[2].bulletSet.dy - 0.01);
-                glVertex2d(enemy[2].bulletSet.dx + 0.004, enemy[2].bulletSet.dy - 0.01);
+                glVertex2d(enemy[2].bulletSet.dx - 0.4, enemy[2].bulletSet.dy - 1);
+                glVertex2d(enemy[2].bulletSet.dx + 0.4, enemy[2].bulletSet.dy - 1);
 
-                glVertex2d(enemy[2].bulletSet.dx, enemy[2].bulletSet.dy - 0.015);
-                glVertex2d(enemy[2].bulletSet.dx, enemy[2].bulletSet.dy - 0.015);
+                glVertex2d(enemy[2].bulletSet.dx, enemy[2].bulletSet.dy - 1.5);
+                glVertex2d(enemy[2].bulletSet.dx, enemy[2].bulletSet.dy - 1.5);
                 glEnd();
-                enemy[2].bulletSet.dy -= 0.01;
+                enemy[2].bulletSet.dy -= 1;
             }
-            if (enemy[2].bulletSet.angle_bull == 270.0)
+            if (enemy[2].bulletSet.angle_bull == 270)
             {
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
 
-                glVertex2d(enemy[2].bulletSet.dx, enemy[2].bulletSet.dy - 0.004);
-                glVertex2d(enemy[2].bulletSet.dx, enemy[2].bulletSet.dy + 0.004);
+                glVertex2d(enemy[2].bulletSet.dx, enemy[2].bulletSet.dy - 0.4);
+                glVertex2d(enemy[2].bulletSet.dx, enemy[2].bulletSet.dy + 0.4);
 
-                glVertex2d(enemy[2].bulletSet.dx + 0.01, enemy[2].bulletSet.dy - 0.004);
-                glVertex2d(enemy[2].bulletSet.dx + 0.01, enemy[2].bulletSet.dy + 0.004);
+                glVertex2d(enemy[2].bulletSet.dx + 1, enemy[2].bulletSet.dy - 0.4);
+                glVertex2d(enemy[2].bulletSet.dx + 1, enemy[2].bulletSet.dy + 0.4);
 
-                glVertex2d(enemy[2].bulletSet.dx + 0.015, enemy[2].bulletSet.dy);
-                glVertex2d(enemy[2].bulletSet.dx + 0.015, enemy[2].bulletSet.dy);
+                glVertex2d(enemy[2].bulletSet.dx + 1.5, enemy[2].bulletSet.dy);
+                glVertex2d(enemy[2].bulletSet.dx + 1.5, enemy[2].bulletSet.dy);
                 glEnd();
 
-                enemy[2].bulletSet.dx += 0.01;
+                enemy[2].bulletSet.dx += 1;
             }
-            if (enemy[2].bulletSet.angle_bull == 90.0)
+            if (enemy[2].bulletSet.angle_bull == 90)
             {
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
 
-                glVertex2d(enemy[2].bulletSet.dx, enemy[2].bulletSet.dy - 0.004);
-                glVertex2d(enemy[2].bulletSet.dx, enemy[2].bulletSet.dy + 0.004);
+                glVertex2d(enemy[2].bulletSet.dx, enemy[2].bulletSet.dy - 0.4);
+                glVertex2d(enemy[2].bulletSet.dx, enemy[2].bulletSet.dy + 0.4);
 
-                glVertex2d(enemy[2].bulletSet.dx - 0.01, enemy[2].bulletSet.dy - 0.004);
-                glVertex2d(enemy[2].bulletSet.dx - 0.01, enemy[2].bulletSet.dy + 0.004);
+                glVertex2d(enemy[2].bulletSet.dx - 1, enemy[2].bulletSet.dy - 0.4);
+                glVertex2d(enemy[2].bulletSet.dx - 1, enemy[2].bulletSet.dy + 0.4);
 
-                glVertex2d(enemy[2].bulletSet.dx - 0.015, enemy[2].bulletSet.dy);
-                glVertex2d(enemy[2].bulletSet.dx - 0.015, enemy[2].bulletSet.dy);
+                glVertex2d(enemy[2].bulletSet.dx - 1.5, enemy[2].bulletSet.dy);
+                glVertex2d(enemy[2].bulletSet.dx - 1.5, enemy[2].bulletSet.dy);
                 glEnd();
-                enemy[2].bulletSet.dx -= 0.01;
+                enemy[2].bulletSet.dx -= 1;
 
             }
-            if (enemy[2].bulletSet.dx <= you.xPos + 0.05 && enemy[2].bulletSet.dx >= you.xPos - 0.05 && you.live == 1 && enemy[2].live == 1)
-                if (enemy[2].bulletSet.dy <= you.yPos + 0.05 && enemy[2].bulletSet.dy >= you.yPos - 0.05 && you.live == 1 && enemy[2].live == 1)
+            if (enemy[2].bulletSet.dx <= you.xPos + 5 && enemy[2].bulletSet.dx >= you.xPos - 5 && you.live == 1 && enemy[2].live == 1)
+                if (enemy[2].bulletSet.dy <= you.yPos + 5 && enemy[2].bulletSet.dy >= you.yPos - 5 && you.live == 1 && enemy[2].live == 1)
                 {
                     you.live = 0;
                     enemy[2].bulletSet.anim_bool = 1;
@@ -3292,8 +2638,8 @@ void draw_bullet_enemy_three()
 
 void draw_bullet_effects_for_enemy_three()
 {
-    double anim_x;
-    double anim_y;
+    int anim_x;
+    int anim_y;
 
     if (enemy[2].bulletSet.time_anim == 0)
     {
@@ -3326,7 +2672,7 @@ void draw_bullet_effects_for_enemy_three()
         glBegin(GL_POINTS);
         for (int i = 0; i < 30; ++i) {
             float angle = 2 * 3.14159516 * rand() / RAND_MAX;
-            float radius = 0.05 * rand() / RAND_MAX;
+            int radius = 5 * rand() / RAND_MAX;
             glVertex2f(anim_x + radius * cos(angle), anim_y + radius * sin(angle));
         }
         enemy[2].bulletSet.time_anim += 1;
@@ -3399,19 +2745,21 @@ void draw_bullet_enemy_four()
 {
     if (enemy[3].bulletSet.live == 1)
     {
-        if (enemy[3].bulletSet.dx < 0.92 && enemy[3].bulletSet.dx > -0.92 && enemy[3].bulletSet.dy < 0.92 && enemy[3].bulletSet.dy > -0.92)
+        if (enemy[3].bulletSet.dx < 92 && enemy[3].bulletSet.dx > -92 && enemy[3].bulletSet.dy < 92 && enemy[3].bulletSet.dy > -92)
         {
             for (int i = 0; i < NUM_OF_MINI_BRICKS_BLOCKS; i++)
             {
                 if (bricksLoc[i][0] == 1)
                 {
                     if (
-                        (bricksLoc[i][2] - 0.001 <= enemy[3].bulletSet.dy && bricksLoc[i][2] + 0.055 >= enemy[3].bulletSet.dy)
+                        (bricksLoc[i][2]  <= enemy[3].bulletSet.dy && bricksLoc[i][2] + 4 >= enemy[3].bulletSet.dy)
                         &&
-                        (bricksLoc[i][1] - 0.001 - 0.015 <= enemy[3].bulletSet.dx && bricksLoc[i][1] + 0.055 >= enemy[3].bulletSet.dx)
+                        (bricksLoc[i][1]  <= enemy[3].bulletSet.dx && bricksLoc[i][1] + 4 >= enemy[3].bulletSet.dx)
                         )
                     {
                         enemy[3].bulletSet.anim_bool = 1;
+                        Delete_Table_x(bricksLoc[i][1], bricksLoc[i][2]);
+                        Delete_Table_y(bricksLoc[i][2], bricksLoc[i][1]);
                         bricksLoc[i][0] = 0;
                         enemy[3].bulletSet.live = 0;
                         break;
@@ -3424,9 +2772,9 @@ void draw_bullet_enemy_four()
                 if (cementLoc[i][0] == 0)
                 {
                     if (
-                        (cementLoc[i][2] - 0.001 <= enemy[3].bulletSet.dy && cementLoc[i][2] + 0.055 >= enemy[3].bulletSet.dy)
+                        (cementLoc[i][2]  <= enemy[3].bulletSet.dy && cementLoc[i][2] + 4 >= enemy[3].bulletSet.dy)
                         &&
-                        (cementLoc[i][1] - 0.001 - 0.015 <= enemy[3].bulletSet.dx && cementLoc[i][1] + 0.055 >= enemy[3].bulletSet.dx)
+                        (cementLoc[i][1]  <= enemy[3].bulletSet.dx && cementLoc[i][1] + 4 >= enemy[3].bulletSet.dx)
                         )
                     {
                         enemy[3].bulletSet.anim_bool = 1;
@@ -3438,77 +2786,77 @@ void draw_bullet_enemy_four()
             }
 
             glColor3f(0.502f, 0.502f, 0.502f);
-            if (enemy[3].bulletSet.angle_bull == 0.0)
+            if (enemy[3].bulletSet.angle_bull == 0)
             {
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
 
-                glVertex2d(enemy[3].bulletSet.dx - 0.004, enemy[3].bulletSet.dy);
-                glVertex2d(enemy[3].bulletSet.dx + 0.004, enemy[3].bulletSet.dy);
+                glVertex2f(enemy[3].bulletSet.dx - 0.4, enemy[3].bulletSet.dy);
+                glVertex2f(enemy[3].bulletSet.dx + 0.4, enemy[3].bulletSet.dy);
 
-                glVertex2d(enemy[3].bulletSet.dx - 0.004, enemy[3].bulletSet.dy + 0.01);
-                glVertex2d(enemy[3].bulletSet.dx + 0.004, enemy[3].bulletSet.dy + 0.01);
+                glVertex2f(enemy[3].bulletSet.dx - 0.4, enemy[3].bulletSet.dy + 1);
+                glVertex2f(enemy[3].bulletSet.dx + 0.4, enemy[3].bulletSet.dy + 1);
 
-                glVertex2d(enemy[3].bulletSet.dx, enemy[3].bulletSet.dy + 0.015);
-                glVertex2d(enemy[3].bulletSet.dx, enemy[3].bulletSet.dy + 0.015);
+                glVertex2f(enemy[3].bulletSet.dx, enemy[3].bulletSet.dy + 1.5);
+                glVertex2f(enemy[3].bulletSet.dx, enemy[3].bulletSet.dy + 1.5);
 
 
 
                 glEnd();
-                enemy[3].bulletSet.dy += 0.01;
+                enemy[3].bulletSet.dy += 1;
             }
-            if (enemy[3].bulletSet.angle_bull == 180.0)
+            if (enemy[3].bulletSet.angle_bull == 180)
             {
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
 
-                glVertex2d(enemy[3].bulletSet.dx - 0.004, enemy[3].bulletSet.dy);
-                glVertex2d(enemy[3].bulletSet.dx + 0.004, enemy[3].bulletSet.dy);
+                glVertex2f(enemy[3].bulletSet.dx - 0.4, enemy[3].bulletSet.dy);
+                glVertex2f(enemy[3].bulletSet.dx + 0.4, enemy[3].bulletSet.dy);
 
-                glVertex2d(enemy[3].bulletSet.dx - 0.004, enemy[3].bulletSet.dy - 0.01);
-                glVertex2d(enemy[3].bulletSet.dx + 0.004, enemy[3].bulletSet.dy - 0.01);
+                glVertex2f(enemy[3].bulletSet.dx - 0.4, enemy[3].bulletSet.dy - 1);
+                glVertex2f(enemy[3].bulletSet.dx + 0.4, enemy[3].bulletSet.dy - 1);
 
-                glVertex2d(enemy[3].bulletSet.dx, enemy[3].bulletSet.dy - 0.015);
-                glVertex2d(enemy[3].bulletSet.dx, enemy[3].bulletSet.dy - 0.015);
+                glVertex2f(enemy[3].bulletSet.dx, enemy[3].bulletSet.dy - 1.5);
+                glVertex2f(enemy[3].bulletSet.dx, enemy[3].bulletSet.dy - 1.5);
                 glEnd();
-                enemy[3].bulletSet.dy -= 0.01;
+                enemy[3].bulletSet.dy -= 1;
             }
-            if (enemy[3].bulletSet.angle_bull == 270.0)
+            if (enemy[3].bulletSet.angle_bull == 270)
             {
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
 
-                glVertex2d(enemy[3].bulletSet.dx, enemy[3].bulletSet.dy - 0.004);
-                glVertex2d(enemy[3].bulletSet.dx, enemy[3].bulletSet.dy + 0.004);
+                glVertex2f(enemy[3].bulletSet.dx, enemy[3].bulletSet.dy - 0.4);
+                glVertex2f(enemy[3].bulletSet.dx, enemy[3].bulletSet.dy + 0.4);
 
-                glVertex2d(enemy[3].bulletSet.dx + 0.01, enemy[3].bulletSet.dy - 0.004);
-                glVertex2d(enemy[3].bulletSet.dx + 0.01, enemy[3].bulletSet.dy + 0.004);
+                glVertex2f(enemy[3].bulletSet.dx + 1, enemy[3].bulletSet.dy - 0.4);
+                glVertex2f(enemy[3].bulletSet.dx + 1, enemy[3].bulletSet.dy + 0.4);
 
-                glVertex2d(enemy[3].bulletSet.dx + 0.015, enemy[3].bulletSet.dy);
-                glVertex2d(enemy[3].bulletSet.dx + 0.015, enemy[3].bulletSet.dy);
+                glVertex2f(enemy[3].bulletSet.dx + 1.5, enemy[3].bulletSet.dy);
+                glVertex2f(enemy[3].bulletSet.dx + 1.5, enemy[3].bulletSet.dy);
                 glEnd();
 
-                enemy[3].bulletSet.dx += 0.01;
+                enemy[3].bulletSet.dx += 1;
             }
-            if (enemy[3].bulletSet.angle_bull == 90.0)
+            if (enemy[3].bulletSet.angle_bull == 90)
             {
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
 
-                glVertex2d(enemy[3].bulletSet.dx, enemy[3].bulletSet.dy - 0.004);
-                glVertex2d(enemy[3].bulletSet.dx, enemy[3].bulletSet.dy + 0.004);
+                glVertex2f(enemy[3].bulletSet.dx, enemy[3].bulletSet.dy - 0.4);
+                glVertex2f(enemy[3].bulletSet.dx, enemy[3].bulletSet.dy + 0.4);
 
-                glVertex2d(enemy[3].bulletSet.dx - 0.01, enemy[3].bulletSet.dy - 0.004);
-                glVertex2d(enemy[3].bulletSet.dx - 0.01, enemy[3].bulletSet.dy + 0.004);
+                glVertex2f(enemy[3].bulletSet.dx - 1, enemy[3].bulletSet.dy - 0.4);
+                glVertex2f(enemy[3].bulletSet.dx - 1, enemy[3].bulletSet.dy + 0.4);
 
-                glVertex2d(enemy[3].bulletSet.dx - 0.015, enemy[3].bulletSet.dy);
-                glVertex2d(enemy[3].bulletSet.dx - 0.015, enemy[3].bulletSet.dy);
+                glVertex2f(enemy[3].bulletSet.dx - 1.5, enemy[3].bulletSet.dy);
+                glVertex2f(enemy[3].bulletSet.dx - 1.5, enemy[3].bulletSet.dy);
                 glEnd();
-                enemy[3].bulletSet.dx -= 0.01;
+                enemy[3].bulletSet.dx -= 1;
 
             }
-            if (enemy[3].bulletSet.dx <= you.xPos + 0.05 && enemy[3].bulletSet.dx >= you.xPos - 0.05 && you.live == 1 && enemy[3].live == 1)
-                if (enemy[3].bulletSet.dy <= you.yPos + 0.05 && enemy[3].bulletSet.dy >= you.yPos - 0.05 && you.live == 1 && enemy[3].live == 1)
+            if (enemy[3].bulletSet.dx <= you.xPos + 5 && enemy[3].bulletSet.dx >= you.xPos - 5 && you.live == 1 && enemy[3].live == 1)
+                if (enemy[3].bulletSet.dy <= you.yPos + 5 && enemy[3].bulletSet.dy >= you.yPos - 5 && you.live == 1 && enemy[3].live == 1)
                 {
                     you.live = 0;
                     enemy[3].bulletSet.anim_bool = 1;
@@ -3532,8 +2880,8 @@ void draw_bullet_enemy_four()
 
 void draw_bullet_effects_for_enemy_four()
 {
-    double anim_x;
-    double anim_y;
+    int anim_x;
+    int anim_y;
 
     if (enemy[3].bulletSet.time_anim == 0)
     {
@@ -3566,7 +2914,7 @@ void draw_bullet_effects_for_enemy_four()
         glBegin(GL_POINTS);
         for (int i = 0; i < 30; ++i) {
             float angle = 2 * 3.14159516 * rand() / RAND_MAX;
-            float radius = 0.05 * rand() / RAND_MAX;
+            int radius = 5 * rand() / RAND_MAX;
             glVertex2f(anim_x + radius * cos(angle), anim_y + radius * sin(angle));
         }
         enemy[3].bulletSet.time_anim += 1;
@@ -3694,48 +3042,40 @@ void update(int value) {
     glutTimerFunc(10, update, 0);
 }
 
-void menu() {
+void drawText(int x, int y, char* text) {
+    glPushMatrix();
+    glTranslatef(x, y, 0);
+    glScalef(0.1, 0.1, 0.1);
+    int len = strlen(text);
+    for (int i = 0; i < len; ++i) {
+        glutStrokeCharacter(GLUT_STROKE_ROMAN, text[i]);
+    }
+    glPopMatrix();
+}
 
+void menu() {
     if (menuChoose == 0) {
         glClear(GL_COLOR_BUFFER_BIT);
-        glClearColor(0.0, 0, 0, 1.0);
+        glClearColor(0.0, 0.0, 0.0, 1.0);
+
+
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
-        gluOrtho2D(0.0, 400.0, 0.0, 300.0);
+        glOrtho(-100, 100, -100, 100, -1, 1);
+
+
+        glViewport(0, 0, 1000, 1000);
+
+
+        glMatrixMode(GL_MODELVIEW);
+        glLoadIdentity();
 
         glColor3f(1.0, 1.0, 1.0);
 
-        glPushMatrix();
-        glTranslatef(165, 160, 0);
-        glScalef(0.1, 0.1, 0.1);
 
-        char* text = "1 EASY";
-        int len = strlen(text);
-        for (int i = 0; i < len; ++i) {
-            glutStrokeCharacter(GLUT_STROKE_ROMAN, text[i]);
-        }
-
-
-        glPushMatrix();
-        glTranslatef(-500, 150, 0);
-
-        char* text1 = "2 HARD";
-        int len1 = strlen(text1);
-        for (int i = 0; i < len1; ++i) {
-            glutStrokeCharacter(GLUT_STROKE_ROMAN, text1[i]);
-        }
-
-        glPushMatrix();
-        glTranslatef(-515, 150, 0);
-
-
-        char* text2 = "3 ULTRA HARD";
-        int len2 = strlen(text2);
-        for (int i = 0; i < len2; ++i) {
-            glutStrokeCharacter(GLUT_STROKE_ROMAN, text2[i]);
-        }
-
-        glPopMatrix();
+        drawText(-40, 30, "1 EASY");        
+        drawText(-40, 10, "2 HARD");        
+        drawText(-40, -10, "3 ULTRA HARD");  
 
         glFlush();
     }
@@ -3887,30 +3227,30 @@ void keyboard(char key) {
             menuChoose = 1;
             enemy[0].botSpeed = 10;
             enemy[1].botSpeed = 10;
-            FILE* fileCem = fopen("D:\\map\\cementLocFirst.txt", "r");
+            FILE* fileCem = fopen("C:\\Users\\dimak\\Desktop\\Kursovaya\\map\\processed_cementLocFirst.txt", "r");
             int N;
             fscanf(fileCem, "%d\n", &N);
-            double a, b, c;
-            float arr1[3] = { 0 };
+            int a, b, c;
+            int arr1[3] = { 0 };
             for (int i = 0; i < N; i++) {
-                fscanf(fileCem, "%lf %lf %lf\n", &a, &b, &c);
+                fscanf(fileCem, "%d %d %d\n", &a, &b, &c);
                 cementLoc[i][0] = a;
                 cementLoc[i][1] = b;
                 cementLoc[i][2] = c;
-                arr1[0] = MyRound(a); arr1[1] = MyRound(b); arr1[2] = MyRound(c);
+                arr1[0] = a; arr1[1] = b; arr1[2] = c;
                 Insert_x(arr1[1], arr1);
                 Insert_y(arr1[2], arr1);
             }
             fclose(fileCem);
 
-            FILE* fileBri = fopen("D:\\map\\bricksLocFirst.txt", "r");
+            FILE* fileBri = fopen("C:\\Users\\dimak\\Desktop\\Kursovaya\\map\\processed_bricksLocFirst.txt", "r");
             fscanf(fileBri, "%d\n", &N);
             for (int i = 0; i < N; i++) {
-                fscanf(fileBri, "%lf %lf %lf\n", &a, &b, &c);
+                fscanf(fileBri, "%d %d %d\n", &a, &b, &c);
                 bricksLoc[i][0] = a;
                 bricksLoc[i][1] = b;
                 bricksLoc[i][2] = c;
-                arr1[0] = MyRound(a); arr1[1] = MyRound(b); arr1[2] = MyRound(c);
+                arr1[0] = a; arr1[1] = b; arr1[2] = c;
                 Insert_x(arr1[1], arr1);
                 Insert_y(arr1[2], arr1);
             }
@@ -3922,28 +3262,28 @@ void keyboard(char key) {
             enemy[0].botSpeed = 5;
             enemy[1].botSpeed = 5;
             enemy[2].botSpeed = 5;
-            fileCem = fopen("D:\\map\\cementLocSecond.txt", "r");
+            fileCem = fopen("C:\\Users\\dimak\\Desktop\\Kursovaya\\map\\processed_cementLocSecond.txt", "r");
             fscanf(fileCem, "%d\n", &N);
-            float arr2[3] = { 0 };
+            int arr2[3] = { 0 };
             for (int i = 0; i < N; i++) {
-                fscanf(fileCem, "%lf %lf %lf\n", &a, &b, &c);
+                fscanf(fileCem, "%d %d %d\n", &a, &b, &c);
                 cementLoc[i][0] = a;
                 cementLoc[i][1] = b;
                 cementLoc[i][2] = c;
-                arr2[0] = MyRound(a); arr2[1] = MyRound(b); arr2[2] = MyRound(c);
+                arr2[0] = a; arr2[1] = b; arr2[2] = c;
                 Insert_x(arr2[1], arr2);
                 Insert_y(arr2[2], arr2);
             }
             fclose(fileCem);
 
-            fileBri = fopen("D:\\map\\bricksLocSecond.txt", "r");
+            fileBri = fopen("C:\\Users\\dimak\\Desktop\\Kursovaya\\map\\processed_bricksLocSecond.txt", "r");
             fscanf(fileBri, "%d\n", &N);
             for (int i = 0; i < N; i++) {
-                fscanf(fileBri, "%lf %lf %lf\n", &a, &b, &c);
+                fscanf(fileBri, "%d %d %d\n", &a, &b, &c);
                 bricksLoc[i][0] = a;
                 bricksLoc[i][1] = b;
                 bricksLoc[i][2] = c;
-                arr2[0] = MyRound(a); arr2[1] = MyRound(b); arr2[2] = MyRound(c);
+                arr2[0] = a; arr2[1] = b; arr2[2] = c;
                 Insert_x(arr2[1], arr2);
                 Insert_y(arr2[2], arr2);
             }
@@ -3960,39 +3300,39 @@ void keyboard(char key) {
             enemy[1].botSpeed = 3;
             enemy[2].botSpeed = 3;
             enemy[3].botSpeed = 3;
-            fileCem = fopen("D:\\map\\cementLocThird.txt", "r");
+            fileCem = fopen("C:\\Users\\dimak\\Desktop\\Kursovaya\\map\\processed_cementLocThird.txt", "r");
             fscanf(fileCem, "%d\n", &N);
-            float arr3[3] = { 0 };
+            int arr3[3] = { 0 };
             for (int i = 0; i < N; i++) {
-                fscanf(fileCem, "%lf %lf %lf\n", &a, &b, &c);
+                fscanf(fileCem, "%d %d %d\n", &a, &b, &c);
                 cementLoc[i][0] = a;
                 cementLoc[i][1] = b;
                 cementLoc[i][2] = c;
-                arr3[0] = MyRound(a); arr3[1] = MyRound(b); arr3[2] = MyRound(c);
+                arr3[0] = a; arr3[1] = b; arr3[2] = c;
                 Insert_x(arr3[1], arr3);
                 Insert_y(arr3[2], arr3);
             }
             fclose(fileCem);
 
-            fileBri = fopen("D:\\map\\bricksLocThird.txt", "r");
+            fileBri = fopen("C:\\Users\\dimak\\Desktop\\Kursovaya\\map\\processed_bricksLocThird.txt", "r");
             fscanf(fileBri, "%d\n", &N);
             for (int i = 0; i < N; i++) {
-                fscanf(fileBri, "%lf %lf %lf\n", &a, &b, &c);
+                fscanf(fileBri, "%d %d %d\n", &a, &b, &c);
                 bricksLoc[i][0] = a;
                 bricksLoc[i][1] = b;
                 bricksLoc[i][2] = c;
-                arr3[0] = MyRound(a); arr3[1] = MyRound(b); arr3[2] = MyRound(c);
+                arr3[0] = a; arr3[1] = b; arr3[2] = c;
                 Insert_x(arr3[1], arr3);
                 Insert_y(arr3[2], arr3);
             }
             fclose(fileBri);
 
-            enemy[2].xPos = 0.25;
-            enemy[2].yPos = 0.5;
+            enemy[2].xPos = 25;
+            enemy[2].yPos = 5;
             enemy[2].angle = 180;
 
-            enemy[3].xPos = -0.25;
-            enemy[3].yPos = 0.7;
+            enemy[3].xPos = -25;
+            enemy[3].yPos = 80;
             enemy[3].angle = 180;
             break;
         }
@@ -4002,23 +3342,23 @@ void keyboard(char key) {
         case 'w':
         case 'W':
 
-            you.angle = 0.0;
+            you.angle = 0;
 
             check_block_entity(1);
 
-            printf("x = %f, y = %f\n", you.xPos, you.yPos);
+            printf("x = %d, y = %d\n", you.xPos, you.yPos);
             break;
 
 
         case 's':
         case 'S':
 
-            you.angle = 180.0;
+            you.angle = 180;
 
 
             check_block_entity(2);
 
-            printf("x = %f, y = %f\n", you.xPos, you.yPos);
+            printf("x = %d, y = %d\n", you.xPos, you.yPos);
             break;
 
 
@@ -4026,11 +3366,11 @@ void keyboard(char key) {
         case 'a':
 
 
-            you.angle = 90.0;
+            you.angle = 90;
 
             check_block_entity(3);
 
-            printf("x = %f, y = %f\n", you.xPos, you.yPos);
+            printf("x = %d, y = %d\n", you.xPos, you.yPos);
 
             break;
         case 'd':
@@ -4043,7 +3383,7 @@ void keyboard(char key) {
             check_block_entity(4);
 
 
-            printf("x = %f, y = %f\n", you.xPos, you.yPos);
+            printf("x = %d, y = %d\n", you.xPos, you.yPos);
 
             break;
         case ' ':
@@ -4068,6 +3408,12 @@ int main(int argc, char** argv) {
     glClearColor(0.1, 0.1, 0.1, 0);
 
     startSettings();
+
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(-100, 100, -100, 100, -1, 1);
+    glMatrixMode(GL_MODELVIEW);
+
     glutTimerFunc(10, update, 0);
     glutDisplayFunc(display);
     glutKeyboardFunc((void*)keyboard);
