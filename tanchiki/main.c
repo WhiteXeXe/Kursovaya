@@ -15,6 +15,7 @@ int TABLE_SIZE = 201;
 int menuChoose = 0;
 int moveSpeed = 2;
 
+
 struct tankSettings
 {
     int xPos;
@@ -92,12 +93,12 @@ void Create_Table_y() {
 
 }
 
-unsigned int Hash(int key)
+int Hash(int key)
 {
-    unsigned int hash = 0;
+    int hash = 0;
     if (key > 0) key += 100;
     if (key < 0) key *= (-1);
-    hash = (unsigned int)key;
+    hash = key;
 
 
 
@@ -148,25 +149,28 @@ int Moving_Vertical(int key, int flag) {
     int xPos_right = you.xPos + 4;
     int checkDistUP;
 
-
     while (node != NULL) {
 
         checkDistUP = fabs(node->value[2] - you.yPos + 5);
 
         if (node->value[2] <= key) {
+
             if (xPos_left >= node->value[1] && xPos_left <= node->value[1] + 4) {
 
-
-                if (checkDistUP >= 12  && checkDistUP <= 12 && flag == 1) {
+                if (checkDistUP == 12 && flag == 1) {
                     return 2;
                 }
+
 
                 return 1;
             }
 
-            if (xPos_right >= node->value[1]  && xPos_right <= node->value[1] + 4) {
+            if (xPos_right >= node->value[1] && xPos_right <= node->value[1] + 4) {
 
-                if (checkDistUP >= 12 && checkDistUP <= 12 && flag == 1) {
+
+
+
+                if (checkDistUP == 12 && flag == 1) {
                     return 2;
                 }
 
@@ -176,10 +180,9 @@ int Moving_Vertical(int key, int flag) {
 
             if (you.xPos >= node->value[1] && you.xPos <= node->value[1] + 4) {
 
-                if (checkDistUP >= 12  && checkDistUP <= 12  && flag == 1) {
+                if (checkDistUP == 12 && flag == 1) {
                     return 2;
                 }
-
 
                 return 1;
             }
@@ -190,30 +193,34 @@ int Moving_Vertical(int key, int flag) {
     return 0;
 }
 
-int Moving_Horizontal(int key)
+int Moving_Horizontal(int key, int flag)
 {
     unsigned int index = Hash(key);
     struct Node* node = Hash_pos_x->table[index];
 
-
     int yPos_down = you.yPos - 4;
     int yPos_up = you.yPos + 4;
+
     while (node != NULL) {
+
         if (node->value[1] >= key - 5) {
 
-            if (yPos_down >= node->value[2]  && yPos_down <= node->value[2] + 4) {
+            if (yPos_down >= node->value[2] && yPos_down <= node->value[2] + 4) {
+
+
                 return 1;
             }
 
-            if (yPos_up >= node->value[2]  && yPos_up <= node->value[2] + 4) {
+            if (yPos_up >= node->value[2] && yPos_up <= node->value[2] + 4) {
                 return 1;
             }
 
             if (you.yPos >= node->value[2] && you.yPos <= node->value[2] + 4) {
                 return 1;
             }
+
+            node = node->next;
         }
-        node = node->next;
     }
 
     return 0;
@@ -229,22 +236,22 @@ int Enemy_Moving_Vertical(int key, int enemy_num, int flag) {
 
     while (node != NULL) {
 
-        checkDistUP = fabs(node->value[2] - enemy[enemy_num].yPos + 5 );
+        checkDistUP = fabs(node->value[2] - enemy[enemy_num].yPos + 5);
 
-        if (node->value[2] <= key ) {
-            if (xPos_left >= node->value[1]  && xPos_left <= node->value[1] + 4) {
+        if (node->value[2] <= key) {
+            if (xPos_left >= node->value[1] && xPos_left <= node->value[1] + 4) {
 
 
-                if (checkDistUP >= 12  && checkDistUP <= 12 && flag == 1) {
+                if (checkDistUP >= 12 && checkDistUP <= 12 && flag == 1) {
                     return 2;
                 }
 
                 return 1;
             }
 
-            if (xPos_right >= node->value[1]  && xPos_right <= node->value[1] + 4) {
+            if (xPos_right >= node->value[1] && xPos_right <= node->value[1] + 4) {
 
-                if (checkDistUP >= 12  && checkDistUP <= 12  && flag == 1) {
+                if (checkDistUP >= 12 && checkDistUP <= 12 && flag == 1) {
                     return 2;
                 }
 
@@ -279,15 +286,15 @@ int Enemy_Moving_Horizontal(int key, int enemy_num)
     while (node != NULL) {
         if (node->value[1] >= key - 5) {
 
-            if (yPos_down >= node->value[2]  && yPos_down <= node->value[2] + 4) {
+            if (yPos_down >= node->value[2] && yPos_down <= node->value[2] + 4) {
                 return 1;
             }
 
-            if (yPos_up >= node->value[2]   && yPos_up <= node->value[2] + 4) {
+            if (yPos_up >= node->value[2] && yPos_up <= node->value[2] + 4) {
                 return 1;
             }
 
-            if (enemy[enemy_num].yPos >= node->value[2]   && enemy[enemy_num].yPos <= node->value[2] + 4) {
+            if (enemy[enemy_num].yPos >= node->value[2] && enemy[enemy_num].yPos <= node->value[2] + 4) {
                 return 1;
             }
         }
@@ -303,7 +310,7 @@ void Delete_Table_x(int key, int coord) {
     struct Node* prev = NULL;
 
     while (node != NULL) {
-        if ((key   <= node->key && node->key <= key  ) && (coord   <= node->value[2] && node->value[2] <= coord  ))
+        if ((key <= node->key && node->key <= key) && (coord <= node->value[2] && node->value[2] <= coord))
         {
             if (prev == NULL) {
                 Hash_pos_x->table[index] = node->next;
@@ -325,7 +332,7 @@ void Delete_Table_y(int key, int coord) {
     struct Node* node = Hash_pos_y->table[index];
     struct Node* prev = NULL;
     while (node != NULL) {
-        if ((key   <= node->key && node->key <= key  ) && (coord   <= node->value[1] && node->value[1] <=  coord))
+        if ((key <= node->key && node->key <= key) && (coord <= node->value[1] && node->value[1] <= coord))
         {
             if (prev == NULL) {
                 Hash_pos_y->table[index] = node->next;
@@ -337,11 +344,11 @@ void Delete_Table_y(int key, int coord) {
             free(node);
             return;
         }
-        prev = node; 
-        node = node->next; 
+        prev = node;
+        node = node->next;
     }
 
-} 
+}
 
 void startSettings()
 {
@@ -350,7 +357,7 @@ void startSettings()
     you.live = 1;
     you.bulletSet.time_anim = 0;
 
-    enemy[0].live = 1;           
+    enemy[0].live = 0;
     enemy[0].xPos = -80;
     enemy[0].yPos = 12;
     enemy[0].angle = 270;
@@ -358,7 +365,7 @@ void startSettings()
     enemy[0].saveYPos = 0;
     enemy[0].flagAutoMove = 4;
 
-    enemy[1].live = 1;          
+    enemy[1].live = 0;
     enemy[1].xPos = 70;
     enemy[1].yPos = 12;
     enemy[1].angle = 90;
@@ -375,7 +382,7 @@ void startSettings()
     enemy[3].saveXPos = 0;
     enemy[3].saveYPos = 0;
     enemy[3].flagAutoMove = 2;
-} 
+}
 
 void draw_mini_cement_block(int x, int y)
 {
@@ -494,51 +501,46 @@ void draw_mini_brick_block(int x, int y)
     glEnd();
 }
 
-void createCementWall()
+void map_building()
 {
-    for (int i = 0; i < NUM_OF_MINI_CEMENT_BLOCKS; i++)
-    {
-        draw_mini_cement_block(cementLoc[i][1], cementLoc[i][2]);
-    }
-}
-
-void createBrickWall()
-{
-    for (int i = 0; i < NUM_OF_MINI_BRICKS_BLOCKS; i++)
-    {
-        if (bricksLoc[i][0] == 1)
+    for (int i = 0; i < TABLE_SIZE; i++) {
+        struct Node* node = Hash_pos_x->table[i];
+        while (node != NULL)
         {
-            draw_mini_brick_block(bricksLoc[i][1], bricksLoc[i][2]);
+            if (node->value[0] == 1) draw_mini_brick_block(node->value[1], node->value[2]);
+            if (node->value[0] == 0) draw_mini_cement_block(node->value[1], node->value[2]);
+            node = node->next;
         }
     }
+
 }
 
 void rotatePointyou(int* x, int* y, int angle) {
     if (angle == 0)
     {
-        int xNew = *x * 1 - *y * 0;
-        int yNew = *x * 0 + *y * 1;
+        int xNew = *x * 1;
+        int yNew = *y * 1;
         *x = xNew + you.xPos;
         *y = yNew + you.yPos;
     }
     if (angle == 90)
     {
-        int xNew = *x * 0 - *y * 1;
-        int yNew = *x * 1 + *y * 0;
+        int xNew = -*y * 1;
+        int yNew = *x * 1;
         *x = xNew + you.xPos;
         *y = yNew + you.yPos;
     }
     if (angle == 180)
     {
-        int xNew = *x * (-1) - *y * 0;
-        int yNew = *x * 0 + *y * (-1);
+        int xNew = -*x * (-1);
+        int yNew = *y * (-1);
         *x = xNew + you.xPos;
         *y = yNew + you.yPos;
     }
     if (angle == 270)
     {
-        int xNew = *x * 0 - *y * (-1);
-        int yNew = *x * (-1) + *y * 0;
+        int xNew = -*y * (-1);
+        int yNew = *x * (-1);
         *x = xNew + you.xPos;
         *y = yNew + you.yPos;
     }
@@ -548,29 +550,29 @@ void rotatePointenemy_one(int* x, int* y, int angle)
 {
     if (angle == 0)
     {
-        int xNew = *x * 1 - *y * 0;
-        int yNew = *x * 0 + *y * 1;
+        int xNew = *x * 1;
+        int yNew = *y * 1;
         *x = xNew + enemy[0].xPos;
         *y = yNew + enemy[0].yPos;
     }
     if (angle == 90)
     {
-        int xNew = *x * 0 - *y * 1;
-        int yNew = *x * 1 + *y * 0;
+        int xNew = -*y * 1;
+        int yNew = *x * 1;
         *x = xNew + enemy[0].xPos;
         *y = yNew + enemy[0].yPos;
     }
     if (angle == 180)
     {
-        int xNew = *x * (-1) - *y * 0;
-        int yNew = *x * 0 + *y * (-1);
+        int xNew = -*x * (-1);
+        int yNew = *y * (-1);
         *x = xNew + enemy[0].xPos;
         *y = yNew + enemy[0].yPos;
     }
     if (angle == 270)
     {
-        int xNew = *x * 0 - *y * (-1);
-        int yNew = *x * (-1) + *y * 0;
+        int xNew = -*y * (-1);
+        int yNew = *x * (-1);
         *x = xNew + enemy[0].xPos;
         *y = yNew + enemy[0].yPos;
     }
@@ -580,62 +582,62 @@ void rotatePointenemy_two(int* x, int* y, int angle)
 {
     if (angle == 0)
     {
-        int xNew = *x * 1 - *y * 0;
-        int yNew = *x * 0 + *y * 1;
+        int xNew = *x * 1;
+        int yNew = *y * 1;
         *x = xNew + enemy[1].xPos;
         *y = yNew + enemy[1].yPos;
     }
     if (angle == 90)
     {
-        int xNew = *x * 0 - *y * 1;
-        int yNew = *x * 1 + *y * 0;
+        int xNew = -*y * 1;
+        int yNew = *x * 1;
         *x = xNew + enemy[1].xPos;
         *y = yNew + enemy[1].yPos;
     }
     if (angle == 180)
     {
-        int xNew = *x * (-1) - *y * 0;
-        int yNew = *x * 0 + *y * (-1);
+        int xNew = -*x * (-1);
+        int yNew = *y * (-1);
         *x = xNew + enemy[1].xPos;
         *y = yNew + enemy[1].yPos;
     }
     if (angle == 270)
     {
-        int xNew = *x * 0 - *y * (-1);
-        int yNew = *x * (-1) + *y * 0;
+        int xNew = -*y * (-1);
+        int yNew = *x * (-1);
         *x = xNew + enemy[1].xPos;
         *y = yNew + enemy[1].yPos;
     }
-    
+
 }
 
 void rotatePointenemy_three(int* x, int* y, int angle)
 {
     if (angle == 0)
     {
-        int xNew = *x * 1 - *y * 0;
-        int yNew = *x * 0 + *y * 1;
+        int xNew = *x * 1;
+        int yNew = *y * 1;
         *x = xNew + enemy[2].xPos;
         *y = yNew + enemy[2].yPos;
     }
     if (angle == 90)
     {
-        int xNew = *x * 0 - *y * 1;
-        int yNew = *x * 1 + *y * 0;
+        int xNew = -*y * 1;
+        int yNew = *x * 1;
         *x = xNew + enemy[2].xPos;
         *y = yNew + enemy[2].yPos;
     }
     if (angle == 180)
     {
-        int xNew = *x * (-1) - *y * 0;
-        int yNew = *x * 0 + *y * (-1);
+        int xNew = -*x * (-1);
+        int yNew = *y * (-1);
         *x = xNew + enemy[2].xPos;
         *y = yNew + enemy[2].yPos;
     }
     if (angle == 270)
     {
-        int xNew = *x * 0 - *y * (-1);
-        int yNew = *x * (-1) + *y * 0;
+        int xNew = -*y * (-1);
+        int yNew = *x * (-1);
         *x = xNew + enemy[2].xPos;
         *y = yNew + enemy[2].yPos;
     }
@@ -645,29 +647,29 @@ void rotatePointenemy_four(int* x, int* y, int angle)
 {
     if (angle == 0)
     {
-        int xNew = *x * 1 - *y * 0;
-        int yNew = *x * 0 + *y * 1;
+        int xNew = *x * 1;
+        int yNew = *y * 1;
         *x = xNew + enemy[3].xPos;
         *y = yNew + enemy[3].yPos;
     }
     if (angle == 90)
     {
-        int xNew = *x * 0 - *y * 1;
-        int yNew = *x * 1 + *y * 0;
+        int xNew = -*y * 1;
+        int yNew = *x * 1;
         *x = xNew + enemy[3].xPos;
         *y = yNew + enemy[3].yPos;
     }
     if (angle == 180)
     {
-        int xNew = *x * (-1) - *y * 0;
-        int yNew = *x * 0 + *y * (-1);
+        int xNew = -*x * (-1);
+        int yNew = *y * (-1);
         *x = xNew + enemy[3].xPos;
         *y = yNew + enemy[3].yPos;
     }
     if (angle == 270)
     {
-        int xNew = *x * 0 - *y * (-1);
-        int yNew = *x * (-1) + *y * 0;
+        int xNew = -*y * (-1);
+        int yNew = *x * (-1);
         *x = xNew + enemy[3].xPos;
         *y = yNew + enemy[3].yPos;
     }
@@ -1414,14 +1416,6 @@ void check_block_entity(short flag)
                 f = 0;
                 return;
             }
-
-            if (f == 2) {
-                if (you.yPos - 4 >= -92) you.yPos -= 1;
-                f = 0;
-                return;
-            }
-
-
         }
         if (you.yPos - 4 > -92) you.yPos -= moveSpeed;
     }
@@ -1432,7 +1426,7 @@ void check_block_entity(short flag)
         int f = 0;
         for (int i = you.xPos; i > you.xPos - 11; i -= 1)
         {
-            f = Moving_Horizontal(i);
+            f = Moving_Horizontal(i, flag);
             if (f == 1)
             {
                 f = 0;
@@ -1448,7 +1442,7 @@ void check_block_entity(short flag)
         for (int i = you.xPos; i < you.xPos + 7; i += 1)
         {
 
-            f = Moving_Horizontal(i);
+            f = Moving_Horizontal(i, flag);
             if (f == 1)
             {
                 f = 0;
@@ -1499,11 +1493,7 @@ void check_block_entity_enemy_one(int flag)
                 return;
             }
 
-            if (f == 2) {
-                if (enemy[0].yPos - 4 >= -92)  enemy[0].yPos -= 1;
-                f = 0;
-                return;
-            }
+
 
 
         }
@@ -1582,14 +1572,6 @@ void check_block_entity_enemy_two(int flag)
                 f = 0;
                 return;
             }
-
-            if (f == 2) {
-                if (enemy[1].yPos - 4 >= -92)  enemy[1].yPos -= 1;
-                f = 0;
-                return;
-            }
-
-
         }
         if (enemy[1].yPos - 4 >= -92)  enemy[1].yPos -= moveSpeed;
     }
@@ -1648,7 +1630,6 @@ void check_block_entity_enemy_three(int flag)
 
                 return;
             }
-
         }
         if (enemy[2].yPos + 4 <= 92)  enemy[2].yPos += moveSpeed;
     }
@@ -1666,14 +1647,6 @@ void check_block_entity_enemy_three(int flag)
                 f = 0;
                 return;
             }
-
-            if (f == 2) {
-                if (enemy[2].yPos - 4 >= -92)  enemy[2].yPos -= 1;
-                f = 0;
-                return;
-            }
-
-
         }
         if (enemy[2].yPos - 4 >= -92)  enemy[2].yPos -= moveSpeed;
     }
@@ -1699,7 +1672,6 @@ void check_block_entity_enemy_three(int flag)
         int f = 0;
         for (int i = enemy[2].xPos; i < enemy[2].xPos + 7; i += 1)
         {
-
             f = Enemy_Moving_Horizontal(i, 2);
             if (f == 1)
             {
@@ -1718,7 +1690,6 @@ void check_block_entity_enemy_four(int flag)
         int f = 0;
         for (int i = enemy[3].yPos; i < enemy[3].yPos + 8; i += 1) {
 
-
             f = Enemy_Moving_Vertical(i, 3, flag);
 
             if (f == 1) {
@@ -1732,7 +1703,6 @@ void check_block_entity_enemy_four(int flag)
 
                 return;
             }
-
         }
         if (enemy[3].yPos + 4 <= 92)  enemy[3].yPos += moveSpeed;
     }
@@ -1750,14 +1720,6 @@ void check_block_entity_enemy_four(int flag)
                 f = 0;
                 return;
             }
-
-            if (f == 2) {
-                if (enemy[3].yPos - 4 >= -92)  enemy[3].yPos -= 1;
-                f = 0;
-                return;
-            }
-
-
         }
         if (enemy[3].yPos - 4 >= -92)  enemy[3].yPos -= moveSpeed;
     }
@@ -1834,6 +1796,7 @@ void draw_bullet_effects_for_global_tank()
             int radius = 5 * rand() / RAND_MAX;
             glVertex2f(anim_x + radius * cos(angle), anim_y + radius * sin(angle));
         }
+
         you.bulletSet.time_anim += 1;
         glEnd();
     }
@@ -1842,7 +1805,51 @@ void draw_bullet_effects_for_global_tank()
         you.bulletSet.anim_bool = 0;
         you.bulletSet.time_anim = 0;
 
+
     }
+}
+
+int Bullet_MovingVertical()
+{
+    int index = Hash(you.bulletSet.dy);
+    struct Node* node = Hash_pos_y->table[index];
+    while (node != NULL)
+    {
+        if (node->value[2] <= you.bulletSet.dy && node->value[2] + 4 >= you.bulletSet.dy && node->value[1] <= you.bulletSet.dx && node->value[1] + 4 >= you.bulletSet.dx)
+        {
+            if (node->value[0] == 1)
+            {
+                Delete_Table_x(node->value[1], node->value[2]);
+                Delete_Table_y(node->value[2], node->value[1]);
+                return 1;
+            }
+            else return 2;
+        }
+        node = node->next;
+    }
+
+}
+
+int Bullet_MovingHorizontal()
+{
+    int index = Hash(you.bulletSet.dx);
+    struct Node* node = Hash_pos_x->table[index];
+    while (node != NULL)
+    {
+        if (node->value[2] <= you.bulletSet.dy && node->value[2] + 4 >= you.bulletSet.dy && node->value[1] <= you.bulletSet.dx && node->value[1] + 4 >= you.bulletSet.dx)
+        {
+            if (node->value[0] == 1)
+            {
+                Delete_Table_y(node->value[2], node->value[1]);
+                Delete_Table_x(node->value[1], node->value[2]);
+
+                return 1;
+            }
+            else return 2;
+        }
+        node = node->next;
+    }
+
 }
 
 void draw_bullet_global()
@@ -1851,48 +1858,24 @@ void draw_bullet_global()
     {
         if (you.bulletSet.dx < 92 && you.bulletSet.dx > -92 && you.bulletSet.dy < 92 && you.bulletSet.dy > -92)
         {
-            for (int i = 0; i < NUM_OF_MINI_BRICKS_BLOCKS; i++)
-            {
-                if (bricksLoc[i][0] == 1)
-                {
-                    if (
-                        (bricksLoc[i][2] <= you.bulletSet.dy && bricksLoc[i][2] + 4 >= you.bulletSet.dy)
-                        &&
-                        (bricksLoc[i][1] <= you.bulletSet.dx && bricksLoc[i][1] + 4 >= you.bulletSet.dx)
-                        )
-                    {
-                        you.bulletSet.anim_bool = 1;
-                        bricksLoc[i][0] = 0;
-
-                        Delete_Table_x(bricksLoc[i][1], bricksLoc[i][2]);
-                        Delete_Table_y(bricksLoc[i][2], bricksLoc[i][1]);
-                        you.bulletSet.live = 0;
-                        break;
-                    }
-                }
-            }
-
-            for (int i = 0; i < NUM_OF_MINI_CEMENT_BLOCKS; i++)
-            {
-                if (cementLoc[i][0] == 0)
-                {
-                    if (
-                        (cementLoc[i][2] <= you.bulletSet.dy && cementLoc[i][2] + 4 >= you.bulletSet.dy)
-                        &&
-                        (cementLoc[i][1] <= you.bulletSet.dx && cementLoc[i][1] + 4 >= you.bulletSet.dx)
-                        )
-                    {
-                        you.bulletSet.anim_bool = 1;
-                        cementLoc[i][0] = 0;
-                        you.bulletSet.live = 0;
-                        break;
-                    }
-                }
-            }
 
             glColor3f(0.502f, 0.502f, 0.502f);
-            if (you.bulletSet.angle_bull == 0.0)
+            if (you.bulletSet.angle_bull == 0)
             {
+                int f = Bullet_MovingVertical();;
+
+                if (f == 1)
+                {
+                    you.bulletSet.anim_bool = 1;
+                    you.bulletSet.live = 0;
+
+                }
+                if (f == 2)
+                {
+                    you.bulletSet.anim_bool = 1;
+                    you.bulletSet.live = 0;
+
+                }
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
 
@@ -1905,13 +1888,23 @@ void draw_bullet_global()
                 glVertex2d(you.bulletSet.dx, you.bulletSet.dy + 1.5);
                 glVertex2d(you.bulletSet.dx, you.bulletSet.dy + 1.5);
 
-
-
                 glEnd();
                 you.bulletSet.dy += 1;
             }
-            if (you.bulletSet.angle_bull == 180.0)
+            if (you.bulletSet.angle_bull == 180)
             {
+                int f = Bullet_MovingVertical();;
+
+                if (f == 1)
+                {
+                    you.bulletSet.anim_bool = 1;
+                    you.bulletSet.live = 0;
+                }
+                if (f == 2)
+                {
+                    you.bulletSet.anim_bool = 1;
+                    you.bulletSet.live = 0;
+                }
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
 
@@ -1926,8 +1919,20 @@ void draw_bullet_global()
                 glEnd();
                 you.bulletSet.dy -= 1;
             }
-            if (you.bulletSet.angle_bull == 270.0)
+            if (you.bulletSet.angle_bull == 270)
             {
+                int f = Bullet_MovingHorizontal();;
+
+                if (f == 1)
+                {
+                    you.bulletSet.anim_bool = 1;
+                    you.bulletSet.live = 0;
+                }
+                if (f == 2)
+                {
+                    you.bulletSet.anim_bool = 1;
+                    you.bulletSet.live = 0;
+                }
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
 
@@ -1943,8 +1948,20 @@ void draw_bullet_global()
 
                 you.bulletSet.dx += 1;
             }
-            if (you.bulletSet.angle_bull == 90.0)
+            if (you.bulletSet.angle_bull == 90)
             {
+                int f = Bullet_MovingHorizontal();;
+
+                if (f == 1)
+                {
+                    you.bulletSet.anim_bool = 1;
+                    you.bulletSet.live = 0;
+                }
+                if (f == 2)
+                {
+                    you.bulletSet.anim_bool = 1;
+                    you.bulletSet.live = 0;
+                }
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
 
@@ -2040,7 +2057,7 @@ void draw_bullet_enemy_one()
                     if (
                         (cementLoc[i][2] <= enemy[0].bulletSet.dy && cementLoc[i][2] + 4 >= enemy[0].bulletSet.dy)
                         &&
-                        (cementLoc[i][1]<= enemy[0].bulletSet.dx && cementLoc[i][1] + 4 >= enemy[0].bulletSet.dx)
+                        (cementLoc[i][1] <= enemy[0].bulletSet.dx && cementLoc[i][1] + 4 >= enemy[0].bulletSet.dx)
                         )
                     {
                         enemy[0].bulletSet.anim_bool = 1;
@@ -2061,7 +2078,7 @@ void draw_bullet_enemy_one()
                 glVertex2d(enemy[0].bulletSet.dx + 0.4, enemy[0].bulletSet.dy);
 
                 glVertex2d(enemy[0].bulletSet.dx - 0.4, enemy[0].bulletSet.dy + 1);
-                glVertex2d(enemy[0].bulletSet.dx + 0.4, enemy[0].bulletSet.dy +1);
+                glVertex2d(enemy[0].bulletSet.dx + 0.4, enemy[0].bulletSet.dy + 1);
 
                 glVertex2d(enemy[0].bulletSet.dx, enemy[0].bulletSet.dy + 1.5);
                 glVertex2d(enemy[0].bulletSet.dx, enemy[0].bulletSet.dy + 1.5);
@@ -2264,7 +2281,7 @@ void draw_bullet_enemy_two()
                 if (bricksLoc[i][0] == 1)
                 {
                     if (
-                        (bricksLoc[i][2]  <= enemy[1].bulletSet.dy && bricksLoc[i][2] + 4 >= enemy[1].bulletSet.dy)
+                        (bricksLoc[i][2] <= enemy[1].bulletSet.dy && bricksLoc[i][2] + 4 >= enemy[1].bulletSet.dy)
                         &&
                         (bricksLoc[i][1] <= enemy[1].bulletSet.dx && bricksLoc[i][1] + 4 >= enemy[1].bulletSet.dx)
                         )
@@ -2284,9 +2301,9 @@ void draw_bullet_enemy_two()
                 if (cementLoc[i][0] == 0)
                 {
                     if (
-                        (cementLoc[i][2]  <= enemy[1].bulletSet.dy && cementLoc[i][2] + 4 >= enemy[1].bulletSet.dy)
+                        (cementLoc[i][2] <= enemy[1].bulletSet.dy && cementLoc[i][2] + 4 >= enemy[1].bulletSet.dy)
                         &&
-                        (cementLoc[i][1]  <= enemy[1].bulletSet.dx && cementLoc[i][1] + 4 >= enemy[1].bulletSet.dx)
+                        (cementLoc[i][1] <= enemy[1].bulletSet.dx && cementLoc[i][1] + 4 >= enemy[1].bulletSet.dx)
                         )
                     {
                         enemy[1].bulletSet.anim_bool = 1;
@@ -2510,9 +2527,9 @@ void draw_bullet_enemy_three()
                 if (bricksLoc[i][0] == 1)
                 {
                     if (
-                        (bricksLoc[i][2]  <= enemy[2].bulletSet.dy && bricksLoc[i][2] + 4 >= enemy[2].bulletSet.dy)
+                        (bricksLoc[i][2] <= enemy[2].bulletSet.dy && bricksLoc[i][2] + 4 >= enemy[2].bulletSet.dy)
                         &&
-                        (bricksLoc[i][1]  <= enemy[2].bulletSet.dx && bricksLoc[i][1] + 4 >= enemy[2].bulletSet.dx)
+                        (bricksLoc[i][1] <= enemy[2].bulletSet.dx && bricksLoc[i][1] + 4 >= enemy[2].bulletSet.dx)
                         )
                     {
                         enemy[2].bulletSet.anim_bool = 1;
@@ -2530,9 +2547,9 @@ void draw_bullet_enemy_three()
                 if (cementLoc[i][0] == 0)
                 {
                     if (
-                        (cementLoc[i][2]  <= enemy[2].bulletSet.dy && cementLoc[i][2] + 4 >= enemy[2].bulletSet.dy)
+                        (cementLoc[i][2] <= enemy[2].bulletSet.dy && cementLoc[i][2] + 4 >= enemy[2].bulletSet.dy)
                         &&
-                        (cementLoc[i][1]  <= enemy[2].bulletSet.dx && cementLoc[i][1] + 4 >= enemy[2].bulletSet.dx)
+                        (cementLoc[i][1] <= enemy[2].bulletSet.dx && cementLoc[i][1] + 4 >= enemy[2].bulletSet.dx)
                         )
                     {
                         enemy[2].bulletSet.anim_bool = 1;
@@ -2752,9 +2769,9 @@ void draw_bullet_enemy_four()
                 if (bricksLoc[i][0] == 1)
                 {
                     if (
-                        (bricksLoc[i][2]  <= enemy[3].bulletSet.dy && bricksLoc[i][2] + 4 >= enemy[3].bulletSet.dy)
+                        (bricksLoc[i][2] <= enemy[3].bulletSet.dy && bricksLoc[i][2] + 4 >= enemy[3].bulletSet.dy)
                         &&
-                        (bricksLoc[i][1]  <= enemy[3].bulletSet.dx && bricksLoc[i][1] + 4 >= enemy[3].bulletSet.dx)
+                        (bricksLoc[i][1] <= enemy[3].bulletSet.dx && bricksLoc[i][1] + 4 >= enemy[3].bulletSet.dx)
                         )
                     {
                         enemy[3].bulletSet.anim_bool = 1;
@@ -2772,9 +2789,9 @@ void draw_bullet_enemy_four()
                 if (cementLoc[i][0] == 0)
                 {
                     if (
-                        (cementLoc[i][2]  <= enemy[3].bulletSet.dy && cementLoc[i][2] + 4 >= enemy[3].bulletSet.dy)
+                        (cementLoc[i][2] <= enemy[3].bulletSet.dy && cementLoc[i][2] + 4 >= enemy[3].bulletSet.dy)
                         &&
-                        (cementLoc[i][1]  <= enemy[3].bulletSet.dx && cementLoc[i][1] + 4 >= enemy[3].bulletSet.dx)
+                        (cementLoc[i][1] <= enemy[3].bulletSet.dx && cementLoc[i][1] + 4 >= enemy[3].bulletSet.dx)
                         )
                     {
                         enemy[3].bulletSet.anim_bool = 1;
@@ -3073,9 +3090,9 @@ void menu() {
         glColor3f(1.0, 1.0, 1.0);
 
 
-        drawText(-40, 30, "1 EASY");        
-        drawText(-40, 10, "2 HARD");        
-        drawText(-40, -10, "3 ULTRA HARD");  
+        drawText(-40, 30, "1 EASY");
+        drawText(-40, 10, "2 HARD");
+        drawText(-40, -10, "3 ULTRA HARD");
 
         glFlush();
     }
@@ -3094,8 +3111,7 @@ void display() {
 
         glClearColor(0.1, 0.1, 0.1, 0);
 
-        createBrickWall();
-        createCementWall();
+        map_building();
         draw_block_zone();
         if (you.live > 0) {
             draw_global_tank_up();
@@ -3128,8 +3144,7 @@ void display() {
 
         glClearColor(0.1, 0.1, 0.1, 0);
 
-        createBrickWall();
-        createCementWall();
+        map_building();
         draw_block_zone();
         if (you.live > 0) {
             draw_global_tank_up();
@@ -3170,8 +3185,7 @@ void display() {
 
         glClearColor(0.1, 0.1, 0.1, 0);
 
-        createBrickWall();
-        createCementWall();
+        map_building();
         draw_block_zone();
         if (you.live > 0) {
             draw_global_tank_up();
@@ -3227,7 +3241,7 @@ void keyboard(char key) {
             menuChoose = 1;
             enemy[0].botSpeed = 10;
             enemy[1].botSpeed = 10;
-            FILE* fileCem = fopen("C:\\Users\\dimak\\Desktop\\Kursovaya\\map\\processed_cementLocFirst.txt", "r");
+            FILE* fileCem = fopen("C:\\Users\\PC\\Desktop\\Kursovaya\\map\\processed_cementLocFirst.txt", "r");
             int N;
             fscanf(fileCem, "%d\n", &N);
             int a, b, c;
@@ -3243,7 +3257,7 @@ void keyboard(char key) {
             }
             fclose(fileCem);
 
-            FILE* fileBri = fopen("C:\\Users\\dimak\\Desktop\\Kursovaya\\map\\processed_bricksLocFirst.txt", "r");
+            FILE* fileBri = fopen("C:\\Users\\PC\\Desktop\\Kursovaya\\map\\processed_bricksLocFirst.txt", "r");
             fscanf(fileBri, "%d\n", &N);
             for (int i = 0; i < N; i++) {
                 fscanf(fileBri, "%d %d %d\n", &a, &b, &c);
@@ -3262,7 +3276,7 @@ void keyboard(char key) {
             enemy[0].botSpeed = 5;
             enemy[1].botSpeed = 5;
             enemy[2].botSpeed = 5;
-            fileCem = fopen("C:\\Users\\dimak\\Desktop\\Kursovaya\\map\\processed_cementLocSecond.txt", "r");
+            fileCem = fopen("C:\\Users\\PC\\Desktop\\Kursovaya\\map\\processed_cementLocSecond.txt", "r");
             fscanf(fileCem, "%d\n", &N);
             int arr2[3] = { 0 };
             for (int i = 0; i < N; i++) {
@@ -3276,7 +3290,7 @@ void keyboard(char key) {
             }
             fclose(fileCem);
 
-            fileBri = fopen("C:\\Users\\dimak\\Desktop\\Kursovaya\\map\\processed_bricksLocSecond.txt", "r");
+            fileBri = fopen("C:\\Users\\PC\\Desktop\\Kursovaya\\map\\processed_bricksLocSecond.txt", "r");
             fscanf(fileBri, "%d\n", &N);
             for (int i = 0; i < N; i++) {
                 fscanf(fileBri, "%d %d %d\n", &a, &b, &c);
@@ -3289,8 +3303,8 @@ void keyboard(char key) {
             }
             fclose(fileBri);
 
-            enemy[2].xPos = 0.025;
-            enemy[2].yPos = 0.8;
+            enemy[2].xPos = 25;
+            enemy[2].yPos = 80;
             enemy[2].angle = 180;
 
             break;
@@ -3300,7 +3314,7 @@ void keyboard(char key) {
             enemy[1].botSpeed = 3;
             enemy[2].botSpeed = 3;
             enemy[3].botSpeed = 3;
-            fileCem = fopen("C:\\Users\\dimak\\Desktop\\Kursovaya\\map\\processed_cementLocThird.txt", "r");
+            fileCem = fopen("C:\\Users\\PC\\Desktop\\Kursovaya\\map\\processed_cementLocThird.txt", "r");
             fscanf(fileCem, "%d\n", &N);
             int arr3[3] = { 0 };
             for (int i = 0; i < N; i++) {
@@ -3314,7 +3328,7 @@ void keyboard(char key) {
             }
             fclose(fileCem);
 
-            fileBri = fopen("C:\\Users\\dimak\\Desktop\\Kursovaya\\map\\processed_bricksLocThird.txt", "r");
+            fileBri = fopen("C:\\Users\\PC\\Desktop\\Kursovaya\\map\\processed_bricksLocThird.txt", "r");
             fscanf(fileBri, "%d\n", &N);
             for (int i = 0; i < N; i++) {
                 fscanf(fileBri, "%d %d %d\n", &a, &b, &c);
@@ -3389,7 +3403,9 @@ void keyboard(char key) {
         case ' ':
             you.bulletSet.live = 1;
             break;
+
         }
+        if (key == 27) exit(0);
     }
 }
 
