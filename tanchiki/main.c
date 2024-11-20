@@ -6,15 +6,11 @@
 #include <stdlib.h>
 #include <time.h>
 
-
-#define NUM_OF_MINI_BRICKS_BLOCKS 500
-#define NUM_OF_MINI_CEMENT_BLOCKS 500
 #define BOOM_ANIMATION_FRAMES 10
 
 int TABLE_SIZE = 201;
 int menuChoose = 0;
 int moveSpeed = 2;
-
 
 struct tankSettings
 {
@@ -54,15 +50,10 @@ struct HashTable
     struct Node** table;
 };
 
-int bricksLoc[NUM_OF_MINI_BRICKS_BLOCKS][3] = { 0 };
-int cementLoc[NUM_OF_MINI_CEMENT_BLOCKS][3] = { 0 };
-
-
 struct tankSettings enemy[4];
 struct tankSettings you;
 struct HashTable* Hash_pos_x;
 struct HashTable* Hash_pos_y;
-
 
 struct Node* Create_Node(int key, int* arr)
 {
@@ -1484,7 +1475,7 @@ void check_block_entity_enemy_one(int flag)
     {
 
         int f = 0;
-        for (int i = enemy[0].yPos; i > enemy[0].yPos - 10; i -= 1)
+        for (int i = enemy[0].yPos; i > enemy[0].yPos - 11; i -= 1)
         {
             f = Enemy_Moving_Vertical(i, 0, flag);
             if (f == 1)
@@ -1504,7 +1495,7 @@ void check_block_entity_enemy_one(int flag)
     if (flag == 3)
     {
         int f = 0;
-        for (int i = enemy[0].xPos; i > enemy[0].xPos - 10; i -= 1)
+        for (int i = enemy[0].xPos; i > enemy[0].xPos - 11; i -= 1)
         {
             f = Enemy_Moving_Horizontal(i, 0);
             if (f == 1)
@@ -1564,7 +1555,7 @@ void check_block_entity_enemy_two(int flag)
     {
 
         int f = 0;
-        for (int i = enemy[1].yPos; i > enemy[1].yPos - 10; i -= 1)
+        for (int i = enemy[1].yPos; i > enemy[1].yPos - 11; i -= 1)
         {
             f = Enemy_Moving_Vertical(i, 1, flag);
             if (f == 1)
@@ -1580,7 +1571,7 @@ void check_block_entity_enemy_two(int flag)
     if (flag == 3)
     {
         int f = 0;
-        for (int i = enemy[1].xPos; i > enemy[1].xPos - 10; i -= 1)
+        for (int i = enemy[1].xPos; i > enemy[1].xPos - 11; i -= 1)
         {
             f = Enemy_Moving_Horizontal(i, 1);
             if (f == 1)
@@ -1639,7 +1630,7 @@ void check_block_entity_enemy_three(int flag)
     {
 
         int f = 0;
-        for (int i = enemy[2].yPos; i > enemy[2].yPos - 10; i -= 1)
+        for (int i = enemy[2].yPos; i > enemy[2].yPos - 11; i -= 1)
         {
             f = Enemy_Moving_Vertical(i, 2, flag);
             if (f == 1)
@@ -1655,7 +1646,7 @@ void check_block_entity_enemy_three(int flag)
     if (flag == 3)
     {
         int f = 0;
-        for (int i = enemy[2].xPos; i > enemy[2].xPos - 10; i -= 1)
+        for (int i = enemy[2].xPos; i > enemy[2].xPos - 11; i -= 1)
         {
             f = Enemy_Moving_Horizontal(i, 2);
             if (f == 1)
@@ -1712,7 +1703,7 @@ void check_block_entity_enemy_four(int flag)
     {
 
         int f = 0;
-        for (int i = enemy[3].yPos; i > enemy[3].yPos - 10; i -= 1)
+        for (int i = enemy[3].yPos; i > enemy[3].yPos - 11; i -= 1)
         {
             f = Enemy_Moving_Vertical(i, 3, flag);
             if (f == 1)
@@ -1728,7 +1719,7 @@ void check_block_entity_enemy_four(int flag)
     if (flag == 3)
     {
         int f = 0;
-        for (int i = enemy[3].xPos; i > enemy[3].xPos - 10; i -= 1)
+        for (int i = enemy[3].xPos; i > enemy[3].xPos - 11; i -= 1)
         {
             f = Enemy_Moving_Horizontal(i, 3);
             if (f == 1)
@@ -1815,15 +1806,19 @@ int Bullet_MovingVertical()
     struct Node* node = Hash_pos_y->table[index];
     while (node != NULL)
     {
-        if (node->value[2] <= you.bulletSet.dy && node->value[2] + 4 >= you.bulletSet.dy && node->value[1] <= you.bulletSet.dx && node->value[1] + 4 >= you.bulletSet.dx)
+        if (node->value[2] <= you.bulletSet.dy && node->value[2] + 4 >= you.bulletSet.dy && node->value[1] - 1 <= you.bulletSet.dx && node->value[1] + 5 >= you.bulletSet.dx)
         {
             if (node->value[0] == 1)
             {
                 Delete_Table_x(node->value[1], node->value[2]);
                 Delete_Table_y(node->value[2], node->value[1]);
+                if (you.bulletSet.angle_bull == 180) you.bulletSet.dy += 4;
                 return 1;
             }
-            else return 2;
+            else {
+                if (you.bulletSet.angle_bull == 180) you.bulletSet.dy += 4;
+                return 2;
+            }
         }
         node = node->next;
     }
@@ -1836,16 +1831,71 @@ int Bullet_MovingHorizontal()
     struct Node* node = Hash_pos_x->table[index];
     while (node != NULL)
     {
-        if (node->value[2] <= you.bulletSet.dy && node->value[2] + 4 >= you.bulletSet.dy && node->value[1] <= you.bulletSet.dx && node->value[1] + 4 >= you.bulletSet.dx)
+        if (node->value[2] - 1 <= you.bulletSet.dy && node->value[2] + 5 >= you.bulletSet.dy && node->value[1] <= you.bulletSet.dx && node->value[1] + 4 >= you.bulletSet.dx)
         {
             if (node->value[0] == 1)
             {
                 Delete_Table_y(node->value[2], node->value[1]);
                 Delete_Table_x(node->value[1], node->value[2]);
-
+                if (you.bulletSet.angle_bull == 90) you.bulletSet.dx += 4;
                 return 1;
             }
-            else return 2;
+            else {
+                if (you.bulletSet.angle_bull == 90) you.bulletSet.dx += 4;
+                return 2;
+            }
+        }
+        node = node->next;
+    }
+
+}
+
+int EnemyBullet_MovingVertical(int enemy_num)
+{
+    int index = Hash(enemy[enemy_num].bulletSet.dy);
+    struct Node* node = Hash_pos_y->table[index];
+    while (node != NULL)
+    {
+        if (node->value[2] <= enemy[enemy_num].bulletSet.dy && node->value[2] + 4 >= enemy[enemy_num].bulletSet.dy && node->value[1] - 1 <= enemy[enemy_num].bulletSet.dx && node->value[1] + 5 >= enemy[enemy_num].bulletSet.dx)
+        {
+            if (node->value[0] == 1)
+            {
+                Delete_Table_x(node->value[1], node->value[2]);
+                Delete_Table_y(node->value[2], node->value[1]);
+                if (enemy[enemy_num].bulletSet.angle_bull == 180) enemy[enemy_num].bulletSet.dy += 4;
+                return 1;
+            }
+            else
+            {
+                if (enemy[enemy_num].bulletSet.angle_bull == 180) enemy[enemy_num].bulletSet.dy += 4;
+                return 2;
+            }
+        }
+        node = node->next;
+    }
+
+}
+
+int EnemyBullet_MovingHorizontal(int enemy_num)
+{
+    int index = Hash(enemy[enemy_num].bulletSet.dx);
+    struct Node* node = Hash_pos_x->table[index];
+    while (node != NULL)
+    {
+        if (node->value[2] - 1 <= enemy[enemy_num].bulletSet.dy && node->value[2] + 5 >= enemy[enemy_num].bulletSet.dy && node->value[1] <= enemy[enemy_num].bulletSet.dx && node->value[1] + 4 >= enemy[enemy_num].bulletSet.dx)
+        {
+            if (node->value[0] == 1)
+            {
+                Delete_Table_y(node->value[2], node->value[1]);
+                Delete_Table_x(node->value[1], node->value[2]);
+                if (enemy[enemy_num].bulletSet.angle_bull == 90) enemy[enemy_num].bulletSet.dx += 4;
+                return 1;
+            }
+            else
+            {
+                if (enemy[enemy_num].bulletSet.angle_bull == 90) enemy[enemy_num].bulletSet.dx += 4;
+                return 2;
+            }
         }
         node = node->next;
     }
@@ -1856,7 +1906,7 @@ void draw_bullet_global()
 {
     if (you.bulletSet.live == 1)
     {
-        if (you.bulletSet.dx < 92 && you.bulletSet.dx > -92 && you.bulletSet.dy < 92 && you.bulletSet.dy > -92)
+        if (you.bulletSet.dx < 92 && you.bulletSet.dx > -96 && you.bulletSet.dy < 92 && you.bulletSet.dy > -92)
         {
 
             glColor3f(0.502f, 0.502f, 0.502f);
@@ -2028,49 +2078,26 @@ void draw_bullet_enemy_one()
 {
     if (enemy[0].bulletSet.live == 1)
     {
-        if (enemy[0].bulletSet.dx < 92 && enemy[0].bulletSet.dx > -92 && enemy[0].bulletSet.dy < 92 && enemy[0].bulletSet.dy > -92)
+        if (enemy[0].bulletSet.dx < 92 && enemy[0].bulletSet.dx > -96 && enemy[0].bulletSet.dy < 92 && enemy[0].bulletSet.dy > -92)
         {
-            for (int i = 0; i < NUM_OF_MINI_BRICKS_BLOCKS; i++)
-            {
-                if (bricksLoc[i][0] == 1)
-                {
-                    if (
-                        (bricksLoc[i][2] <= enemy[0].bulletSet.dy && bricksLoc[i][2] + 4 >= enemy[0].bulletSet.dy)
-                        &&
-                        (bricksLoc[i][1] <= enemy[0].bulletSet.dx && bricksLoc[i][1] + 4 >= enemy[0].bulletSet.dx)
-                        )
-                    {
-                        enemy[0].bulletSet.anim_bool = 1;
-                        bricksLoc[i][0] = 0;
-                        Delete_Table_x(bricksLoc[i][1], bricksLoc[i][2]);
-                        Delete_Table_y(bricksLoc[i][2], bricksLoc[i][1]);
-                        enemy[0].bulletSet.live = 0;
-                        break;
-                    }
-                }
-            }
-
-            for (int i = 0; i < NUM_OF_MINI_CEMENT_BLOCKS; i++)
-            {
-                if (cementLoc[i][0] == 0)
-                {
-                    if (
-                        (cementLoc[i][2] <= enemy[0].bulletSet.dy && cementLoc[i][2] + 4 >= enemy[0].bulletSet.dy)
-                        &&
-                        (cementLoc[i][1] <= enemy[0].bulletSet.dx && cementLoc[i][1] + 4 >= enemy[0].bulletSet.dx)
-                        )
-                    {
-                        enemy[0].bulletSet.anim_bool = 1;
-                        cementLoc[i][0] = 0;
-                        enemy[0].bulletSet.live = 0;
-                        break;
-                    }
-                }
-            }
 
             glColor3f(0.502f, 0.502f, 0.502f);
             if (enemy[0].bulletSet.angle_bull == 0)
             {
+                int f = EnemyBullet_MovingVertical(0);
+
+                if (f == 1)
+                {
+                    enemy[0].bulletSet.anim_bool = 1;
+                    enemy[0].bulletSet.live = 0;
+
+                }
+                if (f == 2)
+                {
+                    enemy[0].bulletSet.anim_bool = 1;
+                    enemy[0].bulletSet.live = 0;
+
+                }
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
 
@@ -2090,6 +2117,20 @@ void draw_bullet_enemy_one()
             }
             if (enemy[0].bulletSet.angle_bull == 180)
             {
+                int f = EnemyBullet_MovingVertical(0);
+
+                if (f == 1)
+                {
+                    enemy[0].bulletSet.anim_bool = 1;
+                    enemy[0].bulletSet.live = 0;
+
+                }
+                if (f == 2)
+                {
+                    enemy[0].bulletSet.anim_bool = 1;
+                    enemy[0].bulletSet.live = 0;
+
+                }
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
 
@@ -2106,6 +2147,20 @@ void draw_bullet_enemy_one()
             }
             if (enemy[0].bulletSet.angle_bull == 270)
             {
+                int f = EnemyBullet_MovingHorizontal(0);
+
+                if (f == 1)
+                {
+                    enemy[0].bulletSet.anim_bool = 1;
+                    enemy[0].bulletSet.live = 0;
+
+                }
+                if (f == 2)
+                {
+                    enemy[0].bulletSet.anim_bool = 1;
+                    enemy[0].bulletSet.live = 0;
+
+                }
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
 
@@ -2123,6 +2178,20 @@ void draw_bullet_enemy_one()
             }
             if (enemy[0].bulletSet.angle_bull == 90)
             {
+                int f = EnemyBullet_MovingHorizontal(0);
+
+                if (f == 1)
+                {
+                    enemy[0].bulletSet.anim_bool = 1;
+                    enemy[0].bulletSet.live = 0;
+
+                }
+                if (f == 2)
+                {
+                    enemy[0].bulletSet.anim_bool = 1;
+                    enemy[0].bulletSet.live = 0;
+
+                }
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
 
@@ -2274,49 +2343,25 @@ void draw_bullet_enemy_two()
 {
     if (enemy[1].bulletSet.live == 1)
     {
-        if (enemy[1].bulletSet.dx < 92 && enemy[1].bulletSet.dx > -92 && enemy[1].bulletSet.dy < 92 && enemy[1].bulletSet.dy > -92)
+        if (enemy[1].bulletSet.dx < 92 && enemy[1].bulletSet.dx > -96 && enemy[1].bulletSet.dy < 92 && enemy[1].bulletSet.dy > -92)
         {
-            for (int i = 0; i < NUM_OF_MINI_BRICKS_BLOCKS; i++)
-            {
-                if (bricksLoc[i][0] == 1)
-                {
-                    if (
-                        (bricksLoc[i][2] <= enemy[1].bulletSet.dy && bricksLoc[i][2] + 4 >= enemy[1].bulletSet.dy)
-                        &&
-                        (bricksLoc[i][1] <= enemy[1].bulletSet.dx && bricksLoc[i][1] + 4 >= enemy[1].bulletSet.dx)
-                        )
-                    {
-                        enemy[1].bulletSet.anim_bool = 1;
-                        Delete_Table_x(bricksLoc[i][1], bricksLoc[i][2]);
-                        Delete_Table_y(bricksLoc[i][2], bricksLoc[i][1]);
-                        bricksLoc[i][0] = 0;
-                        enemy[1].bulletSet.live = 0;
-                        break;
-                    }
-                }
-            }
-
-            for (int i = 0; i < NUM_OF_MINI_CEMENT_BLOCKS; i++)
-            {
-                if (cementLoc[i][0] == 0)
-                {
-                    if (
-                        (cementLoc[i][2] <= enemy[1].bulletSet.dy && cementLoc[i][2] + 4 >= enemy[1].bulletSet.dy)
-                        &&
-                        (cementLoc[i][1] <= enemy[1].bulletSet.dx && cementLoc[i][1] + 4 >= enemy[1].bulletSet.dx)
-                        )
-                    {
-                        enemy[1].bulletSet.anim_bool = 1;
-                        cementLoc[i][0] = 0;
-                        enemy[1].bulletSet.live = 0;
-                        break;
-                    }
-                }
-            }
-
             glColor3f(0.502f, 0.502f, 0.502f);
             if (enemy[1].bulletSet.angle_bull == 0)
             {
+                int f = EnemyBullet_MovingVertical(1);
+
+                if (f == 1)
+                {
+                    enemy[1].bulletSet.anim_bool = 1;
+                    enemy[1].bulletSet.live = 0;
+
+                }
+                if (f == 2)
+                {
+                    enemy[1].bulletSet.anim_bool = 1;
+                    enemy[1].bulletSet.live = 0;
+
+                }
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
 
@@ -2336,6 +2381,20 @@ void draw_bullet_enemy_two()
             }
             if (enemy[1].bulletSet.angle_bull == 180)
             {
+                int f = EnemyBullet_MovingVertical(1);
+
+                if (f == 1)
+                {
+                    enemy[1].bulletSet.anim_bool = 1;
+                    enemy[1].bulletSet.live = 0;
+
+                }
+                if (f == 2)
+                {
+                    enemy[1].bulletSet.anim_bool = 1;
+                    enemy[1].bulletSet.live = 0;
+
+                }
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
 
@@ -2352,6 +2411,20 @@ void draw_bullet_enemy_two()
             }
             if (enemy[1].bulletSet.angle_bull == 270)
             {
+                int f = EnemyBullet_MovingHorizontal(1);
+
+                if (f == 1)
+                {
+                    enemy[1].bulletSet.anim_bool = 1;
+                    enemy[1].bulletSet.live = 0;
+
+                }
+                if (f == 2)
+                {
+                    enemy[1].bulletSet.anim_bool = 1;
+                    enemy[1].bulletSet.live = 0;
+
+                }
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
 
@@ -2369,6 +2442,20 @@ void draw_bullet_enemy_two()
             }
             if (enemy[1].bulletSet.angle_bull == 90)
             {
+                int f = EnemyBullet_MovingHorizontal(1);
+
+                if (f == 1)
+                {
+                    enemy[1].bulletSet.anim_bool = 1;
+                    enemy[1].bulletSet.live = 0;
+
+                }
+                if (f == 2)
+                {
+                    enemy[1].bulletSet.anim_bool = 1;
+                    enemy[1].bulletSet.live = 0;
+
+                }
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
 
@@ -2520,49 +2607,25 @@ void draw_bullet_enemy_three()
 {
     if (enemy[2].bulletSet.live == 1)
     {
-        if (enemy[2].bulletSet.dx < 92 && enemy[2].bulletSet.dx > -92 && enemy[2].bulletSet.dy < 92 && enemy[2].bulletSet.dy > -92)
+        if (enemy[2].bulletSet.dx < 92 && enemy[2].bulletSet.dx > -96 && enemy[2].bulletSet.dy < 92 && enemy[2].bulletSet.dy > -92)
         {
-            for (int i = 0; i < NUM_OF_MINI_BRICKS_BLOCKS; i++)
-            {
-                if (bricksLoc[i][0] == 1)
-                {
-                    if (
-                        (bricksLoc[i][2] <= enemy[2].bulletSet.dy && bricksLoc[i][2] + 4 >= enemy[2].bulletSet.dy)
-                        &&
-                        (bricksLoc[i][1] <= enemy[2].bulletSet.dx && bricksLoc[i][1] + 4 >= enemy[2].bulletSet.dx)
-                        )
-                    {
-                        enemy[2].bulletSet.anim_bool = 1;
-                        Delete_Table_x(bricksLoc[i][1], bricksLoc[i][2]);
-                        Delete_Table_y(bricksLoc[i][2], bricksLoc[i][1]);
-                        bricksLoc[i][0] = 0;
-                        enemy[2].bulletSet.live = 0;
-                        break;
-                    }
-                }
-            }
-
-            for (int i = 0; i < NUM_OF_MINI_CEMENT_BLOCKS; i++)
-            {
-                if (cementLoc[i][0] == 0)
-                {
-                    if (
-                        (cementLoc[i][2] <= enemy[2].bulletSet.dy && cementLoc[i][2] + 4 >= enemy[2].bulletSet.dy)
-                        &&
-                        (cementLoc[i][1] <= enemy[2].bulletSet.dx && cementLoc[i][1] + 4 >= enemy[2].bulletSet.dx)
-                        )
-                    {
-                        enemy[2].bulletSet.anim_bool = 1;
-                        cementLoc[i][0] = 0;
-                        enemy[2].bulletSet.live = 0;
-                        break;
-                    }
-                }
-            }
-
             glColor3f(0.502f, 0.502f, 0.502f);
             if (enemy[2].bulletSet.angle_bull == 0)
             {
+                int f = EnemyBullet_MovingVertical(2);
+
+                if (f == 1)
+                {
+                    enemy[2].bulletSet.anim_bool = 1;
+                    enemy[2].bulletSet.live = 0;
+
+                }
+                if (f == 2)
+                {
+                    enemy[2].bulletSet.anim_bool = 1;
+                    enemy[2].bulletSet.live = 0;
+
+                }
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
 
@@ -2582,6 +2645,20 @@ void draw_bullet_enemy_three()
             }
             if (enemy[2].bulletSet.angle_bull == 180)
             {
+                int f = EnemyBullet_MovingVertical(2);
+
+                if (f == 1)
+                {
+                    enemy[2].bulletSet.anim_bool = 1;
+                    enemy[2].bulletSet.live = 0;
+
+                }
+                if (f == 2)
+                {
+                    enemy[2].bulletSet.anim_bool = 1;
+                    enemy[2].bulletSet.live = 0;
+
+                }
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
 
@@ -2598,6 +2675,20 @@ void draw_bullet_enemy_three()
             }
             if (enemy[2].bulletSet.angle_bull == 270)
             {
+                int f = EnemyBullet_MovingHorizontal(2);
+
+                if (f == 1)
+                {
+                    enemy[2].bulletSet.anim_bool = 1;
+                    enemy[2].bulletSet.live = 0;
+
+                }
+                if (f == 2)
+                {
+                    enemy[2].bulletSet.anim_bool = 1;
+                    enemy[2].bulletSet.live = 0;
+
+                }
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
 
@@ -2615,6 +2706,20 @@ void draw_bullet_enemy_three()
             }
             if (enemy[2].bulletSet.angle_bull == 90)
             {
+                int f = EnemyBullet_MovingHorizontal(2);
+
+                if (f == 1)
+                {
+                    enemy[2].bulletSet.anim_bool = 1;
+                    enemy[2].bulletSet.live = 0;
+
+                }
+                if (f == 2)
+                {
+                    enemy[2].bulletSet.anim_bool = 1;
+                    enemy[2].bulletSet.live = 0;
+
+                }
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
 
@@ -2762,49 +2867,25 @@ void draw_bullet_enemy_four()
 {
     if (enemy[3].bulletSet.live == 1)
     {
-        if (enemy[3].bulletSet.dx < 92 && enemy[3].bulletSet.dx > -92 && enemy[3].bulletSet.dy < 92 && enemy[3].bulletSet.dy > -92)
+        if (enemy[3].bulletSet.dx < 92 && enemy[3].bulletSet.dx > -96 && enemy[3].bulletSet.dy < 92 && enemy[3].bulletSet.dy > -92)
         {
-            for (int i = 0; i < NUM_OF_MINI_BRICKS_BLOCKS; i++)
-            {
-                if (bricksLoc[i][0] == 1)
-                {
-                    if (
-                        (bricksLoc[i][2] <= enemy[3].bulletSet.dy && bricksLoc[i][2] + 4 >= enemy[3].bulletSet.dy)
-                        &&
-                        (bricksLoc[i][1] <= enemy[3].bulletSet.dx && bricksLoc[i][1] + 4 >= enemy[3].bulletSet.dx)
-                        )
-                    {
-                        enemy[3].bulletSet.anim_bool = 1;
-                        Delete_Table_x(bricksLoc[i][1], bricksLoc[i][2]);
-                        Delete_Table_y(bricksLoc[i][2], bricksLoc[i][1]);
-                        bricksLoc[i][0] = 0;
-                        enemy[3].bulletSet.live = 0;
-                        break;
-                    }
-                }
-            }
-
-            for (int i = 0; i < NUM_OF_MINI_CEMENT_BLOCKS; i++)
-            {
-                if (cementLoc[i][0] == 0)
-                {
-                    if (
-                        (cementLoc[i][2] <= enemy[3].bulletSet.dy && cementLoc[i][2] + 4 >= enemy[3].bulletSet.dy)
-                        &&
-                        (cementLoc[i][1] <= enemy[3].bulletSet.dx && cementLoc[i][1] + 4 >= enemy[3].bulletSet.dx)
-                        )
-                    {
-                        enemy[3].bulletSet.anim_bool = 1;
-                        cementLoc[i][0] = 0;
-                        enemy[3].bulletSet.live = 0;
-                        break;
-                    }
-                }
-            }
-
             glColor3f(0.502f, 0.502f, 0.502f);
             if (enemy[3].bulletSet.angle_bull == 0)
             {
+                int f = EnemyBullet_MovingVertical(3);
+
+                if (f == 1)
+                {
+                    enemy[3].bulletSet.anim_bool = 1;
+                    enemy[3].bulletSet.live = 0;
+
+                }
+                if (f == 2)
+                {
+                    enemy[3].bulletSet.anim_bool = 1;
+                    enemy[3].bulletSet.live = 0;
+
+                }
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
 
@@ -2824,6 +2905,20 @@ void draw_bullet_enemy_four()
             }
             if (enemy[3].bulletSet.angle_bull == 180)
             {
+                int f = EnemyBullet_MovingVertical(3);
+
+                if (f == 1)
+                {
+                    enemy[3].bulletSet.anim_bool = 1;
+                    enemy[3].bulletSet.live = 0;
+
+                }
+                if (f == 2)
+                {
+                    enemy[3].bulletSet.anim_bool = 1;
+                    enemy[3].bulletSet.live = 0;
+
+                }
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
 
@@ -2840,6 +2935,20 @@ void draw_bullet_enemy_four()
             }
             if (enemy[3].bulletSet.angle_bull == 270)
             {
+                int f = EnemyBullet_MovingHorizontal(3);
+
+                if (f == 1)
+                {
+                    enemy[3].bulletSet.anim_bool = 1;
+                    enemy[3].bulletSet.live = 0;
+
+                }
+                if (f == 2)
+                {
+                    enemy[3].bulletSet.anim_bool = 1;
+                    enemy[3].bulletSet.live = 0;
+
+                }
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
 
@@ -2857,6 +2966,20 @@ void draw_bullet_enemy_four()
             }
             if (enemy[3].bulletSet.angle_bull == 90)
             {
+                int f = EnemyBullet_MovingHorizontal(3);
+
+                if (f == 1)
+                {
+                    enemy[3].bulletSet.anim_bool = 1;
+                    enemy[3].bulletSet.live = 0;
+
+                }
+                if (f == 2)
+                {
+                    enemy[3].bulletSet.anim_bool = 1;
+                    enemy[3].bulletSet.live = 0;
+
+                }
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
 
@@ -3090,9 +3213,9 @@ void menu() {
         glColor3f(1.0, 1.0, 1.0);
 
 
-        drawText(-40, 30, "1 EASY");
-        drawText(-40, 10, "2 HARD");
-        drawText(-40, -10, "3 ULTRA HARD");
+        drawText(-25, 30, "1 EASY");
+        drawText(-25, 10, "2 HARD");
+        drawText(-50, -10, "3 ULTRA HARD");
 
         glFlush();
     }
@@ -3241,29 +3364,23 @@ void keyboard(char key) {
             menuChoose = 1;
             enemy[0].botSpeed = 10;
             enemy[1].botSpeed = 10;
-            FILE* fileCem = fopen("C:\\Users\\PC\\Desktop\\Kursovaya\\map\\processed_cementLocFirst.txt", "r");
+            FILE* fileCem = fopen("C:\\Users\\dimak\\Desktop\\Kursovaya\\map\\processed_cementLocFirst.txt", "r");
             int N;
             fscanf(fileCem, "%d\n", &N);
             int a, b, c;
-            int arr1[3] = { 0 };
+            int arr1[3] = {0};
             for (int i = 0; i < N; i++) {
                 fscanf(fileCem, "%d %d %d\n", &a, &b, &c);
-                cementLoc[i][0] = a;
-                cementLoc[i][1] = b;
-                cementLoc[i][2] = c;
                 arr1[0] = a; arr1[1] = b; arr1[2] = c;
                 Insert_x(arr1[1], arr1);
                 Insert_y(arr1[2], arr1);
             }
             fclose(fileCem);
 
-            FILE* fileBri = fopen("C:\\Users\\PC\\Desktop\\Kursovaya\\map\\processed_bricksLocFirst.txt", "r");
+            FILE* fileBri = fopen("C:\\Users\\dimak\\Desktop\\Kursovaya\\map\\processed_bricksLocFirst.txt", "r");
             fscanf(fileBri, "%d\n", &N);
             for (int i = 0; i < N; i++) {
                 fscanf(fileBri, "%d %d %d\n", &a, &b, &c);
-                bricksLoc[i][0] = a;
-                bricksLoc[i][1] = b;
-                bricksLoc[i][2] = c;
                 arr1[0] = a; arr1[1] = b; arr1[2] = c;
                 Insert_x(arr1[1], arr1);
                 Insert_y(arr1[2], arr1);
@@ -3276,27 +3393,21 @@ void keyboard(char key) {
             enemy[0].botSpeed = 5;
             enemy[1].botSpeed = 5;
             enemy[2].botSpeed = 5;
-            fileCem = fopen("C:\\Users\\PC\\Desktop\\Kursovaya\\map\\processed_cementLocSecond.txt", "r");
+            fileCem = fopen("C:\\Users\\dimak\\Desktop\\Kursovaya\\map\\processed_cementLocSecond.txt", "r");
             fscanf(fileCem, "%d\n", &N);
-            int arr2[3] = { 0 };
+            int arr2[3] = {0};
             for (int i = 0; i < N; i++) {
                 fscanf(fileCem, "%d %d %d\n", &a, &b, &c);
-                cementLoc[i][0] = a;
-                cementLoc[i][1] = b;
-                cementLoc[i][2] = c;
                 arr2[0] = a; arr2[1] = b; arr2[2] = c;
                 Insert_x(arr2[1], arr2);
                 Insert_y(arr2[2], arr2);
             }
             fclose(fileCem);
 
-            fileBri = fopen("C:\\Users\\PC\\Desktop\\Kursovaya\\map\\processed_bricksLocSecond.txt", "r");
+            fileBri = fopen("C:\\Users\\dimak\\Desktop\\Kursovaya\\map\\processed_bricksLocSecond.txt", "r");
             fscanf(fileBri, "%d\n", &N);
             for (int i = 0; i < N; i++) {
                 fscanf(fileBri, "%d %d %d\n", &a, &b, &c);
-                bricksLoc[i][0] = a;
-                bricksLoc[i][1] = b;
-                bricksLoc[i][2] = c;
                 arr2[0] = a; arr2[1] = b; arr2[2] = c;
                 Insert_x(arr2[1], arr2);
                 Insert_y(arr2[2], arr2);
@@ -3314,27 +3425,21 @@ void keyboard(char key) {
             enemy[1].botSpeed = 3;
             enemy[2].botSpeed = 3;
             enemy[3].botSpeed = 3;
-            fileCem = fopen("C:\\Users\\PC\\Desktop\\Kursovaya\\map\\processed_cementLocThird.txt", "r");
+            fileCem = fopen("C:\\Users\\dimak\\Desktop\\Kursovaya\\map\\processed_cementLocThird.txt", "r");
             fscanf(fileCem, "%d\n", &N);
-            int arr3[3] = { 0 };
+            int arr3[3] = {0};
             for (int i = 0; i < N; i++) {
                 fscanf(fileCem, "%d %d %d\n", &a, &b, &c);
-                cementLoc[i][0] = a;
-                cementLoc[i][1] = b;
-                cementLoc[i][2] = c;
                 arr3[0] = a; arr3[1] = b; arr3[2] = c;
                 Insert_x(arr3[1], arr3);
                 Insert_y(arr3[2], arr3);
             }
             fclose(fileCem);
 
-            fileBri = fopen("C:\\Users\\PC\\Desktop\\Kursovaya\\map\\processed_bricksLocThird.txt", "r");
+            fileBri = fopen("C:\\Users\\dimak\\Desktop\\Kursovaya\\map\\processed_bricksLocThird.txt", "r");
             fscanf(fileBri, "%d\n", &N);
             for (int i = 0; i < N; i++) {
                 fscanf(fileBri, "%d %d %d\n", &a, &b, &c);
-                bricksLoc[i][0] = a;
-                bricksLoc[i][1] = b;
-                bricksLoc[i][2] = c;
                 arr3[0] = a; arr3[1] = b; arr3[2] = c;
                 Insert_x(arr3[1], arr3);
                 Insert_y(arr3[2], arr3);
@@ -3408,7 +3513,6 @@ void keyboard(char key) {
         if (key == 27) exit(0);
     }
 }
-
 
 int main(int argc, char** argv) {
     srand(time(NULL));

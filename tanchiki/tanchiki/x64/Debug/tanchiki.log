@@ -1,216 +1,218 @@
 ﻿  main.c
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(154,23): warning C4244: =: преобразование "double" в "int", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(232,23): warning C4244: =: преобразование "double" в "int", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(424,15): warning C4305: функция: усечение из "double" в "GLfloat"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(424,21): warning C4305: функция: усечение из "double" в "GLfloat"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(424,27): warning C4305: функция: усечение из "double" в "GLfloat"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(430,15): warning C4305: функция: усечение из "double" в "GLfloat"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(430,21): warning C4305: функция: усечение из "double" в "GLfloat"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(430,27): warning C4305: функция: усечение из "double" в "GLfloat"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(477,15): warning C4305: функция: усечение из "double" в "GLfloat"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(477,21): warning C4305: функция: усечение из "double" в "GLfloat"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(477,27): warning C4305: функция: усечение из "double" в "GLfloat"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(483,15): warning C4305: функция: усечение из "double" в "GLfloat"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(483,21): warning C4305: функция: усечение из "double" в "GLfloat"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(489,15): warning C4305: функция: усечение из "double" в "GLfloat"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(489,21): warning C4305: функция: усечение из "double" в "GLfloat"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(783,15): warning C4305: функция: усечение из "double" в "GLfloat"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(783,21): warning C4305: функция: усечение из "double" в "GLfloat"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(916,15): warning C4305: функция: усечение из "double" в "GLfloat"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(916,21): warning C4305: функция: усечение из "double" в "GLfloat"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(916,27): warning C4305: функция: усечение из "double" в "GLfloat"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(1047,15): warning C4305: функция: усечение из "double" в "GLfloat"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(1047,21): warning C4305: функция: усечение из "double" в "GLfloat"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(1047,27): warning C4305: функция: усечение из "double" в "GLfloat"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(1178,15): warning C4305: функция: усечение из "double" в "GLfloat"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(1178,21): warning C4305: функция: усечение из "double" в "GLfloat"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(1178,27): warning C4305: функция: усечение из "double" в "GLfloat"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(1309,15): warning C4305: функция: усечение из "double" в "GLfloat"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(1309,21): warning C4305: функция: усечение из "double" в "GLfloat"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(1309,27): warning C4305: функция: усечение из "double" в "GLfloat"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(1835,31): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(1835,61): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(1833,51): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2079,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2079,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2080,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2080,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2082,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2082,79): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2083,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2083,79): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2085,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2085,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2086,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2086,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2095,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2095,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2096,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2096,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2098,50): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2098,77): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2099,50): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2099,77): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2101,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2101,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2102,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2102,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2112,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2112,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2113,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2113,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2115,50): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2115,77): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2116,50): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2116,77): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2118,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2118,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2119,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2119,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2184,31): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2184,61): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2182,51): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2306,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2306,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2307,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2307,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2309,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2309,79): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2310,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2310,79): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2312,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2312,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2313,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2313,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2325,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2325,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2326,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2326,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2328,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2328,79): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2329,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2329,79): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2331,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2331,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2332,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2332,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2341,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2341,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2342,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2342,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2344,50): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2344,77): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2345,50): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2345,77): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2347,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2347,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2348,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2348,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2358,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2358,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2359,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2359,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2361,50): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2361,77): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2362,50): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2362,77): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2364,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2364,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2365,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2365,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2430,31): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2430,61): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2428,51): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2676,31): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2676,61): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2674,51): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2794,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2794,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2795,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2795,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2797,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2797,79): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2798,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2798,79): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2800,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2800,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2801,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2801,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2813,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2813,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2814,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2814,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2816,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2816,79): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2817,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2817,79): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2819,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2819,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2820,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2820,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2829,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2829,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2830,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2830,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2832,50): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2832,77): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2833,50): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2833,77): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2835,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2835,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2836,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2836,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2846,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2846,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2847,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2847,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2849,50): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2849,77): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2850,50): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2850,77): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2852,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2852,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2853,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2853,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2918,31): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2918,61): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2916,51): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3001,14): warning C4305: функция: усечение из "double" в "GLfloat"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3001,19): warning C4305: функция: усечение из "double" в "GLfloat"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3001,24): warning C4305: функция: усечение из "double" в "GLfloat"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3005,15): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3026,14): warning C4305: функция: усечение из "double" в "GLfloat"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3026,19): warning C4305: функция: усечение из "double" в "GLfloat"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3026,24): warning C4305: функция: усечение из "double" в "GLfloat"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3030,15): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3047,18): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3047,21): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3048,14): warning C4305: функция: усечение из "double" в "GLfloat"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3048,19): warning C4305: функция: усечение из "double" в "GLfloat"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3048,24): warning C4305: функция: усечение из "double" в "GLfloat"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3049,15): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3095,22): warning C4305: функция: усечение из "double" в "GLclampf"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3095,27): warning C4305: функция: усечение из "double" в "GLclampf"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3095,32): warning C4305: функция: усечение из "double" в "GLclampf"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3122,31): warning C4305: функция: усечение из "double" в "GLclampf"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3122,36): warning C4305: функция: усечение из "double" в "GLclampf"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3129,22): warning C4305: функция: усечение из "double" в "GLclampf"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3129,27): warning C4305: функция: усечение из "double" в "GLclampf"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3129,32): warning C4305: функция: усечение из "double" в "GLclampf"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3164,31): warning C4305: функция: усечение из "double" в "GLclampf"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3164,36): warning C4305: функция: усечение из "double" в "GLclampf"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3171,22): warning C4305: функция: усечение из "double" в "GLclampf"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3171,27): warning C4305: функция: усечение из "double" в "GLclampf"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3171,32): warning C4305: функция: усечение из "double" в "GLclampf"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3213,31): warning C4305: функция: усечение из "double" в "GLclampf"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3213,36): warning C4305: функция: усечение из "double" в "GLclampf"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3292,29): warning C4244: =: преобразование "double" в "int", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3293,29): warning C4244: =: преобразование "double" в "int", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3398,11): warning C4244: функция: преобразование "time_t" в "unsigned int", возможна потеря данных
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3408,18): warning C4305: функция: усечение из "double" в "GLclampf"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3408,23): warning C4305: функция: усечение из "double" в "GLclampf"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3408,28): warning C4305: функция: усечение из "double" в "GLclampf"
-C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3418,21): warning C4113: "void (__cdecl *)()" отличается в списках параметров от "void (__cdecl *)(void)"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(145,23): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(230,23): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(422,15): warning C4305: функция: усечение из "double" в "GLfloat"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(422,21): warning C4305: функция: усечение из "double" в "GLfloat"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(422,27): warning C4305: функция: усечение из "double" в "GLfloat"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(428,15): warning C4305: функция: усечение из "double" в "GLfloat"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(428,21): warning C4305: функция: усечение из "double" в "GLfloat"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(428,27): warning C4305: функция: усечение из "double" в "GLfloat"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(475,15): warning C4305: функция: усечение из "double" в "GLfloat"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(475,21): warning C4305: функция: усечение из "double" в "GLfloat"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(475,27): warning C4305: функция: усечение из "double" в "GLfloat"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(481,15): warning C4305: функция: усечение из "double" в "GLfloat"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(481,21): warning C4305: функция: усечение из "double" в "GLfloat"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(487,15): warning C4305: функция: усечение из "double" в "GLfloat"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(487,21): warning C4305: функция: усечение из "double" в "GLfloat"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(776,15): warning C4305: функция: усечение из "double" в "GLfloat"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(776,21): warning C4305: функция: усечение из "double" в "GLfloat"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(909,15): warning C4305: функция: усечение из "double" в "GLfloat"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(909,21): warning C4305: функция: усечение из "double" в "GLfloat"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(909,27): warning C4305: функция: усечение из "double" в "GLfloat"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(1040,15): warning C4305: функция: усечение из "double" в "GLfloat"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(1040,21): warning C4305: функция: усечение из "double" в "GLfloat"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(1040,27): warning C4305: функция: усечение из "double" в "GLfloat"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(1171,15): warning C4305: функция: усечение из "double" в "GLfloat"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(1171,21): warning C4305: функция: усечение из "double" в "GLfloat"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(1171,27): warning C4305: функция: усечение из "double" в "GLfloat"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(1302,15): warning C4305: функция: усечение из "double" в "GLfloat"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(1302,21): warning C4305: функция: усечение из "double" в "GLfloat"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(1302,27): warning C4305: функция: усечение из "double" в "GLfloat"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(1788,31): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(1788,61): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(1786,51): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2137,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2137,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2138,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2138,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2140,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2140,79): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2141,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2141,79): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2143,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2143,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2144,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2144,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2167,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2167,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2168,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2168,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2170,50): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2170,77): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2171,50): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2171,77): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2173,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2173,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2174,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2174,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2198,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2198,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2199,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2199,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2201,50): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2201,77): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2202,50): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2202,77): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2204,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2204,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2205,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2205,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2270,31): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2270,61): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2268,51): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2368,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2368,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2369,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2369,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2371,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2371,79): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2372,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2372,79): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2374,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2374,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2375,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2375,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2401,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2401,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2402,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2402,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2404,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2404,79): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2405,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2405,79): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2407,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2407,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2408,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2408,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2431,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2431,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2432,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2432,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2434,50): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2434,77): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2435,50): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2435,77): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2437,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2437,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2438,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2438,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2462,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2462,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2463,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2463,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2465,50): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2465,77): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2466,50): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2466,77): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2468,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2468,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2469,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2469,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2534,31): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2534,61): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2532,51): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2798,31): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2798,61): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2796,51): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2892,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2892,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2893,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2893,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2895,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2895,79): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2896,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2896,79): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2898,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2898,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2899,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2899,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2925,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2925,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2926,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2926,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2928,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2928,79): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2929,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2929,79): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2931,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2931,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2932,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2932,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2955,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2955,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2956,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2956,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2958,50): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2958,77): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2959,50): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2959,77): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2961,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2961,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2962,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2962,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2986,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2986,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2987,46): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2987,73): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2989,50): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2989,77): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2990,50): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2990,77): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2992,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2992,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2993,50): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(2993,75): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3058,31): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3058,61): warning C4244: функция: преобразование "double" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3056,51): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3141,14): warning C4305: функция: усечение из "double" в "GLfloat"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3141,19): warning C4305: функция: усечение из "double" в "GLfloat"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3141,24): warning C4305: функция: усечение из "double" в "GLfloat"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3145,15): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3166,14): warning C4305: функция: усечение из "double" в "GLfloat"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3166,19): warning C4305: функция: усечение из "double" в "GLfloat"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3166,24): warning C4305: функция: усечение из "double" в "GLfloat"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3170,15): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3187,18): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3187,21): warning C4244: функция: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3188,14): warning C4305: функция: усечение из "double" в "GLfloat"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3188,19): warning C4305: функция: усечение из "double" в "GLfloat"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3188,24): warning C4305: функция: усечение из "double" в "GLfloat"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3189,15): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3235,22): warning C4305: функция: усечение из "double" в "GLclampf"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3235,27): warning C4305: функция: усечение из "double" в "GLclampf"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3235,32): warning C4305: функция: усечение из "double" в "GLclampf"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3261,31): warning C4305: функция: усечение из "double" в "GLclampf"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3261,36): warning C4305: функция: усечение из "double" в "GLclampf"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3268,22): warning C4305: функция: усечение из "double" в "GLclampf"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3268,27): warning C4305: функция: усечение из "double" в "GLclampf"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3268,32): warning C4305: функция: усечение из "double" в "GLclampf"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3302,31): warning C4305: функция: усечение из "double" в "GLclampf"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3302,36): warning C4305: функция: усечение из "double" в "GLclampf"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3309,22): warning C4305: функция: усечение из "double" в "GLclampf"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3309,27): warning C4305: функция: усечение из "double" в "GLclampf"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3309,32): warning C4305: функция: усечение из "double" в "GLclampf"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3350,31): warning C4305: функция: усечение из "double" в "GLclampf"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3350,36): warning C4305: функция: усечение из "double" в "GLclampf"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3518,11): warning C4244: функция: преобразование "time_t" в "unsigned int", возможна потеря данных
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3528,18): warning C4305: функция: усечение из "double" в "GLclampf"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3528,23): warning C4305: функция: усечение из "double" в "GLclampf"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3528,28): warning C4305: функция: усечение из "double" в "GLclampf"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(3538,21): warning C4113: "void (__cdecl *)()" отличается в списках параметров от "void (__cdecl *)(void)"
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(1851,1): warning C4715: Bullet_MovingHorizontal: значение возвращается не при всех путях выполнения
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(1826,1): warning C4715: Bullet_MovingVertical: значение возвращается не при всех путях выполнения
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(1877,1): warning C4715: EnemyBullet_MovingVertical: значение возвращается не при всех путях выполнения
+C:\Users\dimak\Desktop\Kursovaya\tanchiki\main.c(1903,1): warning C4715: EnemyBullet_MovingHorizontal: значение возвращается не при всех путях выполнения
   tanchiki.vcxproj -> C:\Users\dimak\Desktop\Kursovaya\tanchiki\x64\Debug\tanchiki.exe
   "pwsh.exe" не является внутренней или внешней
   командой, исполняемой программой или пакетным файлом.
