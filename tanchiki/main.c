@@ -7,10 +7,12 @@
 #include <time.h>
 
 #define BOOM_ANIMATION_FRAMES 10
+#define  TABLE_SIZE 201
 
-int TABLE_SIZE = 201;
 int menuChoose = 0;
 int moveSpeed = 2;
+int flag = 1;
+
 
 struct tankSettings
 {
@@ -90,9 +92,6 @@ int Hash(int key)
     if (key > 0) key += 100;
     if (key < 0) key *= (-1);
     hash = key;
-
-
-
     return hash;
 }
 
@@ -117,19 +116,6 @@ void Insert_y(int key, int* arr)
     {
         new_node->next = Hash_pos_y->table[index];
         Hash_pos_y->table[index] = new_node;
-    }
-}
-
-void Print_HashTable(struct HashTable* table) {
-    for (int i = 0; i < TABLE_SIZE; i++) {
-        struct Node* node = table->table[i];
-        if (node != NULL) {
-            printf("Index %d:\n", i);
-            while (node != NULL) {
-                printf("  Key: %d, Value: [%d, %d, %d]\n", node->key, node->value[0], node->value[1], node->value[2]);
-                node = node->next;
-            }
-        }
     }
 }
 
@@ -347,6 +333,7 @@ void startSettings()
     you.yPos = -84;
     you.live = 1;
     you.bulletSet.time_anim = 0;
+    you.tickToShoot = 0;
 
     enemy[0].live = 0;
     enemy[0].xPos = -80;
@@ -414,22 +401,60 @@ void draw_mini_cement_block(int x, int y)
     glBegin(GL_POINTS);
 
     glColor3f(1, 1, 1);
-    for (int i = 0; i < 9; i++) {
-        int x = thirdcol[i][0], y = thirdcol[i][1];
-        glVertex2d(x, y);
-    }
+    x = thirdcol[0][0]; y = thirdcol[0][1];
+    glVertex2d(x, y);
+    x = thirdcol[1][0]; y = thirdcol[1][1];
+    glVertex2d(x, y);
+    x = thirdcol[2][0]; y = thirdcol[2][1];
+    glVertex2d(x, y);
+    x = thirdcol[3][0]; y = thirdcol[3][1];
+    glVertex2d(x, y);
+    x = thirdcol[4][0]; y = thirdcol[4][1];
+    glVertex2d(x, y);
+    x = thirdcol[5][0]; y = thirdcol[5][1];
+    glVertex2d(x, y);
+    x = thirdcol[6][0]; y = thirdcol[6][1];
+    glVertex2d(x, y);
+    x = thirdcol[7][0]; y = thirdcol[7][1];
+    glVertex2d(x, y);
+    x = thirdcol[8][0]; y = thirdcol[8][1];
+    glVertex2d(x, y);
 
     glColor3f(0.78, 0.78, 0.78);
-    for (int i = 0; i < 7; i++) {
-        int x = secondcol[i][0], y = secondcol[i][1];
-        glVertex2d(x, y);
-    }
+    x = secondcol[0][0]; y = secondcol[0][1];
+    glVertex2d(x, y);
+    x = secondcol[1][0], y = secondcol[1][1];
+    glVertex2d(x, y);
+    x = secondcol[2][0], y = secondcol[2][1];
+    glVertex2d(x, y);
+    x = secondcol[3][0], y = secondcol[3][1];
+    glVertex2d(x, y);
+    x = secondcol[4][0], y = secondcol[4][1];
+    glVertex2d(x, y);
+    x = secondcol[5][0], y = secondcol[5][1];
+    glVertex2d(x, y);
+    x = secondcol[6][0], y = secondcol[6][1];
+    glVertex2d(x, y);
 
     glColor3f(0.48, 0.49, 0.48);
-    for (int i = 0; i < 9; i++) {
-        int x = firstcol[i][0], y = firstcol[i][1];
-        glVertex2d(x, y);
-    }
+    x = firstcol[0][0]; y = firstcol[0][1];
+    glVertex2d(x, y); 
+    x = firstcol[1][0]; y = firstcol[1][1];
+    glVertex2d(x, y); 
+    x = firstcol[2][0]; y = firstcol[2][1];
+    glVertex2d(x, y); 
+    x = firstcol[3][0]; y = firstcol[3][1];
+    glVertex2d(x, y); 
+    x = firstcol[4][0]; y = firstcol[4][1];
+    glVertex2d(x, y); 
+    x = firstcol[5][0]; y = firstcol[5][1];
+    glVertex2d(x, y); 
+    x = firstcol[6][0]; y = firstcol[6][1];
+    glVertex2d(x, y); 
+    x = firstcol[7][0]; y = firstcol[7][1];
+    glVertex2d(x, y); 
+    x = firstcol[8][0]; y = firstcol[8][1];
+    glVertex2d(x, y); 
 
     glEnd();
 }
@@ -473,29 +498,85 @@ void draw_mini_brick_block(int x, int y)
     glBegin(GL_POINTS);
 
     glColor3f(0.48, 0.49, 0.48);
-    for (int i = 0; i < 13; i++) {
-        int x = firstcol[i][0], y = firstcol[i][1];
-        glVertex2d(x, y);
-    }
+    x = firstcol[0][0]; y = firstcol[0][1];
+    glVertex2d(x, y);
+    x = firstcol[1][0]; y = firstcol[1][1];
+    glVertex2d(x, y);
+    x = firstcol[2][0]; y = firstcol[2][1];
+    glVertex2d(x, y);
+    x = firstcol[3][0]; y = firstcol[3][1];
+    glVertex2d(x, y);
+    x = firstcol[4][0]; y = firstcol[4][1];
+    glVertex2d(x, y);
+    x = firstcol[5][0]; y = firstcol[5][1];
+    glVertex2d(x, y);
+    x = firstcol[6][0]; y = firstcol[6][1];
+    glVertex2d(x, y);
+    x = firstcol[7][0]; y = firstcol[7][1];
+    glVertex2d(x, y);
+    x = firstcol[8][0]; y = firstcol[8][1];
+    glVertex2d(x, y);
+    x = firstcol[9][0]; y = firstcol[9][1];
+    glVertex2d(x, y);
+    x = firstcol[10][0]; y = firstcol[10][1];
+    glVertex2d(x, y);
+    x = firstcol[11][0]; y = firstcol[11][1];
+    glVertex2d(x, y);
+    x = firstcol[12][0]; y = firstcol[12][1];
+    glVertex2d(x, y);
+
 
     glColor3f(0.65, 0.19, 0);
-    for (int i = 0; i < 9; i++) {
-        int x = secondcol[i][0], y = secondcol[i][1];
-        glVertex2d(x, y);
-    }
+    x = secondcol[0][0]; y = secondcol[0][1];
+    glVertex2d(x, y);
+    x = secondcol[1][0]; y = secondcol[1][1];
+    glVertex2d(x, y);
+    x = secondcol[2][0]; y = secondcol[2][1];
+    glVertex2d(x, y);
+    x = secondcol[3][0]; y = secondcol[3][1];
+    glVertex2d(x, y);
+    x = secondcol[4][0]; y = secondcol[4][1];
+    glVertex2d(x, y);
+    x = secondcol[5][0]; y = secondcol[5][1];
+    glVertex2d(x, y);
+    x = secondcol[6][0]; y = secondcol[6][1];
+    glVertex2d(x, y);
+    x = secondcol[7][0]; y = secondcol[7][1];
+    glVertex2d(x, y);
+    x = secondcol[8][0]; y = secondcol[8][1];
+    glVertex2d(x, y);
+
 
     glColor3f(0.77, 0.44, 0);
-    for (int i = 0; i < 3; i++) {
-        int x = thirdcol[i][0], y = thirdcol[i][1];
-        glVertex2d(x, y);
-    }
+    x = thirdcol[0][0]; y = thirdcol[0][1];
+    glVertex2d(x, y);
+    x = thirdcol[1][0]; y = thirdcol[1][1];
+    glVertex2d(x, y);
+    x = thirdcol[2][0]; y = thirdcol[2][1];
+    glVertex2d(x, y);
+
     glEnd();
 }
 
 void map_building()
 {
-    for (int i = 0; i < TABLE_SIZE; i++) {
+    for (int i = 0; i < TABLE_SIZE; i+=3) {
         struct Node* node = Hash_pos_x->table[i];
+        while (node != NULL)
+        {
+            if (node->value[0] == 1) draw_mini_brick_block(node->value[1], node->value[2]);
+            if (node->value[0] == 0) draw_mini_cement_block(node->value[1], node->value[2]);
+            node = node->next;
+        }
+        if (i + 1 >= 201) break;
+        node = Hash_pos_x->table[i + 1];
+        while (node != NULL)
+        {
+            if (node->value[0] == 1) draw_mini_brick_block(node->value[1], node->value[2]);
+            if (node->value[0] == 0) draw_mini_cement_block(node->value[1], node->value[2]);
+            node = node->next;
+        }
+        node = Hash_pos_x->table[i + 2];
         while (node != NULL)
         {
             if (node->value[0] == 1) draw_mini_brick_block(node->value[1], node->value[2]);
@@ -509,160 +590,63 @@ void map_building()
 void rotatePointyou(int* x, int* y, int angle) {
     if (angle == 0)
     {
-        int xNew = *x * 1;
-        int yNew = *y * 1;
+        int xNew = *x;
+        int yNew = *y;
         *x = xNew + you.xPos;
         *y = yNew + you.yPos;
     }
     if (angle == 90)
     {
-        int xNew = -*y * 1;
-        int yNew = *x * 1;
+        int xNew = -*y;
+        int yNew = *x;
         *x = xNew + you.xPos;
         *y = yNew + you.yPos;
     }
     if (angle == 180)
     {
-        int xNew = -*x * (-1);
-        int yNew = *y * (-1);
+        int xNew = *x;
+        int yNew = -*y;
         *x = xNew + you.xPos;
         *y = yNew + you.yPos;
     }
     if (angle == 270)
     {
-        int xNew = -*y * (-1);
-        int yNew = *x * (-1);
+        int xNew = *y;
+        int yNew = -*x;
         *x = xNew + you.xPos;
         *y = yNew + you.yPos;
     }
 }
 
-void rotatePointenemy_one(int* x, int* y, int angle)
+void rotatePointenemy(int* x, int* y, int angle, int flag)
 {
     if (angle == 0)
     {
-        int xNew = *x * 1;
-        int yNew = *y * 1;
-        *x = xNew + enemy[0].xPos;
-        *y = yNew + enemy[0].yPos;
+        int xNew = *x;
+        int yNew = *y;
+        *x = xNew + enemy[flag].xPos;
+        *y = yNew + enemy[flag].yPos;
     }
     if (angle == 90)
     {
-        int xNew = -*y * 1;
-        int yNew = *x * 1;
-        *x = xNew + enemy[0].xPos;
-        *y = yNew + enemy[0].yPos;
+        int xNew = -*y;
+        int yNew = *x;
+        *x = xNew + enemy[flag].xPos;
+        *y = yNew + enemy[flag].yPos;
     }
     if (angle == 180)
     {
-        int xNew = -*x * (-1);
-        int yNew = *y * (-1);
-        *x = xNew + enemy[0].xPos;
-        *y = yNew + enemy[0].yPos;
+        int xNew = *x;
+        int yNew = -*y;
+        *x = xNew + enemy[flag].xPos;
+        *y = yNew + enemy[flag].yPos;
     }
     if (angle == 270)
     {
-        int xNew = -*y * (-1);
-        int yNew = *x * (-1);
-        *x = xNew + enemy[0].xPos;
-        *y = yNew + enemy[0].yPos;
-    }
-}
-
-void rotatePointenemy_two(int* x, int* y, int angle)
-{
-    if (angle == 0)
-    {
-        int xNew = *x * 1;
-        int yNew = *y * 1;
-        *x = xNew + enemy[1].xPos;
-        *y = yNew + enemy[1].yPos;
-    }
-    if (angle == 90)
-    {
-        int xNew = -*y * 1;
-        int yNew = *x * 1;
-        *x = xNew + enemy[1].xPos;
-        *y = yNew + enemy[1].yPos;
-    }
-    if (angle == 180)
-    {
-        int xNew = -*x * (-1);
-        int yNew = *y * (-1);
-        *x = xNew + enemy[1].xPos;
-        *y = yNew + enemy[1].yPos;
-    }
-    if (angle == 270)
-    {
-        int xNew = -*y * (-1);
-        int yNew = *x * (-1);
-        *x = xNew + enemy[1].xPos;
-        *y = yNew + enemy[1].yPos;
-    }
-
-}
-
-void rotatePointenemy_three(int* x, int* y, int angle)
-{
-    if (angle == 0)
-    {
-        int xNew = *x * 1;
-        int yNew = *y * 1;
-        *x = xNew + enemy[2].xPos;
-        *y = yNew + enemy[2].yPos;
-    }
-    if (angle == 90)
-    {
-        int xNew = -*y * 1;
-        int yNew = *x * 1;
-        *x = xNew + enemy[2].xPos;
-        *y = yNew + enemy[2].yPos;
-    }
-    if (angle == 180)
-    {
-        int xNew = -*x * (-1);
-        int yNew = *y * (-1);
-        *x = xNew + enemy[2].xPos;
-        *y = yNew + enemy[2].yPos;
-    }
-    if (angle == 270)
-    {
-        int xNew = -*y * (-1);
-        int yNew = *x * (-1);
-        *x = xNew + enemy[2].xPos;
-        *y = yNew + enemy[2].yPos;
-    }
-}
-
-void rotatePointenemy_four(int* x, int* y, int angle)
-{
-    if (angle == 0)
-    {
-        int xNew = *x * 1;
-        int yNew = *y * 1;
-        *x = xNew + enemy[3].xPos;
-        *y = yNew + enemy[3].yPos;
-    }
-    if (angle == 90)
-    {
-        int xNew = -*y * 1;
-        int yNew = *x * 1;
-        *x = xNew + enemy[3].xPos;
-        *y = yNew + enemy[3].yPos;
-    }
-    if (angle == 180)
-    {
-        int xNew = -*x * (-1);
-        int yNew = *y * (-1);
-        *x = xNew + enemy[3].xPos;
-        *y = yNew + enemy[3].yPos;
-    }
-    if (angle == 270)
-    {
-        int xNew = -*y * (-1);
-        int yNew = *x * (-1);
-        *x = xNew + enemy[3].xPos;
-        *y = yNew + enemy[3].yPos;
+        int xNew = *y;
+        int yNew = -*x;
+        *x = xNew + enemy[flag].xPos;
+        *y = yNew + enemy[flag].yPos;
     }
 }
 
@@ -774,22 +758,49 @@ void draw_global_tank_up()
     glBegin(GL_POINTS);
 
     glColor3f(0.67, 0.48, 0);
-    for (int i = 0; i < 35; i++) {
+    for (int i = 0; i < 35; i+=3) {
         int x = coordFirstColor[i][0], y = coordFirstColor[i][1];
         rotatePointyou(&x, &y, you.angle);
         glVertex2d(x, y);
+        if (i + 1 > 35) break;
+        x = coordFirstColor[i + 1][0]; y = coordFirstColor[i + 1][1];
+        rotatePointyou(&x, &y, you.angle);
+        glVertex2d(x, y);
+        x = coordFirstColor[i + 2][0]; y = coordFirstColor[i + 2][1];
+        rotatePointyou(&x, &y, you.angle);  
+        glVertex2d(x, y);  
     }
 
     glColor3f(1.0f, 0.63f, 0.27f);
-    for (int i = 0; i < 28; i++) {
+    for (int i = 0; i < 28; i+=4) {
         int x = coordSecondColor[i][0], y = coordSecondColor[i][1];
+        rotatePointyou(&x, &y, you.angle);
+        glVertex2d(x, y);
+        if (i + 1 >= 28) break;
+        x = coordSecondColor[i + 1][0]; y = coordSecondColor[i + 1][1];
+        rotatePointyou(&x, &y, you.angle);
+        glVertex2d(x, y);
+        x = coordSecondColor[i + 2][0]; y = coordSecondColor[i + 2][1];
+        rotatePointyou(&x, &y, you.angle);
+        glVertex2d(x, y);
+        x = coordSecondColor[i + 3][0]; y = coordSecondColor[i + 3][1];
         rotatePointyou(&x, &y, you.angle);
         glVertex2d(x, y);
     }
 
     glColor3f(0.97f, 0.84f, 0.47f);
-    for (int i = 0; i < 22; i++) {
+    for (int i = 0; i < 22; i+=4) {
         int x = coordThirdColor[i][0], y = coordThirdColor[i][1];
+        rotatePointyou(&x, &y, you.angle);
+        glVertex2d(x, y);
+        if (i + 1 >= 22) break;
+        x = coordThirdColor[i + 1][0]; y = coordThirdColor[i + 1][1];
+        rotatePointyou(&x, &y, you.angle);
+        glVertex2d(x, y);
+        x = coordThirdColor[i + 2][0]; y = coordThirdColor[i + 2][1];
+        rotatePointyou(&x, &y, you.angle);
+        glVertex2d(x, y);
+        x = coordThirdColor[i + 3][0]; y = coordThirdColor[i + 3][1];
         rotatePointyou(&x, &y, you.angle);
         glVertex2d(x, y);
     }
@@ -799,13 +810,10 @@ void draw_global_tank_up()
 
 }
 
-void draw_enemy_tank_up_one()
+void draw_enemy_tank_up(int flag)
 {
-
     glPointSize(5);
     glBegin(GL_POINTS);
-
-
 
     int coordFirstColor[35][2] = {
             {0, 0},
@@ -907,416 +915,50 @@ void draw_enemy_tank_up_one()
     glBegin(GL_POINTS);
 
     glColor3f(0.28, 0.44, 0.56);
-    for (int i = 0; i < 35; i++) {
+    for (int i = 0; i < 35; i+=3) {
         int x = coordFirstColor[i][0], y = coordFirstColor[i][1];
-        rotatePointenemy_one(&x, &y, enemy[0].angle);
+        rotatePointenemy(&x, &y, enemy[flag].angle, flag);
+        glVertex2d(x, y);
+        if (i + 1 >= 35) break;
+        x = coordFirstColor[i+1][0]; y = coordFirstColor[i+1][1];
+        rotatePointenemy(&x, &y, enemy[flag].angle, flag);
+        glVertex2d(x, y);
+        x = coordFirstColor[i+2][0]; y = coordFirstColor[i+2][1];
+        rotatePointenemy(&x, &y, enemy[flag].angle, flag);
         glVertex2d(x, y);
     }
 
     glColor3f(0.73f, 0.74f, 0.73f);
-    for (int i = 0; i < 28; i++) {
+    for (int i = 0; i < 28; i+=4) {
         int x = coordSecondColor[i][0], y = coordSecondColor[i][1];
-        rotatePointenemy_one(&x, &y, enemy[0].angle);
+        rotatePointenemy(&x, &y, enemy[flag].angle, flag);
+        glVertex2d(x, y);
+        if (i + 1 >= 28) break;
+        x = coordSecondColor[i+1][0], y = coordSecondColor[i+1][1];
+        rotatePointenemy(&x, &y, enemy[flag].angle, flag);
+        glVertex2d(x, y);
+        x = coordSecondColor[i+2][0], y = coordSecondColor[i+2][1];
+        rotatePointenemy(&x, &y, enemy[flag].angle, flag);
+        glVertex2d(x, y);
+        x = coordSecondColor[i+3][0], y = coordSecondColor[i+3][1];
+        rotatePointenemy(&x, &y, enemy[flag].angle, flag);
         glVertex2d(x, y);
     }
 
     glColor3f(1.0f, 1.0f, 1.0f);
-    for (int i = 0; i < 22; i++) {
+    for (int i = 0; i < 22; i+=4) {
         int x = coordThirdColor[i][0], y = coordThirdColor[i][1];
-        rotatePointenemy_one(&x, &y, enemy[0].angle);
+        rotatePointenemy(&x, &y, enemy[flag].angle, flag);
         glVertex2d(x, y);
-    }
-
-    glEnd();
-}
-
-void draw_enemy_tank_up_two()
-{
-
-    glPointSize(5);
-    glBegin(GL_POINTS);
-
-
-
-    int coordFirstColor[35][2] = {
-            {0, 0},
-            {0, -3},
-            {1, -3},
-            {1, -2},
-            {2, -3},
-            {3, -3},
-            {4, -3},
-            {2, -1},
-            {3, -1},
-            {4, -1},
-            {2, 1},
-            {3, 1},
-            {4, 1},
-            {2, 3},
-            {3, 3},
-            {4, 3},
-            {2, 0},
-            {2, 2},
-            {2, -2},
-            {2, -4},
-            {1, -5},
-            {0, -5},
-            {-1, -5},
-            {-3, -5},
-            {-4, -5},
-            {3, -5},
-            {4, -5},
-            {-3, -3},
-            {-4, -3},
-            {-3, -1},
-            {-4, -1},
-            {-3, 1},
-            {-4, 1},
-            {-3, 3},
-            {-4, 3},
-    };
-
-
-    int coordSecondColor[28][2] = {
-            {0, 1},
-            {1, 1},
-            {1, 2},
-            {-1, 2},
-            {-1, 1},
-            {1, 0},
-            {1, -1},
-            {0, -1},
-            {0, -2},
-            {-1, -3},
-            {0, -4},
-            {1, -4},
-            {3, -4},
-            {4, -4},
-            {3, -2},
-            {4, -2},
-            {3, 0},
-            {4, 0},
-            {3, 2},
-            {4, 2},
-            {3, 4},
-            {4, 4},
-            {-2, 4},
-            {-3, 4},
-            {-3, 2},
-            {-3, 0},
-            {-3, -2},
-            {-3, -4},
-
-    };
-
-    int coordThirdColor[22][2] = {
-            {0, 2},
-            {0, 3},
-            {0, 4},
-            {0, 5},
-            {2, 4},
-            {-1, -4},
-            {-2, -4},
-            {-1, -2},
-            {-2, -2},
-            {-1, -1},
-            {-2, -1},
-            {-1, 0},
-            {-2, 0},
-            {-2, -3},
-            {-2, 1},
-            {-2, 2},
-            {-2, 3},
-            {-4, 0},
-            {-4, 2},
-            {-4, 4},
-            {-4, -2},
-            {-4, -4},
-    };
-
-
-    glBegin(GL_POINTS);
-
-    glColor3f(0.28, 0.44, 0.56);
-    for (int i = 0; i < 35; i++) {
-        int x = coordFirstColor[i][0], y = coordFirstColor[i][1];
-        rotatePointenemy_two(&x, &y, enemy[1].angle);
+        if (i + 1 >= 22) break;
+        x = coordThirdColor[i+1][0]; y = coordThirdColor[i+1][1];
+        rotatePointenemy(&x, &y, enemy[flag].angle, flag);
         glVertex2d(x, y);
-    }
-
-    glColor3f(0.73f, 0.74f, 0.73f);
-    for (int i = 0; i < 28; i++) {
-        int x = coordSecondColor[i][0], y = coordSecondColor[i][1];
-        rotatePointenemy_two(&x, &y, enemy[1].angle);
+        x = coordThirdColor[i+2][0]; y = coordThirdColor[i+2][1];
+        rotatePointenemy(&x, &y, enemy[flag].angle, flag);
         glVertex2d(x, y);
-    }
-
-    glColor3f(1.0f, 1.0f, 1.00f);
-    for (int i = 0; i < 22; i++) {
-        int x = coordThirdColor[i][0], y = coordThirdColor[i][1];
-        rotatePointenemy_two(&x, &y, enemy[1].angle);
-        glVertex2d(x, y);
-    }
-
-    glEnd();
-}
-
-void draw_enemy_tank_up_three()
-{
-
-    glPointSize(5);
-    glBegin(GL_POINTS);
-
-
-
-    int coordFirstColor[35][2] = {
-            {0, 0},
-            {0, -3},
-            {1, -3},
-            {1, -2},
-            {2, -3},
-            {3, -3},
-            {4, -3},
-            {2, -1},
-            {3, -1},
-            {4, -1},
-            {2, 1},
-            {3, 1},
-            {4, 1},
-            {2, 3},
-            {3, 3},
-            {4, 3},
-            {2, 0},
-            {2, 2},
-            {2, -2},
-            {2, -4},
-            {1, -5},
-            {0, -5},
-            {-1, -5},
-            {-3, -5},
-            {-4, -5},
-            {3, -5},
-            {4, -5},
-            {-3, -3},
-            {-4, -3},
-            {-3, -1},
-            {-4, -1},
-            {-3, 1},
-            {-4, 1},
-            {-3, 3},
-            {-4, 3},
-    };
-
-
-    int coordSecondColor[28][2] = {
-            {0, 1},
-            {1, 1},
-            {1, 2},
-            {-1, 2},
-            {-1, 1},
-            {1, 0},
-            {1, -1},
-            {0, -1},
-            {0, -2},
-            {-1, -3},
-            {0, -4},
-            {1, -4},
-            {3, -4},
-            {4, -4},
-            {3, -2},
-            {4, -2},
-            {3, 0},
-            {4, 0},
-            {3, 2},
-            {4, 2},
-            {3, 4},
-            {4, 4},
-            {-2, 4},
-            {-3, 4},
-            {-3, 2},
-            {-3, 0},
-            {-3, -2},
-            {-3, -4},
-
-    };
-
-    int coordThirdColor[22][2] = {
-            {0, 2},
-            {0, 3},
-            {0, 4},
-            {0, 5},
-            {2, 4},
-            {-1, -4},
-            {-2, -4},
-            {-1, -2},
-            {-2, -2},
-            {-1, -1},
-            {-2, -1},
-            {-1, 0},
-            {-2, 0},
-            {-2, -3},
-            {-2, 1},
-            {-2, 2},
-            {-2, 3},
-            {-4, 0},
-            {-4, 2},
-            {-4, 4},
-            {-4, -2},
-            {-4, -4},
-    };
-
-
-    glBegin(GL_POINTS);
-
-    glColor3f(0.28, 0.44, 0.56);
-    for (int i = 0; i < 35; i++) {
-        int x = coordFirstColor[i][0], y = coordFirstColor[i][1];
-        rotatePointenemy_three(&x, &y, enemy[2].angle);
-        glVertex2d(x, y);
-    }
-
-    glColor3f(0.73f, 0.74f, 0.73f);
-    for (int i = 0; i < 28; i++) {
-        int x = coordSecondColor[i][0], y = coordSecondColor[i][1];
-        rotatePointenemy_three(&x, &y, enemy[2].angle);
-        glVertex2d(x, y);
-    }
-
-    glColor3f(1.0f, 1.0f, 1.00f);
-    for (int i = 0; i < 22; i++) {
-        int x = coordThirdColor[i][0], y = coordThirdColor[i][1];
-        rotatePointenemy_three(&x, &y, enemy[2].angle);
-        glVertex2d(x, y);
-    }
-
-    glEnd();
-}
-
-void draw_enemy_tank_up_four()
-{
-
-    glPointSize(5);
-    glBegin(GL_POINTS);
-
-
-
-    int coordFirstColor[35][2] = {
-            {0, 0},
-            {0, -3},
-            {1, -3},
-            {1, -2},
-            {2, -3},
-            {3, -3},
-            {4, -3},
-            {2, -1},
-            {3, -1},
-            {4, -1},
-            {2, 1},
-            {3, 1},
-            {4, 1},
-            {2, 3},
-            {3, 3},
-            {4, 3},
-            {2, 0},
-            {2, 2},
-            {2, -2},
-            {2, -4},
-            {1, -5},
-            {0, -5},
-            {-1, -5},
-            {-3, -5},
-            {-4, -5},
-            {3, -5},
-            {4, -5},
-            {-3, -3},
-            {-4, -3},
-            {-3, -1},
-            {-4, -1},
-            {-3, 1},
-            {-4, 1},
-            {-3, 3},
-            {-4, 3},
-    };
-
-
-    int coordSecondColor[28][2] = {
-            {0, 1},
-            {1, 1},
-            {1, 2},
-            {-1, 2},
-            {-1, 1},
-            {1, 0},
-            {1, -1},
-            {0, -1},
-            {0, -2},
-            {-1, -3},
-            {0, -4},
-            {1, -4},
-            {3, -4},
-            {4, -4},
-            {3, -2},
-            {4, -2},
-            {3, 0},
-            {4, 0},
-            {3, 2},
-            {4, 2},
-            {3, 4},
-            {4, 4},
-            {-2, 4},
-            {-3, 4},
-            {-3, 2},
-            {-3, 0},
-            {-3, -2},
-            {-3, -4},
-
-    };
-
-    int coordThirdColor[22][2] = {
-            {0, 2},
-            {0, 3},
-            {0, 4},
-            {0, 5},
-            {2, 4},
-            {-1, -4},
-            {-2, -4},
-            {-1, -2},
-            {-2, -2},
-            {-1, -1},
-            {-2, -1},
-            {-1, 0},
-            {-2, 0},
-            {-2, -3},
-            {-2, 1},
-            {-2, 2},
-            {-2, 3},
-            {-4, 0},
-            {-4, 2},
-            {-4, 4},
-            {-4, -2},
-            {-4, -4},
-    };
-
-
-    glBegin(GL_POINTS);
-
-    glColor3f(0.28, 0.44, 0.56);
-    for (int i = 0; i < 35; i++) {
-        int x = coordFirstColor[i][0], y = coordFirstColor[i][1];
-        rotatePointenemy_four(&x, &y, enemy[3].angle);
-        glVertex2d(x, y);
-    }
-
-    glColor3f(0.73f, 0.74f, 0.73f);
-    for (int i = 0; i < 28; i++) {
-        int x = coordSecondColor[i][0], y = coordSecondColor[i][1];
-        rotatePointenemy_four(&x, &y, enemy[3].angle);
-        glVertex2d(x, y);
-    }
-
-    glColor3f(1.0f, 1.0f, 1.00f);
-    for (int i = 0; i < 22; i++) {
-        int x = coordThirdColor[i][0], y = coordThirdColor[i][1];
-        rotatePointenemy_four(&x, &y, enemy[3].angle);
+        x = coordThirdColor[i+3][0]; y = coordThirdColor[i+3][1];
+        rotatePointenemy(&x, &y, enemy[flag].angle, flag);
         glVertex2d(x, y);
     }
 
@@ -1918,12 +1560,14 @@ void draw_bullet_global()
                 {
                     you.bulletSet.anim_bool = 1;
                     you.bulletSet.live = 0;
+                    flag = 1;
 
                 }
                 if (f == 2)
                 {
                     you.bulletSet.anim_bool = 1;
                     you.bulletSet.live = 0;
+                    flag = 1;
 
                 }
                 glPointSize(5.0f);
@@ -1949,11 +1593,13 @@ void draw_bullet_global()
                 {
                     you.bulletSet.anim_bool = 1;
                     you.bulletSet.live = 0;
+                    flag = 1;
                 }
                 if (f == 2)
                 {
                     you.bulletSet.anim_bool = 1;
                     you.bulletSet.live = 0;
+                    flag = 1;
                 }
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
@@ -1977,11 +1623,13 @@ void draw_bullet_global()
                 {
                     you.bulletSet.anim_bool = 1;
                     you.bulletSet.live = 0;
+                    flag = 1;
                 }
                 if (f == 2)
                 {
                     you.bulletSet.anim_bool = 1;
                     you.bulletSet.live = 0;
+                    flag = 1;
                 }
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
@@ -2006,11 +1654,13 @@ void draw_bullet_global()
                 {
                     you.bulletSet.anim_bool = 1;
                     you.bulletSet.live = 0;
+                    flag = 1;
                 }
                 if (f == 2)
                 {
                     you.bulletSet.anim_bool = 1;
                     you.bulletSet.live = 0;
+                    flag = 1;
                 }
                 glPointSize(5.0f);
                 glBegin(GL_POINTS);
@@ -2033,6 +1683,7 @@ void draw_bullet_global()
                     enemy[0].live = 0;
                     you.bulletSet.anim_bool = 1;
                     you.bulletSet.live = 0;
+                    flag = 1;
                 }
 
             if (you.bulletSet.dx <= enemy[1].xPos + 5 && you.bulletSet.dx >= enemy[1].xPos - 5 && enemy[1].live == 1)
@@ -2041,6 +1692,7 @@ void draw_bullet_global()
                     enemy[1].live = 0;
                     you.bulletSet.anim_bool = 1;
                     you.bulletSet.live = 0;
+                    flag = 1;
                 }
 
             if (you.bulletSet.dx <= enemy[2].xPos + 5 && you.bulletSet.dx >= enemy[2].xPos - 5 && enemy[2].live == 1)
@@ -2049,6 +1701,7 @@ void draw_bullet_global()
                     enemy[2].live = 0;
                     you.bulletSet.anim_bool = 1;
                     you.bulletSet.live = 0;
+                    flag = 1;
                 }
 
             if (you.bulletSet.dx <= enemy[3].xPos + 5 && you.bulletSet.dx >= enemy[3].xPos - 5 && enemy[3].live == 1)
@@ -2057,6 +1710,7 @@ void draw_bullet_global()
                     enemy[3].live = 0;
                     you.bulletSet.anim_bool = 1;
                     you.bulletSet.live = 0;
+                    flag = 1;
                 }
 
         }
@@ -2064,6 +1718,7 @@ void draw_bullet_global()
         {
             you.bulletSet.anim_bool = 1;
             you.bulletSet.live = 0;
+            flag = 1;
         }
     }
     else
@@ -3127,6 +2782,63 @@ void move_and_shoot_enemy_four()
     }
 }
 
+void drawCircularProgress(int value) {
+
+	int r = 5;
+	int centX = 80;
+	int centY = 85;
+
+    float PI = 3.1415;
+
+
+	float angle = (float)value / 100.0f * 4.0f * PI;
+
+	glColor3f(1.0f, 1.0f, 1.0f);
+
+	glBegin(GL_TRIANGLE_FAN);
+	glVertex2f(centX, centY);
+	for (float a = PI / 2; a <= angle + PI / 2; a += 0.003) {
+		float x = centX + r * cos(a);
+		float y = centY + r * sin(a);
+		glVertex2f(x, y);
+		x = centX + r * cos(a + 0.01);
+		y = centY + r * sin(a + 0.01);
+		glVertex2f(x, y);
+		x = centX + r * cos(a + 0.02);
+		y = centY + r * sin(a + 0.02);
+		glVertex2f(x, y);
+	}
+	glEnd();
+}
+
+//void drawBar(int v) {
+//
+//	int x1 = 70;     
+//	int x2 = 70 + v;  
+//	int y1 = -84;  
+//	float y2 = -84.5; 
+//
+//
+//	glColor3f(1.0f, 1.0f, 1.0f); 
+//
+//
+//	glBegin(GL_QUADS);  
+//	glVertex2f(x2, y1);
+//	glVertex2f(x1, y1); 
+//	glVertex2f(x1, y2); 
+//	glVertex2f(x2, y2); 
+//	glEnd();  
+//}
+
+void Bullet_Cooldown()
+{
+    if (you.tickToShoot < 50 && flag == 1) {
+        // drawBar((int)(you.tickToShoot/4));
+        drawCircularProgress(you.tickToShoot);
+        you.tickToShoot++;
+    }
+}
+
 void lose_window() {
 
     glClear(GL_COLOR_BUFFER_BIT);
@@ -3236,6 +2948,7 @@ void display() {
 
         map_building();
         draw_block_zone();
+        Bullet_Cooldown();
         if (you.live > 0) {
             draw_global_tank_up();
             draw_bullet_global();
@@ -3243,13 +2956,13 @@ void display() {
         }
         if (enemy[0].live == 1) {
             move_and_shoot_enemy_one();
-            draw_enemy_tank_up_one();
+            draw_enemy_tank_up(0);
             draw_bullet_enemy_one();
             draw_bullet_effects_for_enemy_one();
         }
         if (enemy[1].live == 1) {
             move_and_shoot_enemy_two();
-            draw_enemy_tank_up_two();
+            draw_enemy_tank_up(1);
             draw_bullet_enemy_two();
             draw_bullet_effects_for_enemy_two();
         }
@@ -3269,6 +2982,7 @@ void display() {
 
         map_building();
         draw_block_zone();
+        Bullet_Cooldown();
         if (you.live > 0) {
             draw_global_tank_up();
             draw_bullet_global();
@@ -3276,20 +2990,20 @@ void display() {
         }
         if (enemy[0].live == 1) {
             move_and_shoot_enemy_one();
-            draw_enemy_tank_up_one();
+            draw_enemy_tank_up(0);
             draw_bullet_enemy_one();
             draw_bullet_effects_for_enemy_one();
         }
         if (enemy[1].live == 1) {
             move_and_shoot_enemy_two();
-            draw_enemy_tank_up_two();
+            draw_enemy_tank_up(1);
             draw_bullet_enemy_two();
             draw_bullet_effects_for_enemy_two();
         }
 
         if (enemy[2].live == 1) {
             move_and_shoot_enemy_three();
-            draw_enemy_tank_up_three();
+            draw_enemy_tank_up(2);
             draw_bullet_enemy_three();
             draw_bullet_effects_for_enemy_three();
         }
@@ -3310,6 +3024,7 @@ void display() {
 
         map_building();
         draw_block_zone();
+        Bullet_Cooldown();
         if (you.live > 0) {
             draw_global_tank_up();
             draw_bullet_global();
@@ -3317,27 +3032,27 @@ void display() {
         }
         if (enemy[0].live == 1) {
             move_and_shoot_enemy_one();
-            draw_enemy_tank_up_one();
+            draw_enemy_tank_up(0);
             draw_bullet_enemy_one();
             draw_bullet_effects_for_enemy_one();
         }
         if (enemy[1].live == 1) {
             move_and_shoot_enemy_two();
-            draw_enemy_tank_up_two();
+            draw_enemy_tank_up(1);
             draw_bullet_enemy_two();
             draw_bullet_effects_for_enemy_two();
         }
 
         if (enemy[2].live == 1) {
             move_and_shoot_enemy_three();
-            draw_enemy_tank_up_three();
+            draw_enemy_tank_up(2);
             draw_bullet_enemy_three();
             draw_bullet_effects_for_enemy_three();
         }
 
         if (enemy[3].live == 1) {
             move_and_shoot_enemy_four();
-            draw_enemy_tank_up_four();
+            draw_enemy_tank_up(3);
             draw_bullet_enemy_four();
             draw_bullet_effects_for_enemy_four();
         }
@@ -3364,7 +3079,7 @@ void keyboard(char key) {
             menuChoose = 1;
             enemy[0].botSpeed = 10;
             enemy[1].botSpeed = 10;
-            FILE* fileCem = fopen("C:\\Users\\dimak\\Desktop\\Kursovaya\\map\\processed_cementLocFirst.txt", "r");
+            FILE* fileCem = fopen("C:\\Users\\PC\\Desktop\\Kursovaya\\map\\processed_cementLocFirst.txt", "r");
             int N;
             fscanf(fileCem, "%d\n", &N);
             int a, b, c;
@@ -3377,7 +3092,7 @@ void keyboard(char key) {
             }
             fclose(fileCem);
 
-            FILE* fileBri = fopen("C:\\Users\\dimak\\Desktop\\Kursovaya\\map\\processed_bricksLocFirst.txt", "r");
+            FILE* fileBri = fopen("C:\\Users\\PC\\Desktop\\Kursovaya\\map\\processed_bricksLocFirst.txt", "r");
             fscanf(fileBri, "%d\n", &N);
             for (int i = 0; i < N; i++) {
                 fscanf(fileBri, "%d %d %d\n", &a, &b, &c);
@@ -3393,7 +3108,7 @@ void keyboard(char key) {
             enemy[0].botSpeed = 5;
             enemy[1].botSpeed = 5;
             enemy[2].botSpeed = 5;
-            fileCem = fopen("C:\\Users\\dimak\\Desktop\\Kursovaya\\map\\processed_cementLocSecond.txt", "r");
+            fileCem = fopen("C:\\Users\\PC\\Desktop\\Kursovaya\\map\\processed_cementLocSecond.txt", "r");
             fscanf(fileCem, "%d\n", &N);
             int arr2[3] = {0};
             for (int i = 0; i < N; i++) {
@@ -3404,7 +3119,7 @@ void keyboard(char key) {
             }
             fclose(fileCem);
 
-            fileBri = fopen("C:\\Users\\dimak\\Desktop\\Kursovaya\\map\\processed_bricksLocSecond.txt", "r");
+            fileBri = fopen("C:\\Users\\PC\\Desktop\\Kursovaya\\map\\processed_bricksLocSecond.txt", "r");
             fscanf(fileBri, "%d\n", &N);
             for (int i = 0; i < N; i++) {
                 fscanf(fileBri, "%d %d %d\n", &a, &b, &c);
@@ -3425,7 +3140,7 @@ void keyboard(char key) {
             enemy[1].botSpeed = 3;
             enemy[2].botSpeed = 3;
             enemy[3].botSpeed = 3;
-            fileCem = fopen("C:\\Users\\dimak\\Desktop\\Kursovaya\\map\\processed_cementLocThird.txt", "r");
+            fileCem = fopen("C:\\Users\\PC\\Desktop\\Kursovaya\\map\\processed_cementLocThird.txt", "r");
             fscanf(fileCem, "%d\n", &N);
             int arr3[3] = {0};
             for (int i = 0; i < N; i++) {
@@ -3436,7 +3151,7 @@ void keyboard(char key) {
             }
             fclose(fileCem);
 
-            fileBri = fopen("C:\\Users\\dimak\\Desktop\\Kursovaya\\map\\processed_bricksLocThird.txt", "r");
+            fileBri = fopen("C:\\Users\\PC\\Desktop\\Kursovaya\\map\\processed_bricksLocThird.txt", "r");
             fscanf(fileBri, "%d\n", &N);
             for (int i = 0; i < N; i++) {
                 fscanf(fileBri, "%d %d %d\n", &a, &b, &c);
@@ -3506,7 +3221,13 @@ void keyboard(char key) {
 
             break;
         case ' ':
-            you.bulletSet.live = 1;
+            if (you.tickToShoot >= 50) 
+            {
+                you.tickToShoot = 0;
+                you.bulletSet.live = 1;
+                flag = 0;
+
+            }
             break;
 
         }
